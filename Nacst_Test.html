@@ -1,0 +1,822 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Narayana — ST Branch Test Portal (Single-file)</title>
+<style>
+:root{
+  --bg:#eaf4ff; --primary:#1f4bb8; --accent:#4f7dff; --muted:#556;
+  --sidebar-w:260px; --card-radius:12px;
+}
+*{box-sizing:border-box;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial}
+html,body{height:100%;margin:0;background:var(--bg);-webkit-font-smoothing:antialiased}
+.app{min-height:100vh;display:flex;flex-direction:column;align-items:stretch}
+.container{max-width:1180px;margin:0 auto;padding:20px;width:100%}
+
+/* Welcome full-screen - centered vertically and horizontally */
+#welcomeScreen{width:100%;height:100vh;display:flex;justify-content:center;align-items:center;padding:0}
+.welcome-box{background:#fff;padding:42px;border-radius:16px;box-shadow:0 18px 50px rgba(20,60,120,0.08);text-align:center;max-width:820px}
+.welcome-box h1{font-size:44px;color:var(--primary);margin:0 0 6px}
+.welcome-box p{color:#444;margin:0 0 20px;font-size:18px}
+.btn{display:inline-block;padding:12px 20px;border-radius:10px;border:0;cursor:pointer;font-weight:700;text-decoration:none}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-outline{background:#fff;color:var(--primary);border:2px solid var(--primary)}
+.small{font-size:13px;color:var(--muted)}
+
+/* Modals (admin & student login) */
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.45);display:none;align-items:center;justify-content:center;z-index:999}
+.modal{background:#fff;padding:22px;border-radius:12px;min-width:320px;max-width:520px;box-shadow:0 20px 60px rgba(10,30,80,0.15)}
+.modal h3{margin:0 0 8px;color:var(--primary)}
+.form-row{margin:10px 0}
+.form-row label{display:block;font-size:13px;margin-bottom:6px;color:#333}
+.form-row input, .form-row select{width:100%;padding:10px;border-radius:8px;border:1px solid #e6eefb;font-size:15px}
+
+/* Admin dashboard & test layout */
+.layout{display:flex;gap:18px;align-items:flex-start}
+.sidebar{width:260px;background:#fff;border-radius:12px;padding:18px;box-shadow:0 8px 28px rgba(10,30,80,0.06)}
+.maincard{flex:1;background:#fff;border-radius:12px;padding:18px;box-shadow:0 14px 40px rgba(10,30,80,0.06)}
+.brand{font-weight:800;color:var(--primary);margin-bottom:8px}
+.info{background:rgba(31,75,184,0.04);padding:10px;border-radius:8px;margin-bottom:10px}
+.timer{background:#fff;color:var(--primary);padding:8px 12px;border-radius:999px;font-weight:700;display:inline-block}
+
+/* palette & test UI */
+.palette{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:8px}
+.pbtn{border-radius:6px;padding:8px;font-weight:700;border:none;cursor:pointer}
+.p-not{background:#ffffff;color:#000;border:1px solid #e0e0e0}
+.p-current{background:#ff8c00;color:#fff}
+.p-attempt{background:#28a745;color:#fff}
+.p-mark{background:#ffd54a;color:#000}
+
+.qbox{margin-top:14px;border-radius:10px;padding:18px;border:1px solid #eef6ff;background:#fff;font-size:18px;line-height:1.6;min-height:160px}
+.options{display:grid;gap:12px;margin-top:14px}
+.opt{display:flex;gap:12px;align-items:center;padding:12px;border-radius:10px;border:1px solid #eef6ff;cursor:pointer}
+.opt:hover{background:#f8fbff}
+.opt input{transform:scale(1.05);margin-right:8px}
+
+/* controls */
+.controls{display:flex;justify-content:space-between;align-items:center;margin-top:18px;gap:12px}
+.left-controls{display:flex;gap:8px}
+.btn-ghost{background:#fff;border:1px solid rgba(0,0,0,0.06);padding:10px 12px;border-radius:8px;cursor:pointer}
+
+/* admin tables */
+.table{width:100%;border-collapse:collapse;margin-top:12px}
+.table th,.table td{padding:8px;border-bottom:1px solid #f0f4ff;text-align:left;font-size:14px}
+
+/* result screen */
+.result-box{display:flex;gap:18px;align-items:flex-start}
+.result-left{flex:1}
+.result-right{width:320px;background:#fff;padding:14px;border-radius:10px;box-shadow:0 8px 30px rgba(10,30,80,0.05)}
+
+/* responsive */
+@media (max-width:900px){
+  .layout{flex-direction:column}
+  .palette{grid-template-columns:repeat(8,1fr)}
+  .sidebar{width:100%}
+  .result-right{width:100%}
+}
+
+/* small helper */
+.hide{display:none}
+.center{text-align:center}
+.key{font-weight:700;color:var(--primary)}
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- WELCOME SCREEN -->
+  <section id="welcomeScreen" class="container">
+    <div class="welcome-box center">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <div class="brand">Narayana Test Portal — ST Branch</div>
+        <div class="small">ONLINE EXAM PORTAL</div>
+      </div>
+      <h1>Welcome to Narayana Test Portal</h1>
+      <p>Secure Offline Exam System — ST Branch, Indore<br/>Class Tests: 8 / 9 / 10 (NCERT 2024–25)</p>
+
+      <div style="margin-top:18px">
+        <button class="btn btn-primary" onclick="openStudentModal()">Student Login</button>
+        <button class="btn btn-outline" onclick="openAdminModal()">Admin Login</button>
+      </div>
+
+      <div style="margin-top:18px;color:#666">
+        <small>Note: Use admin to register students and generate one-time Test IDs. Student login requires mobile + Test ID.</small>
+      </div>
+    </div>
+  </section>
+  <!-- MODAL: ADMIN LOGIN -->
+  <div id="modalAdmin" class="modal-backdrop" onclick="if(event.target===this) closeAdminModal()">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="adminTitle">
+      <h3 id="adminTitle">Admin Login</h3>
+      <div class="form-row"><label>Username</label><input id="adminUser" type="text" placeholder="Admin username" autocomplete="off" /></div>
+      <div class="form-row"><label>Password</label><input id="adminPass" type="password" placeholder="Password" autocomplete="off" /></div>
+      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px">
+        <button class="btn btn-ghost" onclick="closeAdminModal()">Cancel</button>
+        <button class="btn btn-primary" onclick="adminLogin()">Login</button>
+      </div>
+      <div style="margin-top:10px;font-size:13px;color:#666">Default admin credentials: <span class="key">admin / password</span></div>
+    </div>
+  </div>
+
+  <!-- MODAL: STUDENT LOGIN -->
+  <div id="modalStudent" class="modal-backdrop" onclick="if(event.target===this) closeStudentModal()">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="studentTitle">
+      <h3 id="studentTitle">Student Login</h3>
+      <div class="form-row"><label>Mobile Number</label><input id="stuMobile" type="text" placeholder="10-digit mobile" autocomplete="off" /></div>
+      <div class="form-row"><label>Test ID</label><input id="stuTestId" type="text" placeholder="NT-XXXXXX" autocomplete="off" /></div>
+      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px">
+        <button class="btn btn-ghost" onclick="closeStudentModal()">Cancel</button>
+        <button class="btn btn-primary" onclick="studentLogin()">Start Test</button>
+      </div>
+      <div style="margin-top:10px;font-size:13px;color:#666">Make sure admin generated a one-time Test ID for you.</div>
+    </div>
+  </div>
+
+  <!-- ADMIN + TEST + RESULT SCREENS (initially hidden) -->
+  <section id="portalScreens" class="container hide" style="margin-top:18px;">
+    <div class="layout">
+
+      <!-- SIDEBAR -->
+      <aside class="sidebar" id="leftSidebar">
+        <div class="brand">Narayana — ST Branch</div>
+        <div class="info" id="sideStudentInfo">
+          <div id="sideName">Student: —</div>
+          <div class="small" id="sideMobile">Mobile: —</div>
+          <div class="small" id="sideClass">Class: —</div>
+        </div>
+
+        <div style="margin-top:8px">
+          <div class="small">Timer</div>
+          <div id="sidebarTimer" class="timer">45:00</div>
+        </div>
+
+        <div style="margin-top:12px">
+          <div style="font-weight:700;margin-bottom:8px">Question Palette</div>
+          <div style="font-size:13px;color:#444;margin-bottom:6px">Orange=current, Green=attempted, Yellow=marked, White=not visited.</div>
+          <div id="palette" class="palette" aria-label="Question palette"></div>
+        </div>
+
+        <div style="margin-top:16px" id="adminPanelLinks" class="small hide">
+          <div style="font-weight:700;margin-bottom:8px">Admin Controls</div>
+          <button class="btn-ghost" onclick="showScreen('adminDashboard')">Dashboard</button>
+          <button class="btn-ghost" onclick="showScreen('studentManager')">Students</button>
+          <button class="btn-ghost" onclick="showScreen('attemptsManager')">Attempts</button>
+          <div style="margin-top:12px">
+            <button class="btn-outline" onclick="adminLogout()" id="logoutBtn">Logout</button>
+          </div>
+        </div>
+
+      </aside>
+
+      <!-- MAIN -->
+      <main class="maincard">
+
+        <!-- SECTION: Admin Dashboard -->
+        <div id="adminDashboard" class="hide">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div><h2>Admin Dashboard</h2><div class="small">Manage students, generate Test IDs, view attempts</div></div>
+            <div>
+              <div class="small">Logged in as: <span id="adminLoggedName" class="key">admin</span></div>
+            </div>
+          </div>
+
+          <hr style="margin:12px 0 18px"/>
+
+          <!-- Register student -->
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <div style="flex:1;min-width:220px">
+              <h4>Register Student</h4>
+              <div class="form-row"><label>Full Name</label><input id="regName" type="text"/></div>
+              <div class="form-row"><label>Mobile (10-digit)</label><input id="regMobile" type="text"/></div>
+              <div class="form-row"><label>Class</label>
+                <select id="regClass">
+                  <option value="8">Class 8</option>
+                  <option value="9" selected>Class 9</option>
+                  <option value="10">Class 10</option>
+                </select>
+              </div>
+              <div class="form-row"><label>School</label><input id="regSchool" type="text"/></div>
+              <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
+                <button class="btn btn-ghost" onclick="clearReg()">Clear</button>
+                <button class="btn btn-primary" onclick="registerStudent()">Save Student</button>
+              </div>
+            </div>
+
+            <!-- Generate Test ID -->
+            <div style="min-width:280px">
+              <h4>Generate Test ID</h4>
+              <div class="form-row"><label>Assign to Mobile</label><input id="genMobile" type="text" placeholder="Enter student's mobile"/></div>
+              <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
+                <button class="btn btn-ghost" onclick="generateTestId()">Generate Test ID</button>
+              </div>
+              <div style="margin-top:10px" id="lastGenInfo"></div>
+            </div>
+          </div>
+
+          <!-- Student list -->
+          <div style="margin-top:20px">
+            <h4>Registered Students</h4>
+            <table class="table" id="studentsTable">
+              <thead><tr><th>ID</th><th>Name</th><th>Mobile</th><th>Class</th><th>School</th><th>Actions</th></tr></thead>
+              <tbody id="studentsTbody"></tbody>
+            </table>
+            <div style="margin-top:10px;display:flex;gap:8px">
+              <button class="btn btn-outline" onclick="exportStudentsCSV()">Download CSV</button>
+              <button class="btn btn-ghost" onclick="clearStudents()">Clear All Students</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION: Student Manager (alternate admin view) -->
+        <div id="studentManager" class="hide">
+          <h3>Students</h3>
+          <table class="table" id="studentsTable2">
+            <thead><tr><th>Mobile</th><th>Name</th><th>Class</th><th>School</th><th>Actions</th></tr></thead>
+            <tbody id="studentsTbody2"></tbody>
+          </table>
+        </div>
+        <!-- SECTION: Attempts Manager -->
+        <div id="attemptsManager" class="hide">
+          <h3>Attempts</h3>
+          <table class="table" id="attemptsTable">
+            <thead><tr><th>ID</th><th>Mobile</th><th>Test ID</th><th>Score</th><th>%</th><th>Date</th><th>Actions</th></tr></thead>
+            <tbody id="attemptsTbody"></tbody>
+          </table>
+          <div style="margin-top:10px">
+            <button class="btn btn-outline" onclick="exportAttemptsCSV()">Download Attempts CSV</button>
+            <button class="btn btn-ghost" onclick="clearAttempts()">Clear Attempts</button>
+          </div>
+        </div>
+
+        <!-- SECTION: Test Engine (the test UI is reused for students) -->
+        <div id="testScreen" class="hide">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <div style="font-weight:800;color:var(--primary);font-size:18px" id="paperTitle">Narayana — Secure Exam</div>
+              <div class="small" id="qcount">Question 1 / 40</div>
+            </div>
+            <div><div class="small">Time left: <span id="timer">45:00</span></div></div>
+          </div>
+
+          <div id="questionArea" class="qbox">Loading...</div>
+
+          <div class="controls">
+            <div class="left-controls">
+              <button class="btn-ghost" id="btnPrev">Previous</button>
+              <button class="btn-ghost" id="btnNext">Next</button>
+              <button class="btn-ghost" id="btnMark">Mark for Review</button>
+            </div>
+            <div>
+              <button class="btn btn-primary" id="btnSubmit">Submit Test</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION: Result Screen -->
+        <div id="resultScreen" class="hide">
+          <h3>Result</h3>
+          <div class="result-box">
+            <div class="result-left">
+              <div style="background:#fff;padding:14px;border-radius:10px;box-shadow:0 8px 30px rgba(10,30,80,0.05)">
+                <div style="display:flex;justify-content:space-between;align-items:center">
+                  <div><strong id="resName">Student</strong><div class="small" id="resMobile">Mobile</div></div>
+                  <div class="center"><div style="font-size:28px;font-weight:800" id="resScore">0</div><div class="small">out of 80</div></div>
+                </div>
+
+                <!-- ADDED: DATE & TIME -->
+                <div class="small" id="resDate" style="margin-top:8px">Date: —</div>
+                <div class="small" id="resTime">Time: —</div>
+
+                <div style="margin-top:12px"><strong>Section-wise</strong></div>
+                <div id="resSections" style="margin-top:8px"></div>
+                <div style="margin-top:12px">
+                  <button class="btn btn-outline" onclick="downloadResultText()">Download Text</button>
+                  <button class="btn btn-ghost" onclick="window.print()">Print / Save as PDF</button>
+                </div>
+              </div>
+            </div>
+            <div class="result-right">
+              <div style="font-weight:700">Performance Chart</div>
+              <div id="chartArea" style="margin-top:8px"></div>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </section>
+
+</div>
+<script>
+/* Utilities */
+function $(id){ return document.getElementById(id); }
+function show(el){ if(typeof el==='string') el=$(el); el.style.display='block'; }
+function hide(el){ if(typeof el==='string') el=$(el); el.style.display='none'; }
+function showScreen(screenId){
+  hide('welcomeScreen');
+  show('portalScreens');
+  ['adminDashboard','studentManager','attemptsManager','testScreen','resultScreen'].forEach(id=>hide(id));
+  show(screenId);
+  if(screenId==='adminDashboard' || screenId==='studentManager' || screenId==='attemptsManager'){
+    $('adminPanelLinks').classList.remove('hide'); show('adminPanelLinks');
+  } else {
+    $('adminPanelLinks').classList.add('hide');
+  }
+}
+
+/* IndexedDB helpers */
+const DB_NAME = 'NARAYANA_SINGLE_PORTAL_DB', DB_VER = 1;
+function openDB(){ return new Promise((res,rej)=>{ const r=indexedDB.open(DB_NAME,DB_VER); r.onupgradeneeded = e => { const db = e.target.result; if(!db.objectStoreNames.contains('students')) db.createObjectStore('students',{keyPath:'mobile'}); if(!db.objectStoreNames.contains('testids')) db.createObjectStore('testids',{keyPath:'code'}); if(!db.objectStoreNames.contains('attempts')) db.createObjectStore('attempts',{keyPath:'id',autoIncrement:true}); if(!db.objectStoreNames.contains('inprogress')) db.createObjectStore('inprogress',{keyPath:'id'}); }; r.onsuccess = e=>res(e.target.result); r.onerror = e=>rej(e); });}
+async function dbGet(store,key){ const db=await openDB(); return new Promise((res,rej)=>{ const tx=db.transaction(store,'readonly'); const os=tx.objectStore(store); const rq=os.get(key); rq.onsuccess=()=>res(rq.result); rq.onerror=()=>rej(rq.error); });}
+async function dbPut(store,val){ const db=await openDB(); return new Promise((res,rej)=>{ const tx=db.transaction(store,'readwrite'); const os=tx.objectStore(store); const rq=os.put(val); rq.onsuccess=()=>res(rq.result); rq.onerror=()=>rej(rq.error); });}
+async function dbAdd(store,val){ const db=await openDB(); return new Promise((res,rej)=>{ const tx=db.transaction(store,'readwrite'); const os=tx.objectStore(store); const rq=os.add(val); rq.onsuccess=()=>res(rq.result); rq.onerror=()=>rej(rq.error); });}
+async function dbAll(store){ const db=await openDB(); return new Promise((res,rej)=>{ const tx=db.transaction(store,'readonly'); const os=tx.objectStore(store); const rq=os.getAll(); rq.onsuccess=()=>res(rq.result); rq.onerror=()=>rej(rq.error); });}
+async function dbDelete(store,key){ const db=await openDB(); return new Promise((res,rej)=>{ const tx=db.transaction(store,'readwrite'); const os=tx.objectStore(store); const rq=os.delete(key); rq.onsuccess=()=>res(true); rq.onerror=()=>rej(rq.error); });}
+
+/* Admin auth */
+const DEFAULT_ADMIN_USER = 'admin', DEFAULT_ADMIN_PASS = 'password';
+function openAdminModal(){ $('modalAdmin').style.display='flex'; }
+function closeAdminModal(){ $('modalAdmin').style.display='none'; $('adminUser').value=''; $('adminPass').value=''; }
+
+function adminLogin(){
+  const u = $('adminUser').value.trim(); const p = $('adminPass').value.trim();
+  if(u===DEFAULT_ADMIN_USER && p===DEFAULT_ADMIN_PASS){
+    closeAdminModal();
+    show('portalScreens'); showScreen('adminDashboard'); $('adminLoggedName').innerText = u;
+    $('adminPanelLinks').classList.remove('hide'); show('adminPanelLinks');
+    loadStudentsTable(); loadStudentsTable2(); loadAttempts();
+  } else { alert('Invalid admin credentials.'); }
+}
+
+/* adminLogout with recenter welcome fix */
+function adminLogout(){
+  hide('portalScreens');
+  show('welcomeScreen');
+
+  // Force recentering (fixes small/upper layout after returning)
+  setTimeout(()=>{
+    const ws = document.getElementById("welcomeScreen");
+    ws.style.display = "flex";
+    ws.style.height = "100vh";
+    ws.style.alignItems = "center";
+    ws.style.justifyContent = "center";
+  }, 50);
+
+  try{ $('adminPanelLinks').classList.add('hide'); }catch(e){}
+}
+
+/* Student modal */
+function openStudentModal(){ $('modalStudent').style.display='flex'; }
+function closeStudentModal(){ $('modalStudent').style.display='none'; $('stuMobile').value=''; $('stuTestId').value=''; }
+function normalizeMobile(input){ let m = String(input||'').replace(/[^\d]/g,''); if(m.length>10) m = m.slice(-10); return m; }
+
+/* Student login */
+async function studentLogin(){
+  const mob = normalizeMobile($('stuMobile').value);
+  const code = String(($('stuTestId').value||'').trim()).toUpperCase();
+  if(mob.length!==10){ alert('Enter valid 10-digit mobile.'); return; }
+  if(!code){ alert('Enter Test ID.'); return; }
+  const student = await dbGet('students', mob);
+  if(!student){ alert('Mobile not registered. Contact admin.'); return; }
+  const testidRec = await dbGet('testids', code);
+  if(!testidRec){ alert('Invalid Test ID.'); return; }
+  if(String(testidRec.studentMobile).trim() !== String(mob).trim()){ alert('Test ID not assigned to this mobile.'); return; }
+  if(testidRec.used){ alert('This Test ID has already been used.'); return; }
+  closeStudentModal();
+  startTestForStudent(student, code);
+}
+
+/* Student management (register, list, delete, generate testid) */
+async function registerStudent(){ const name=$('regName').value.trim(); const mobile=normalizeMobile($('regMobile').value); const cl=$('regClass').value; const school=$('regSchool').value.trim(); if(!name||mobile.length!==10){ alert('Provide valid name & 10-digit mobile'); return; } const rec={mobile:mobile,name:name,class:cl,school:school}; try{ await dbPut('students',rec); alert('Student saved.'); clearReg(); loadStudentsTable(); loadStudentsTable2(); }catch(e){ console.error(e); alert('Save failed.'); } }
+function clearReg(){ $('regName').value=''; $('regMobile').value=''; $('regSchool').value=''; $('regClass').value='9'; }
+async function loadStudentsTable(){ const students=await dbAll('students'); const tbody=$('studentsTbody'); tbody.innerHTML=''; students.forEach((s,idx)=>{ const tr=document.createElement('tr'); tr.innerHTML=`<td>${idx+1}</td><td>${s.name||''}</td><td>${s.mobile}</td><td>${s.class||''}</td><td>${s.school||''}</td><td><button class="btn-ghost" onclick="assignView('${s.mobile}')">Assign/View Test IDs</button><button class="btn-ghost" onclick="deleteStudent('${s.mobile}')">Delete</button></td>`; tbody.appendChild(tr); }); }
+async function loadStudentsTable2(){ const students=await dbAll('students'); const tbody=$('studentsTbody2'); tbody.innerHTML=''; students.forEach(s=>{ const tr=document.createElement('tr'); tr.innerHTML=`<td>${s.mobile}</td><td>${s.name||''}</td><td>${s.class||''}</td><td>${s.school||''}</td><td><button class="btn-ghost" onclick="deleteStudent('${s.mobile}')">Delete</button></td>`; tbody.appendChild(tr); }); }
+async function deleteStudent(mobile){ if(!confirm('Delete student and all their Test IDs?')) return; await dbDelete('students', mobile); const testids = await dbAll('testids'); for(const t of testids){ if(String(t.studentMobile).trim()===String(mobile).trim()){ await dbDelete('testids', t.code); } } loadStudentsTable(); loadStudentsTable2(); alert('Deleted.'); }
+function assignView(mobile){ (async ()=>{ const testids=(await dbAll('testids')).filter(t=>String(t.studentMobile).trim()===String(mobile).trim()); let msg = `Test IDs assigned to ${mobile}:\n\n`; if(testids.length===0) msg += 'None\n\n'; testids.forEach(t=> msg+= `${t.code}  (used: ${t.used? 'Yes':'No'})\n`); msg += '\nGenerate new Test ID for this student?'; if(confirm(msg)){ $('genMobile').value = mobile; showScreen('adminDashboard'); $('genMobile').focus(); } })(); }
+function makeTestCode(){ const chars='ABCDEFGHJKLMPQRSTUVWXYZ23456789'; let s='NT-'; for(let i=0;i<6;i++) s+=chars[Math.floor(Math.random()*chars.length)]; return s; }
+async function generateTestId(){ const mobile=normalizeMobile($('genMobile').value); if(mobile.length!==10){ alert('Enter valid mobile to assign Test ID'); return; } const student = await dbGet('students', mobile); if(!student){ alert('Mobile not registered'); return; } const code = makeTestCode(); const rec = { code: code, studentMobile: mobile, createdAt: new Date().toISOString(), used:false }; try{ await dbPut('testids', rec); $('lastGenInfo').innerText = `Test ID generated: ${code} (Assigned to ${mobile})`; loadStudentsTable(); alert('Test ID generated: ' + code); }catch(e){ console.error(e); alert('Failed to generate'); } }
+
+/* CSV exports */
+async function exportStudentsCSV(){ const students=await dbAll('students'); const header=['mobile','name','class','school']; const rows=students.map(s=>[s.mobile,s.name||'',s.class||'',s.school||''].map(a=>`"${String(a).replace(/"/g,'""')}"`).join(',')); const csv=[header.join(','),...rows].join('\n'); downloadBlob(csv,'students.csv','text/csv'); }
+async function exportAttemptsCSV(){ const attempts=await dbAll('attempts'); const header=['id','mobile','code','score','percent','date']; const rows=attempts.map(a=>[a.id||'',a.mobile||'',a.code||'',a.score||'',a.percent||'',a.date||''].map(x=>`"${String(x).replace(/"/g,'""')}"`).join(',')); const csv=[header.join(','),...rows].join('\n'); downloadBlob(csv,'attempts.csv','text/csv'); }
+function downloadBlob(text,name,type){ const blob=new Blob([text],{type:type||'text/plain'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=name; document.body.appendChild(a); a.click(); setTimeout(()=>{ URL.revokeObjectURL(url); a.remove(); },2000); }
+
+/* clear */
+async function clearStudents(){ if(!confirm('Clear ALL students and test IDs?')) return; const studs=await dbAll('students'); for(const s of studs) await dbDelete('students', s.mobile); const tids=await dbAll('testids'); for(const t of tids) await dbDelete('testids', t.code); loadStudentsTable(); loadStudentsTable2(); alert('Cleared students & test IDs.'); }
+
+/* Attempts */
+async function loadAttempts(){ const attempts=await dbAll('attempts'); const tbody=$('attemptsTbody'); tbody.innerHTML=''; attempts.forEach(a=>{ const tr=document.createElement('tr'); tr.innerHTML=`<td>${a.id}</td><td>${a.mobile}</td><td>${a.code}</td><td>${a.score}</td><td>${a.percent}%</td><td>${new Date(a.date).toLocaleString()}</td><td><button class="btn-ghost" onclick="viewAttempt(${a.id})">View</button></td>`; tbody.appendChild(tr); }); }
+async function viewAttempt(id){ const attempts=await dbAll('attempts'); const att = attempts.find(x=>x.id==id); if(!att){ alert('Not found'); return; } renderResult(att); }
+async function clearAttempts(){ if(!confirm('Clear all attempts?')) return; const attempts=await dbAll('attempts'); for(const a of attempts) await dbDelete('attempts', a.id); loadAttempts(); alert('Attempts cleared.'); }
+
+/* ---------- Test Banks (Q8, Q9, Q10) ---------- */
+
+/* CLASS 8 (40) */
+const Q8 = [
+{id:1,section:"Maths",text:"The additive inverse of -15 is —",options:["-15","15","0","1"],correct:1},
+{id:2,section:"Maths",text:"3/4 ÷ 6 equals —",options:["3/24","1/8","1/2","2/3"],correct:1},
+{id:3,section:"Maths",text:"A number whose square is 169 is —",options:["11","12","13","15"],correct:2},
+{id:4,section:"Maths",text:"If sides are 4,5,8 cm, the triangle is —",options:["Acute","Right","Obtuse","Cannot form triangle"],correct:3},
+{id:5,section:"Maths",text:"Area of parallelogram base 8, height 5 is —",options:["20","30","40","50"],correct:2},
+{id:6,section:"Maths",text:"2^5 × 2^3 equals —",options:["2^8","2^10","2^7","2^4"],correct:2},
+{id:7,section:"Maths",text:"Probability of picking red from 3 red 2 blue is —",options:["3/5","2/5","1/5","1/2"],correct:0},
+{id:8,section:"Maths",text:"Mean of 10,12,14,16 is —",options:["14","12","13","15"],correct:2},
+{id:9,section:"Maths",text:"Regular polygon with interior 150° has sides —",options:["5","8","12","10"],correct:2},
+{id:10,section:"Maths",text:"Cube side 3 cm volume —",options:["9","18","27","36"],correct:2},
+{id:11,section:"Mental Ability",text:"Sequence: 4,9,19,39, ?",options:["59","79","49","69"],correct:0},
+{id:12,section:"Mental Ability",text:"A is brother of B, B mother of C. A is to C?",options:["Father","Uncle","Brother","Cousin"],correct:1},
+{id:13,section:"Mental Ability",text:"Mirror image of 3:20 shows —",options:["8:40","9:40","8:50","9:50"],correct:0},
+{id:14,section:"Mental Ability",text:"Book : Read :: Pen : ?",options:["Write","Eat","Sleep","Sit"],correct:0},
+{id:15,section:"Mental Ability",text:"If CAT → DBU, FUN → ?",options:["GVO","FVO","GUP","GWV"],correct:0},
+{id:16,section:"Mental Ability",text:"Which shape is different? Square, Rectangle, Circle, Parallelogram",options:["Square","Rectangle","Circle","Parallelogram"],correct:2},
+{id:17,section:"Mental Ability",text:"EAST → right → SOUTH → right → ?",options:["West","North","South","East"],correct:0},
+{id:18,section:"Physics",text:"Force is a —",options:["Scalar","Vector","Speed","Energy"],correct:1},
+{id:19,section:"Physics",text:"Pressure = ?",options:["Force×Area","Force÷Area","Area÷Force","Force+Area"],correct:1},
+{id:20,section:"Physics",text:"SI unit of pressure is —",options:["Pascal","Newton","Joule","Watt"],correct:0},
+{id:21,section:"Physics",text:"Friction acts —",options:["In direction of motion","Opposite to motion","Upward","Downward"],correct:1},
+{id:22,section:"Physics",text:"Example of non-contact force:",options:["Friction","Muscular","Magnetic","Air resistance"],correct:2},
+{id:23,section:"Physics",text:"Weight depends on —",options:["Gravity","Mass only","Shape","Density"],correct:0},
+{id:24,section:"Physics",text:"Polished surface has —",options:["More friction","Less friction","No friction","Maximum friction"],correct:1},
+{id:25,section:"Physics",text:"SI unit of force is —",options:["Watt","Joule","Newton","Dyne"],correct:2},
+{id:26,section:"Chemistry",text:"Matter is made up of —",options:["Atoms and molecules","Only atoms","Only molecules","Cells"],correct:0},
+{id:27,section:"Chemistry",text:"Which is physical change?",options:["Burning paper","Rusting iron","Melting ice","Baking cake"],correct:2},
+{id:28,section:"Chemistry",text:"Separating husk from grains is —",options:["Evaporation","Threshing","Winnowing","Filtration"],correct:2},
+{id:29,section:"Chemistry",text:"LPG mainly:",options:["Propane & Butane","Methane","Hydrogen","Nitrogen"],correct:0},
+{id:30,section:"Chemistry",text:"Good fuel has —",options:["High calorific value","Produces more smoke","Difficult to ignite","Very costly"],correct:0},
+{id:31,section:"Chemistry",text:"Natural fibres include —",options:["Nylon","Polyester","Cotton","Acrylic"],correct:2},
+{id:32,section:"Chemistry",text:"Air is a —",options:["Compound","Element","Mixture","Metal"],correct:2},
+{id:33,section:"Chemistry",text:"Rusting needs —",options:["Water","Oxygen","Both water & oxygen","CO2"],correct:2},
+{id:34,section:"Biology",text:"Smallest unit of life is —",options:["Cell","Tissue","Organ","Organism"],correct:0},
+{id:35,section:"Biology",text:"Tissues are —",options:["Group of cells","Group of organs","Group of organisms","Group of nuclei"],correct:0},
+{id:36,section:"Biology",text:"Photosynthesis needs —",options:["CO2, water, sunlight","Oxygen, water","Nitrogen, CO2","Sugar, oxygen"],correct:0},
+{id:37,section:"Biology",text:"Fungi reproduce by —",options:["Seeds","Spores","Budding","Runners"],correct:1},
+{id:38,section:"Biology",text:"Human heart is made of —",options:["Skeletal muscle","Smooth muscle","Cardiac muscle","Nerve tissue"],correct:2},
+{id:39,section:"Biology",text:"Plants lose water by —",options:["Photosynthesis","Transpiration","Respiration","Reproduction"],correct:1},
+{id:40,section:"Biology",text:"RBCs carry —",options:["CO2","O2","Glucose","Iron"],correct:1}
+];
+
+/* CLASS 9 (40) */
+const Q9 = [
+{id:1,section:"Maths",text:"Which of the following is an irrational number?",options:["5.33","7/11","√2","1.25"],correct:2},
+{id:2,section:"Maths",text:"Polynomial 2x² + 7x + 3 has degree —",options:["1","2","3","0"],correct:1},
+{id:3,section:"Maths",text:"Point (0, –5) lies on —",options:["x-axis","y-axis","origin","both axes"],correct:1},
+{id:4,section:"Maths",text:"Solve: 2x – 5 = 11",options:["6","8","9","3"],correct:0},
+{id:5,section:"Maths",text:"If two lines intersect, how many angles are formed?",options:["2","4","6","8"],correct:1},
+{id:6,section:"Maths",text:"Triangle sides 6, 8, 10 form which triangle?",options:["Acute","Obtuse","Right","Cannot form triangle"],correct:2},
+{id:7,section:"Maths",text:"A quadrilateral with one pair of parallel sides is called —",options:["Kite","Rhombus","Trapezium","Parallelogram"],correct:2},
+{id:8,section:"Maths",text:"Area of triangle using Heron’s formula for sides 7,8,9:",options:["24","28","30","36"],correct:1},
+{id:9,section:"Maths",text:"Mean of 6,8,10,12 is —",options:["9","10","11","12"],correct:0},
+{id:10,section:"Maths",text:"Probability of drawing a black marble from 3 black + 2 white:",options:["3/5","2/5","1/5","1/2"],correct:0},
+{id:11,section:"Mental Ability",text:"3,7,15,31, ? (×2+1)",options:["63","61","59","65"],correct:0},
+{id:12,section:"Mental Ability",text:"Odd one out: Square, Rectangle, Triangle, Parallelogram",options:["Square","Triangle","Parallelogram","Rectangle"],correct:1},
+{id:13,section:"Mental Ability",text:"A faces East → right → right → direction?",options:["East","West","North","South"],correct:1},
+{id:14,section:"Mental Ability",text:"Mirror time of 4:20 →",options:["7:40","8:40","8:30","7:50"],correct:0},
+{id:15,section:"Mental Ability",text:"If CAT = DBU, then RUN → ?",options:["SVO","SVM","TVO","SVN"],correct:0},
+{id:16,section:"Mental Ability",text:"Venn for some birds are pets => choose diagram",options:["Overlapping circles","Separate circles","Identical circles","One inside other"],correct:0},
+{id:17,section:"Mental Ability",text:"If A=1, CAT sum = ?",options:["24","27","20","23"],correct:0},
+{id:18,section:"Physics",text:"Equation of uniform motion: s = ?",options:["ut","v=u+at","p=mv","g=10"],correct:0},
+{id:19,section:"Physics",text:"Accelerates from 2 to 12 in 5s, a = ?",options:["1 m/s²","2 m/s²","3 m/s²","4 m/s²"],correct:1},
+{id:20,section:"Physics",text:"Balanced forces example:",options:["Book on table","Moving car","Kicked ball","Falling stone"],correct:0},
+{id:21,section:"Physics",text:"Newton's 3rd law reaction is?",options:["Upwards","Downwards","Toward person","Away from person"],correct:2},
+{id:22,section:"Physics",text:"g on Earth ≈",options:["2","4","9.8","15"],correct:2},
+{id:23,section:"Physics",text:"Work done zero when:",options:["force in direction","force opposite","no displacement","constant velocity"],correct:2},
+{id:24,section:"Physics",text:"Gravitational force ∝",options:["m1m2","m1+m2","m1−m2","1/m"],correct:0},
+{id:25,section:"Physics",text:"Which graph shows uniform motion?",options:["A (slope)","B (flat)","C (curve)","None"],correct:1},
+{id:26,section:"Chemistry",text:"Which is a pure substance?",options:["Air","Milk","Distilled water","Brass"],correct:2},
+{id:27,section:"Chemistry",text:"Separate sand + salt uses:",options:["Filtration","Distillation","Sublimation","Condensation"],correct:0},
+{id:28,section:"Chemistry",text:"Law of constant proportion by:",options:["Dalton","Lavoisier","Proust","Rutherford"],correct:2},
+{id:29,section:"Chemistry",text:"Atomic number is:",options:["neutrons","protons","protons+neutrons","electrons+neutrons"],correct:1},
+{id:30,section:"Chemistry",text:"Brass contains:",options:["Cu+Sn","Cu+Zn","Fe+C","Fe+Zn"],correct:1},
+{id:31,section:"Chemistry",text:"Physical change example:",options:["Rusting","Burning","Dissolving sugar","Baking"],correct:2},
+{id:32,section:"Chemistry",text:"Saturated solution becomes unsaturated on:",options:["increase pressure","add solute","heating","cooling"],correct:2},
+{id:33,section:"Chemistry",text:"Electron distribution of Neon (Z=10):",options:["2,8","2,6,2","8,2","2,4,4"],correct:0},
+{id:34,section:"Biology",text:"Cell discovered by:",options:["Leeuwenhoek","Hooke","Schleiden","Schwann"],correct:1},
+{id:35,section:"Biology",text:"NOT connective tissue:",options:["Blood","Bone","Tendon","Skin"],correct:3},
+{id:36,section:"Biology",text:"Diffusion occurs due to:",options:["Energy release","Movement of particles","Pressure difference","Temperature only"],correct:1},
+{id:37,section:"Biology",text:"Mitochondria is called powerhouse because:",options:["Contains DNA","Makes proteins","Releases energy","Stores fats"],correct:2},
+{id:38,section:"Biology",text:"Disease not caused by microorganisms:",options:["TB","Cancer","Cholera","Polio"],correct:1},
+{id:39,section:"Biology",text:"Osmosis: Cell A (10% salt) -> Cell B (5% salt). Water moves:",options:["A→B","B→A","No movement","Random"],correct:1},
+{id:40,section:"Biology",text:"RBC lifespan ≈",options:["5 days","20 days","120 days","1 year"],correct:2}
+];
+
+/* CLASS 10 (40) — includes inline SVG diagrams for some questions */
+const Q10 = [
+{id:1,section:"Maths",text:"If a and b are roots of x^2 - 5x + 6 = 0, then a+b = ?",options:["6","5","-6","-5"],correct:1},
+{id:2,section:"Maths",text:"Quadratic equation x^2 - 4x + 3 = 0 has roots:",options:["1 and 3","-1 and -3","1 and -3","-1 and 3"],correct:0},
+{id:3,section:"Maths",text:"If A.P. first term 2 and common difference 3, 5th term = ?",options:["14","13","11","17"],correct:0},
+{id:4,section:"Maths",text:"Slope of line joining (1,2) and (3,8) is:",options:["3","2","6","5"],correct:0},
+{id:5,section:"Maths",text:"Area of circle with radius 7 = (πr^2). Value:",options:["49π","14π","7π","π"],correct:0},
+{id:6,section:"Maths",text:"If roots of ax^2+bx+c=0 are real and equal, discriminant Δ = ?",options:[">0","<0","=0","≥0"],correct:2},
+{id:7,section:"Maths",text:"If two triangles are similar, corresponding sides are:",options:["Equal","Proportional","Parallel","Perpendicular"],correct:1},
+{id:8,section:"Maths",text:"Perimeter of right triangle with legs 3 and 4 and hypotenuse 5 is:",options:["12","14","10","18"],correct:0},
+{id:9,section:"Maths",text:"If mean of 5 numbers is 12, sum is:",options:["60","48","72","50"],correct:0},
+{id:10,section:"Maths",text:"Probability of getting head in a fair coin toss twice in a row:",options:["1/4","1/2","1/8","1/16"],correct:0},
+
+{id:11,section:"Mental Ability",text:"Series: 2,6,18,54, ? (×3)",options:["162","108","216","144"],correct:0},
+{id:12,section:"Mental Ability",text:"Find odd one out: Cow, Goat, Sheep, Lion",options:["Cow","Goat","Sheep","Lion"],correct:3},
+{id:13,section:"Mental Ability",text:"If A->1, B->2, then ACE -> ?",options:["9","5","10","8"],correct:0},
+{id:14,section:"Mental Ability",text:"Directions: North -> left -> East -> right -> final? ",options:["South","West","East","North"],correct:1},
+{id:15,section:"Mental Ability",text:"Mirror image: 'b' becomes:",options:["d","q","p","b"],correct:0},
+{id:16,section:"Mental Ability",text:"Analogies: River: Water :: Road: ?",options:["Cars","Walk","Path","Bridge"],correct:2},
+{id:17,section:"Mental Ability",text:"If PENCIL -> QFODJM then BOOK -> ?",options:["CPPL","CPLK","COOK","CPLL"],correct:0},
+
+{id:18,section:"Physics",text:"Concave mirror: object beyond C gives image at?",svg:
+`<svg width="320" height="140" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#fff"/><line x1="20" y1="70" x2="300" y2="70" stroke="#eee"/><circle cx="90" cy="70" r="3" fill="#000"/><text x="82" y="60" font-size="12">C</text><circle cx="170" cy="70" r="3" fill="#000"/><text x="162" y="60" font-size="12">F</text><path d="M50 30 Q90 70 50 110" stroke="#1f4bb8" stroke-width="3" fill="none"/><line x1="50" y1="30" x2="150" y2="70" stroke="#ff8c00" stroke-width="2"/><line x1="50" y1="30" x2="170" y2="70" stroke="#ff8c00" stroke-width="2" stroke-dasharray="4"/><text x="60" y="24" font-size="12">Object</text></svg>`,options:["Between F and C","At F","At C","Behind mirror"],correct:0},
+
+{id:19,section:"Physics",text:"Convex mirror forms image that is:",svg:
+`<svg width="320" height="120" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#fff"/><path d="M40 30 Q120 10 200 30" stroke="#1f4bb8" stroke-width="4" fill="none"/><line x1="140" y1="30" x2="240" y2="30" stroke="#eee"/><text x="70" y="24" font-size="12">Convex Mirror</text></svg>`,options:["Real & enlarged","Virtual & diminished","Real & diminished","Virtual & enlarged"],correct:1},
+
+{id:20,section:"Physics",text:"Convex lens focuses parallel rays to a point called:",svg:
+`<svg width="320" height="140" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#fff"/><ellipse cx="160" cy="70" rx="18" ry="56" fill="#e8f0ff"/><line x1="60" y1="50" x2="150" y2="70" stroke="#ff8c00" stroke-width="2"/><line x1="60" y1="90" x2="150" y2="70" stroke="#ff8c00" stroke-width="2"/></svg>`,options:["Centre","Focus","Aperture","Pole"],correct:1},
+
+{id:21,section:"Physics",text:"Distance-time graph: which shows constant speed?",svg:
+`<svg width="320" height="120" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#fff"/><line x1="30" y1="90" x2="290" y2="90" stroke="#eee"/><line x1="30" y1="30" x2="30" y2="100" stroke="#eee"/><line x1="30" y1="70" x2="290" y2="70" stroke="#1f4bb8" stroke-width="3"/><text x="40" y="60" font-size="12">constant</text></svg>`,options:["Flat horizontal line","Upward sloped straight line","Curve","Vertical line"],correct:1},
+
+{id:22,section:"Physics",text:"Ohm's law relates voltage, current and:",options:["Resistance","Power","Charge","Frequency"],correct:0},
+{id:23,section:"Physics",text:"Series circuit: current is same in all components",svg:
+`<svg width="320" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#fff"/><line x1="40" y1="50" x2="280" y2="50" stroke="#000"/><rect x="90" y="40" width="30" height="20" fill="#ffd54a"/><rect x="140" y="40" width="30" height="20" fill="#ffd54a"/><text x="60" y="30" font-size="12">Series circuit</text></svg>`,options:["True","False","",""],correct:0},
+{id:24,section:"Physics",text:"Parallel circuit: voltage across resistors is",svg:
+`<svg width="320" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#fff"/><line x1="40" y1="40" x2="280" y2="40" stroke="#000"/><line x1="40" y1="60" x2="280" y2="60" stroke="#000"/><rect x="120" y="30" width="30" height="20" fill="#4f7dff"/><rect x="120" y="50" width="30" height="20" fill="#4f7dff"/><text x="60" y="20" font-size="12">Parallel</text></svg>`,options:["Same","Different","",""],correct:0},
+{id:25,section:"Physics",text:"SI unit of current is:",options:["Ampere","Volt","Ohm","Watt"],correct:0},
+
+{id:26,section:"Chemistry",text:"Reaction type: Acid + Base → Salt + Water is called:",options:["Neutralization","Redox","Precipitation","Decomposition"],correct:0},
+{id:27,section:"Chemistry",text:"pH of neutral solution is approximately:",options:["0","7","14","1"],correct:1},
+{id:28,section:"Chemistry",text:"Which element forms cations easily: Na, Cl, O, F?",options:["Na","Cl","O","F"],correct:0},
+{id:29,section:"Chemistry",text:"Chemical formula of ammonia:",options:["NH3","NH4","NO2","H2O"],correct:0},
+{id:30,section:"Chemistry",text:"Rusting of iron needs:",options:["Oxygen only","Water only","Both oxygen and water","Carbon dioxide"],correct:2},
+{id:31,section:"Chemistry",text:"Method to separate immiscible liquids (oil + water):",options:["Filtration","Decantation","Sublimation","Distillation"],correct:1},
+{id:32,section:"Chemistry",text:"Atomic number equals # of:",options:["Protons","Neutrons","Electrons","Nuclei"],correct:0},
+{id:33,section:"Chemistry",text:"Which is an alloy:",options:["Bronze","Salt","Water","Sugar"],correct:0},
+
+{id:34,section:"Biology",text:"Photosynthesis main product is:",options:["Oxygen","Carbon dioxide","Glucose","Water"],correct:2},
+{id:35,section:"Biology",text:"Human circulatory system includes:",options:["Heart, blood, blood vessels","Lungs and kidneys","Liver and gallbladder","Stomach and intestine"],correct:0},
+{id:36,section:"Biology",text:"Which organelle is site of protein synthesis:",options:["Mitochondria","Ribosome","Chloroplast","Nucleus"],correct:1},
+{id:37,section:"Biology",text:"DNA full form: Deoxyribo... ?",options:["Nucleic Acid","Nucleon Acid","Nitrogenous Acid","None"],correct:0},
+{id:38,section:"Biology",text:"Which is NOT a pathogen:",options:["Bacteria","Virus","Fungus","Vitamin"],correct:3},
+{id:39,section:"Biology",svg:
+`<svg width="320" height="160" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#fff"/><ellipse cx="160" cy="60" rx="40" ry="30" fill="#ffdede"/><rect x="120" y="80" width="80" height="50" fill="#ffdede"/><text x="120" y="55" font-size="12">Simple heart diagram</text></svg>`,text:"Which chamber pumps oxygenated blood to body?",options:["Right atrium","Left atrium","Left ventricle","Right ventricle"],correct:2},
+{id:40,section:"Biology",text:"Which is a reproductive part of flower:",options:["Petal","Sepal","Stigma","Leaf"],correct:2}
+];
+
+/* -------------------- Application State for Test -------------------- */
+let appState = {
+  student: null, // {mobile,name,class,school}
+  code: null, // testid
+  questions: [], idx:0, answers:{}, marked:{}, visited:{},
+  durationMinutes:45, endTime:null, timerInt:null
+};
+
+/* helpers for palette & rendering */
+function renderPalette(){
+  const pal = $('palette'); pal.innerHTML='';
+  appState.questions.forEach((q,i)=>{
+    const btn = document.createElement('button');
+    btn.className = 'pbtn p-not';
+    btn.innerText = q.qno || (i+1);
+    if(appState.idx === i) btn.className = 'pbtn p-current';
+    else if(appState.marked[q.id]) btn.className = 'pbtn p-mark';
+    else if(typeof appState.answers[q.id] !== 'undefined') btn.className = 'pbtn p-attempt';
+    btn.onclick = ()=> goTo(i);
+    pal.appendChild(btn);
+  });
+}
+
+function renderQuestion(){
+  const q = appState.questions[appState.idx];
+  $('qcount').innerText = `Question ${appState.idx+1} / ${appState.questions.length}`;
+  const area = $('questionArea'); area.innerHTML = '';
+  const heading = document.createElement('div'); heading.style.fontWeight='700'; heading.innerText = q.section;
+  const text = document.createElement('div'); text.style.marginTop='8px'; text.style.fontSize='18px';
+  text.innerHTML = `<strong>${q.qno || appState.idx+1}.</strong> ${q.text || ''}`;
+  area.appendChild(heading); area.appendChild(text);
+  if(q.svg){ const div = document.createElement('div'); div.style.marginTop='10px'; div.innerHTML = q.svg; area.appendChild(div); }
+  const opts = document.createElement('div'); opts.className = 'options';
+  q.options.forEach((opt,i)=>{
+    const o = document.createElement('label'); o.className = 'opt';
+    const radio = document.createElement('input'); radio.type='radio'; radio.name='opt'; radio.value=i;
+    if(appState.answers[q.id] === i) radio.checked = true;
+    radio.onchange = ()=>{
+      appState.answers[q.id] = i;
+      appState.visited[q.id] = true;
+      saveInprogress();
+      renderPalette();
+    };
+    const span = document.createElement('div'); span.innerText = String.fromCharCode(65+i) + ') ' + opt;
+    o.appendChild(radio); o.appendChild(span); opts.appendChild(o);
+  });
+  area.appendChild(opts);
+  $('btnMark').innerText = appState.marked[q.id] ? 'Unmark' : 'Mark for Review';
+  renderPalette();
+}
+
+/* navigation */
+function goTo(i){ if(i<0||i>=appState.questions.length) return; appState.idx=i; appState.visited[appState.questions[i].id]=true; saveInprogress(); renderQuestion(); }
+document.addEventListener('click', function(e){});
+$('btnPrev').addEventListener('click', ()=> goTo(Math.max(0, appState.idx-1)));
+$('btnNext').addEventListener('click', ()=> goTo(Math.min(appState.questions.length-1, appState.idx+1)));
+$('btnMark').addEventListener('click', ()=>{ const q = appState.questions[appState.idx]; appState.marked[q.id] = !appState.marked[q.id]; saveInprogress(); renderQuestion(); });
+
+/* Timer & resume */
+function startTimer(){
+  updateTimer();
+  appState.timerInt = setInterval(updateTimer, 1000);
+}
+function updateTimer(){
+  const rem = appState.endTime - Date.now();
+  if(rem <= 0){
+    clearInterval(appState.timerInt);
+    $('timer').innerText = '00:00'; $('sidebarTimer').innerText = '00:00';
+    alert('Time up — auto submitting');
+    submitTest(true);
+    return;
+  }
+  const s = Math.floor(rem/1000), mm = String(Math.floor(s/60)).padStart(2,'0'), ss = String(s%60).padStart(2,'0');
+  $('timer').innerText = `${mm}:${ss}`; $('sidebarTimer').innerText = `${mm}:${ss}`;
+}
+
+/* Inprogress save/resume (IndexedDB: inprogress store) */
+function inprogressKey(mobile,code){ return `inprogress:${mobile}:${code}`; }
+async function saveInprogress(){
+  try{
+    const key = inprogressKey(appState.student.mobile, appState.code);
+    const data = { id:key, mobile: appState.student.mobile, code: appState.code, idx: appState.idx, answers: appState.answers, marked: appState.marked, visited: appState.visited, endTime: appState.endTime };
+    await dbPut('inprogress', data);
+  }catch(e){ console.warn('saveInprogress failed', e); }
+}
+async function clearInprogress(){
+  try{ await dbDelete('inprogress', inprogressKey(appState.student.mobile, appState.code)); }catch(e){}
+}
+async function loadInprogress(){
+  try{
+    const key = inprogressKey(appState.student.mobile, appState.code);
+    const rec = await dbGet('inprogress', key);
+    if(rec && rec.endTime && Date.now() < rec.endTime){
+      if(confirm('You have an unfinished attempt. Resume?')){
+        appState.idx = rec.idx || 0;
+        appState.answers = rec.answers || {};
+        appState.marked = rec.marked || {};
+        appState.visited = rec.visited || {};
+        appState.endTime = rec.endTime;
+        return true;
+      } else {
+        await dbDelete('inprogress', key);
+        return false;
+      }
+    }
+  }catch(e){ console.warn('loadInprogress failed', e); }
+  return false;
+}
+
+/* Submit & Evaluate (2 marks each) */
+$('btnSubmit').addEventListener('click', ()=> {
+  if(confirm('Submit test now? You will NOT be able to resume.')) submitTest(false);
+});
+
+async function submitTest(auto){
+  clearInterval(appState.timerInt);
+  let correctCount = 0;
+  const sectionData = {};
+  appState.questions.forEach(q=>{
+    sectionData[q.section] = sectionData[q.section] || { total:0, attempted:0, correct:0 };
+    sectionData[q.section].total++;
+    const ans = appState.answers[q.id];
+    if(typeof ans !== 'undefined'){
+      sectionData[q.section].attempted++;
+      if(ans === q.correct){ sectionData[q.section].correct++; correctCount++; }
+    }
+  });
+  const score = correctCount * 2; // 2 marks per question
+  const percent = ((score/80)*100).toFixed(1);
+  const attempt = { mobile: appState.student.mobile, code: appState.code, date: new Date().toISOString(), score: score, percent: percent, sectionData: sectionData, answers: appState.answers };
+  try{
+    const id = await dbAdd('attempts', attempt);
+    // set testid used
+    const tid = await dbGet('testids', appState.code);
+    if(tid){ tid.used = true; tid.usedAt = new Date().toISOString(); await dbPut('testids', tid); }
+    await clearInprogress();
+    // show result inside same file
+    renderResult({ id: id, ...attempt });
+  }catch(e){ console.error('submit failed', e); alert('Failed to save attempt. Contact admin.'); }
+}
+
+/* -------------------- START TEST FLOW (student -> test) -------------------- */
+/* NOTE: hides admin panel for students immediately */
+function startTestForStudent(student, code){
+  // HIDE ADMIN PANEL COMPLETELY FOR STUDENTS
+  $('adminPanelLinks').classList.add('hide');
+
+  appState.student = student; appState.code = code;
+  $('sideName').innerText = `Student: ${student.name || '—'}`;
+  $('sideMobile').innerText = `Mobile: ${student.mobile}`;
+  $('sideClass').innerText = `Class: ${student.class || '—'}`;
+  // load question set according to class
+  const set = (student.class==='8') ? Q8 : (student.class==='9') ? Q9 : Q10;
+  appState.questions = set.slice(0,40).map((q,i)=> ({...q, qno: i+1}));
+
+  // attempt to load inprogress
+  (async ()=>{
+    const resumed = await loadInprogress();
+    if(!resumed){
+      appState.idx = 0; appState.answers = {}; appState.marked = {}; appState.visited = {};
+      appState.endTime = Date.now() + appState.durationMinutes*60*1000;
+      // FULLSCREEN ON TEST START
+      openFullscreen();
+    }
+
+    // Render UI
+    renderQuestion();
+    renderPalette();
+    startTimer();
+
+    // Show test screen
+    showScreen("testScreen");
+
+    // Auto save every 10 sec
+    setInterval(saveInprogress, 10000);
+  })();
+}
+
+/* Fullscreen */
+function openFullscreen(){
+  const el = document.documentElement;
+  if(el.requestFullscreen) el.requestFullscreen().catch(()=>{});
+  else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+  else if(el.msRequestFullscreen) el.msRequestFullscreen();
+}
+
+/* -------------------- Render Result -------------------- */
+function renderResult(attempt){
+  // attempt: {id, mobile, code, score, percent, sectionData, date}
+  const student = { mobile: attempt.mobile, name: (appState.student && appState.student.name) || 'Student' };
+  $('resName').innerText = student.name;
+  $('resMobile').innerText = attempt.mobile + ' | Test ID: ' + attempt.code;
+  $('resScore').innerText = attempt.score;
+  // Format date & time
+  const dt = new Date(attempt.date);
+  const dateStr = dt.toLocaleDateString(undefined, { day:"2-digit", month:"short", year:"numeric" });
+  const timeStr = dt.toLocaleTimeString(undefined, { hour:"2-digit", minute:"2-digit" });
+  $('resDate').innerText = "Date: " + dateStr;
+  $('resTime').innerText = "Time: " + timeStr;
+  // sections
+  const container = $('resSections'); container.innerHTML = '';
+  for(const sec in attempt.sectionData){
+    const sd = attempt.sectionData[sec];
+    const div = document.createElement('div');
+    div.innerHTML = `<div style="display:flex;justify-content:space-between"><div>${sec}</div><div>${sd.correct*2} / ${sd.total*2} marks</div></div>`;
+    container.appendChild(div);
+  }
+  // chart
+  renderChart(attempt.sectionData);
+  // show result screen
+  showScreen('resultScreen');
+  // also refresh attempts list
+  loadAttempts();
+}
+
+/* Simple SVG bar chart */
+function renderChart(sectionData){
+  const area = $('chartArea'); area.innerHTML = '';
+  const secs = Object.keys(sectionData);
+  const data = secs.map(s=>({section:s, correct: sectionData[s].correct, total: sectionData[s].total}));
+  const w = 300, h = 180, padding = 10;
+  const svgNS = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(svgNS,'svg'); svg.setAttribute('width', w); svg.setAttribute('height', h);
+  let max = 0; data.forEach(d=>{ if(d.total*2>max) max = d.total*2; }); if(max===0) max=1;
+  const barW = (w - padding*2) / data.length - 8;
+  data.forEach((d,i)=>{
+    const x = padding + i*(barW+8);
+    const val = d.correct*2;
+    const barH = Math.round((val / max) * (h - 60));
+    const rectBg = document.createElementNS(svgNS,'rect'); rectBg.setAttribute('x', x); rectBg.setAttribute('y', h-40 - (h-60)); rectBg.setAttribute('width', barW); rectBg.setAttribute('height', h-60); rectBg.setAttribute('fill','#f4f8ff'); svg.appendChild(rectBg);
+    const rect = document.createElementNS(svgNS,'rect'); rect.setAttribute('x', x); rect.setAttribute('y', h-40 - barH); rect.setAttribute('width', barW); rect.setAttribute('height', barH); rect.setAttribute('fill','#4f7dff'); svg.appendChild(rect);
+    const txt = document.createElementNS(svgNS,'text'); txt.setAttribute('x', x + barW/2); txt.setAttribute('y', h-45 - barH); txt.setAttribute('font-size','12'); txt.setAttribute('text-anchor','middle'); txt.setAttribute('fill','#111'); txt.textContent = val; svg.appendChild(txt);
+    const lab = document.createElementNS(svgNS,'text'); lab.setAttribute('x', x + barW/2); lab.setAttribute('y', h-20); lab.setAttribute('font-size','12'); lab.setAttribute('text-anchor','middle'); lab.setAttribute('fill','#444'); lab.textContent = d.section; svg.appendChild(lab);
+  });
+  area.appendChild(svg);
+}
+
+/* Download result as text */
+async function downloadResultText(){
+  const attempts = await dbAll('attempts');
+  const a = attempts.reverse().find(x => String(x.mobile) === String(appState.student && appState.student.mobile));
+  if(!a){ alert('No attempt found'); return; }
+  let text = `Narayana Institute — ST Branch\nResult\nStudent: ${appState.student.name || ''}\nMobile: ${a.mobile}\nTest ID: ${a.code}\nScore: ${a.score} / 80\nPercent: ${a.percent}%\nDate: ${a.date}\n\nSection-wise:\n`;
+  for(const s in a.sectionData){ const sd = a.sectionData[s]; text += `${s}: ${sd.correct*2} / ${sd.total*2}\n`; }
+  downloadBlob(text, `result_${a.mobile}.txt`, 'text/plain');
+}
+
+/* -------------------- Initialization: load initial data -------------------- */
+(async function init(){
+  // hide portal until login; welcome visible by default
+  hide('portalScreens');
+  // create DB
+  await openDB();
+  // ensure admin panel hidden on init
+  try{ $('adminPanelLinks').classList.add('hide'); }catch(e){}
+  // ready
+})();
+</script>
+</body>
+</html>
