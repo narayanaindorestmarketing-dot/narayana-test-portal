@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Narayana Cloud Test Portal — ST Branch</title>
+
+<style>
+:root{
+  --bg:#eaf4ff;
+  --primary:#1f4bb8;
+  --accent:#4f7dff;
+  --muted:#556;
+}
+*{box-sizing:border-box;font-family:Inter,system-ui,Segoe UI,Arial}
+body{margin:0;background:var(--bg)}
+.container{max-width:1100px;margin:18px auto;padding:14px}
+.card{
+  background:#fff;
+  border-radius:12px;
+  padding:16px;
+  box-shadow:0 10px 30px rgba(10,30,80,.08);
+}
+.center{text-align:center}
+.hide{display:none}
+.btn{
+  padding:8px 14px;
+  border-radius:8px;
+  border:0;
+  cursor:pointer;
+}
+.btn-primary{background:var(--primary);color:#fff}
+.small{font-size:13px;color:var(--muted)}
+input,select{
+  padding:8px;
+  border-radius:8px;
+  border:1px solid #ddd;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<!-- ================= WELCOME ================= -->
+<div id="welcomeCard" class="card center">
+  <h2>Narayana Educational Institute</h2>
+  <div class="small">ST Branch • Online Test Portal</div>
+
+  <div style="margin-top:16px">
+    <button class="btn btn-primary" onclick="openAdminLogin()">Admin Login</button>
+    <button class="btn" onclick="openStudentPanel()">Student Login</button>
+  </div>
+
+  <div id="msg" class="small hide" style="margin-top:10px;color:#b00"></div>
+</div>
+
+<!-- ================= ADMIN LOGIN ================= -->
+<div id="adminLoginCard" class="card hide">
+  <h3>Admin Login</h3>
+  <input id="adminEmail" placeholder="Username" style="width:100%;margin-top:6px">
+  <input id="adminPass" type="password" placeholder="Password" style="width:100%;margin-top:6px">
+
+  <div style="margin-top:10px;text-align:right">
+    <button class="btn" onclick="closeAdminLogin()">Cancel</button>
+    <button class="btn btn-primary" onclick="adminLoginFirebase()">Login</button>
+  </div>
+</div>
+
+<!-- ================= ADMIN PANEL ================= -->
+<div id="adminPanel" class="card hide">
+  <div style="display:flex;justify-content:space-between">
+    <div>
+      <strong id="adminLabel">Admin</strong>
+      <div id="adminEmailView" class="small"></div>
+    </div>
+    <button class="btn" onclick="adminSignOut()">Logout</button>
+  </div>
+
+  <hr>
+
+  <!-- Register student -->
+  <h4>Register Student</h4>
+  <input id="regName" placeholder="Full Name" style="width:100%">
+  <input id="regMobile" placeholder="Mobile" style="width:100%;margin-top:6px">
+  <select id="regClass" style="width:100%;margin-top:6px">
+    <option value="7">Class 7</option>
+    <option value="8">Class 8</option>
+    <option value="9" selected>Class 9</option>
+    <option value="10">Class 10</option>
+  </select>
+  <input id="regSchool" placeholder="School" style="width:100%;margin-top:6px">
+
+  <div style="margin-top:10px;text-align:right">
+    <button class="btn" onclick="clearRegForm()">Clear</button>
+    <button class="btn btn-primary" onclick="adminRegisterStudent()">Save</button>
+  </div>
+
+  <hr>
+
+  <!-- Test ID -->
+  <h4>Generate Test ID</h4>
+  <input id="assignMobile" placeholder="Student Mobile" style="width:100%">
+  <div style="margin-top:8px;text-align:right">
+    <button class="btn btn-primary" onclick="adminGenerateTestId()">Generate</button>
+  </div>
+  <div id="lastGen" class="small"></div>
+
+  <hr>
+
+  <h4>Students</h4>
+  <div id="studentsList" class="small">Loading...</div>
+
+  <hr>
+
+  <h4>Attempts</h4>
+  <div id="attemptsList" class="small">Loading...</div>
+</div>
+
+<!-- ================= STUDENT LOGIN ================= -->
+<div id="studentPanel" class="card hide">
+  <h3>Student Login</h3>
+  <input id="stuMobile" placeholder="10-digit Mobile" style="width:100%">
+  <input id="stuTestId" placeholder="Test ID (NT-XXXXXX)" style="width:100%;margin-top:6px">
+
+  <div style="margin-top:10px;text-align:right">
+    <button class="btn" onclick="closeStudentPanel()">Cancel</button>
+    <button class="btn btn-primary" onclick="studentLogin()">Start Test</button>
+  </div>
+</div>
+
+<!-- ================= TEST AREA ================= -->
+<div id="testArea" class="card hide">
+  <div style="display:flex;justify-content:space-between">
+    <div id="timer">45:00</div>
+    <div id="qcount"></div>
+  </div>
+
+  <div id="questionBox" class="qbox"></div>
+
+  <div style="margin-top:10px">
+    <button class="btn" onclick="prevQ()">Prev</button>
+    <button class="btn" id="markBtn" onclick="toggleMark()">Mark</button>
+    <button class="btn" onclick="nextQ()">Next</button>
+    <button class="btn btn-primary" onclick="submitTestPrompt()">Submit</button>
+  </div>
+
+  <div id="palette" style="margin-top:10px"></div>
+</div>
+
+<!-- ================= RESULT ================= -->
+<div id="resultArea" class="card hide">
+  <div id="resultContent"></div>
+</div>
+
+<!-- ================= FOOTER ================= -->
+<div class="center small" style="margin-top:14px">
+  Narayana Educational Institute — ST Branch • © <span id="cyear"></span>
+</div>
+
+<script>
+document.getElementById('cyear').innerText = new Date().getFullYear();
+</script>
+
+</div>
+</body>
+</html>
+<script>
+/* ===================== INDEXED DB SETUP ===================== */
+const DB_NAME = 'narayana_db';
+const DB_VERSION = 1;
+let db = null;
+
+function initDB(){
+  return new Promise((resolve, reject)=>{
+    const req = indexedDB.open(DB_NAME, DB_VERSION);
+
+    req.onupgradeneeded = e => {
+      const d = e.target.result;
+      if(!d.objectStoreNames.contains('students')){
+        d.createObjectStore('students', { keyPath:'mobile' });
+      }
+      if(!d.objectStoreNames.contains('testids')){
+        d.createObjectStore('testids', { keyPath:'code' });
+      }
+      if(!d.objectStoreNames.contains('attempts')){
+        d.createObjectStore('attempts', { keyPath:'id', autoIncrement:true });
+      }
+    };
+
+    req.onsuccess = e => { db = e.target.result; resolve(); };
+    req.onerror = e => reject(e.target.error);
+  });
+}
+
+/* ===================== ADMIN AUTH ===================== */
+const ADMIN_USERNAME = 'admin';
+const ADMIN_PASSWORD = 'password';
+
+function openAdminLogin(){
+  document.getElementById('adminLoginCard').classList.remove('hide');
+}
+function closeAdminLogin(){
+  document.getElementById('adminLoginCard').classList.add('hide');
+}
+
+function adminLoginFirebase(){
+  const u = adminEmail.value.trim();
+  const p = adminPass.value.trim();
+  if(u === ADMIN_USERNAME && p === ADMIN_PASSWORD){
+    sessionStorage.setItem('narayana_admin','1');
+    adminLabel.innerText = 'Admin';
+    adminEmailView.innerText = u;
+    adminLoginCard.classList.add('hide');
+    welcomeCard.classList.add('hide');
+    adminPanel.classList.remove('hide');
+    refreshAdminLists();
+  } else {
+    alert('Invalid admin credentials');
+  }
+}
+
+function adminSignOut(){
+  sessionStorage.removeItem('narayana_admin');
+  adminPanel.classList.add('hide');
+  welcomeCard.classList.remove('hide');
+}
+
+/* ===================== STUDENT CRUD ===================== */
+function addStudent(student){
+  return new Promise((res,rej)=>{
+    const tx = db.transaction('students','readwrite');
+    tx.objectStore('students').put(student);
+    tx.oncomplete = ()=>res();
+    tx.onerror = ()=>rej(tx.error);
+  });
+}
+
+function getAllStudents(){
+  return new Promise((res,rej)=>{
+    const arr=[];
+    const req = db.transaction('students')
+      .objectStore('students').openCursor();
+    req.onsuccess=e=>{
+      const c=e.target.result;
+      if(c){ arr.push(c.value); c.continue(); }
+      else res(arr);
+    };
+    req.onerror=()=>rej(req.error);
+  });
+}
+
+async function adminRegisterStudent(){
+  const name = regName.value.trim();
+  const mobile = regMobile.value.replace(/\D/g,'').slice(-10);
+  const cls = regClass.value;
+  const school = regSchool.value.trim();
+
+  if(!name || mobile.length!==10){
+    alert('Enter valid name & mobile');
+    return;
+  }
+
+  await addStudent({
+    name, mobile, class:cls, school,
+    createdAt:new Date().toISOString()
+  });
+
+  clearRegForm();
+  refreshAdminLists();
+  alert('Student saved');
+}
+
+function clearRegForm(){
+  regName.value='';
+  regMobile.value='';
+  regSchool.value='';
+}
+
+/* ===================== TEST ID ===================== */
+function makeTestCode(){
+  const c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let s='NT-';
+  for(let i=0;i<6;i++) s+=c[Math.floor(Math.random()*c.length)];
+  return s;
+}
+
+function addTestId(doc){
+  return new Promise((res,rej)=>{
+    const tx=db.transaction('testids','readwrite');
+    tx.objectStore('testids').add(doc);
+    tx.oncomplete=()=>res();
+    tx.onerror=()=>rej(tx.error);
+  });
+}
+
+async function adminGenerateTestId(){
+  const mobile = assignMobile.value.replace(/\D/g,'').slice(-10);
+  if(mobile.length!==10) return alert('Invalid mobile');
+
+  const students = await getAllStudents();
+  const st = students.find(s=>s.mobile===mobile);
+  if(!st) return alert('Mobile not registered');
+
+  const code = makeTestCode();
+  await addTestId({
+    code,
+    studentMobile:mobile,
+    used:false,
+    createdAt:new Date().toISOString()
+  });
+
+  lastGen.innerText = 'Generated: ' + code;
+  refreshAdminLists();
+}
+
+/* ===================== ADMIN LISTS ===================== */
+async function refreshAdminLists(){
+  const students = await getAllStudents();
+  studentsList.innerHTML = students.length
+    ? students.map(s=>`${s.name} (${s.mobile}) - Class ${s.class}`).join('<br>')
+    : 'No students';
+
+  const attempts = await new Promise(res=>{
+    const arr=[];
+    const req=db.transaction('attempts')
+      .objectStore('attempts').openCursor();
+    req.onsuccess=e=>{
+      const c=e.target.result;
+      if(c){ arr.push(c.value); c.continue(); }
+      else res(arr);
+    };
+  });
+
+  attemptsList.innerHTML = attempts.length
+    ? attempts.map(a=>`${a.mobile} | ${a.code} | ${a.score}`).join('<br>')
+    : 'No attempts';
+}
+
+/* ===================== STUDENT PANEL ===================== */
+function openStudentPanel(){
+  welcomeCard.classList.add('hide');
+  studentPanel.classList.remove('hide');
+}
+function closeStudentPanel(){
+  studentPanel.classList.add('hide');
+  welcomeCard.classList.remove('hide');
+}
+
+/* ===================== STARTUP ===================== */
+(async function(){
+  await initDB();
+  if(sessionStorage.getItem('narayana_admin')==='1'){
+    adminPanel.classList.remove('hide');
+    welcomeCard.classList.add('hide');
+    refreshAdminLists();
+  }
+})();
+</script>
