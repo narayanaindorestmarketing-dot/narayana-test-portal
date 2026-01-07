@@ -94,7 +94,7 @@ html,body{height:100%;margin:0;background:var(--bg);-webkit-font-smoothing:antia
         <div class="small">ONLINE EXAM PORTAL</div>
       </div>
       <h1>Welcome to Narayana Test Portal</h1>
-      <p>Secure Offline Exam System — ST Branch, Indore<br/>Class Tests: 8 / 9 / 10 (NCERT 2024–25)</p>
+      <h4>Secure Exam System — ST Branch, Indore<br/><br/>Class Tests: 8 / 9 / 10 (NCERT 2025–2026)</h4>
 
       <div style="margin-top:18px">
         <button class="btn btn-primary" onclick="openStudentModal()">Student Login</button>
@@ -116,7 +116,7 @@ html,body{height:100%;margin:0;background:var(--bg);-webkit-font-smoothing:antia
         <button class="btn btn-ghost" onclick="closeAdminModal()">Cancel</button>
         <button class="btn btn-primary" onclick="adminLogin()">Login</button>
       </div>
-      <div style="margin-top:10px;font-size:13px;color:#666">Default admin credentials: <span class="key">admin / password</span></div>
+      <div style="margin-top:10px;font-size:13px;color:#666">Enter Admin_ID <span class="key"> ID/ Password</span></div>
     </div>
   </div>
 
@@ -192,6 +192,7 @@ html,body{height:100%;margin:0;background:var(--bg);-webkit-font-smoothing:antia
               <div class="form-row"><label>Mobile (10-digit)</label><input id="regMobile" type="text"/></div>
               <div class="form-row"><label>Class</label>
                 <select id="regClass">
+		<option value="7">Class 7</option>
                   <option value="8">Class 8</option>
                   <option value="9" selected>Class 9</option>
                   <option value="10">Class 10</option>
@@ -311,10 +312,22 @@ html,body{height:100%;margin:0;background:var(--bg);-webkit-font-smoothing:antia
 </div>
 <script>
 /* Utilities */
+let CURRENT_ROLE = null; // 'admin' | 'student'
 function $(id){ return document.getElementById(id); }
 function show(el){ if(typeof el==='string') el=$(el); el.style.display='block'; }
 function hide(el){ if(typeof el==='string') el=$(el); el.style.display='none'; }
 function showScreen(screenId){
+  // 🚫 STUDENT KO ADMIN SCREENS SE ROKO
+  if(CURRENT_ROLE === 'student'){
+    if(
+      screenId === 'adminDashboard' ||
+      screenId === 'studentManager' ||
+      screenId === 'attemptsManager'
+    ){
+      return;
+    }
+  }
+
   hide('welcomeScreen');
   show('portalScreens');
   ['adminDashboard','studentManager','attemptsManager','testScreen','resultScreen'].forEach(id=>hide(id));
@@ -336,19 +349,35 @@ async function dbAll(store){ const db=await openDB(); return new Promise((res,re
 async function dbDelete(store,key){ const db=await openDB(); return new Promise((res,rej)=>{ const tx=db.transaction(store,'readwrite'); const os=tx.objectStore(store); const rq=os.delete(key); rq.onsuccess=()=>res(true); rq.onerror=()=>rej(rq.error); });}
 
 /* Admin auth */
-const DEFAULT_ADMIN_USER = 'admin', DEFAULT_ADMIN_PASS = 'password';
+const DEFAULT_ADMIN_USER = 'Praful1210', DEFAULT_ADMIN_PASS = 'Narayana@123';
 function openAdminModal(){ $('modalAdmin').style.display='flex'; }
 function closeAdminModal(){ $('modalAdmin').style.display='none'; $('adminUser').value=''; $('adminPass').value=''; }
 
 function adminLogin(){
-  const u = $('adminUser').value.trim(); const p = $('adminPass').value.trim();
+  const u = $('adminUser').value.trim();
+  const p = $('adminPass').value.trim();
+
   if(u===DEFAULT_ADMIN_USER && p===DEFAULT_ADMIN_PASS){
+
+    CURRENT_ROLE = 'admin'; // ✅ STEP 2: ROLE SET HERE
+
     closeAdminModal();
-    show('portalScreens'); showScreen('adminDashboard'); $('adminLoggedName').innerText = u;
-    $('adminPanelLinks').classList.remove('hide'); show('adminPanelLinks');
-    loadStudentsTable(); loadStudentsTable2(); loadAttempts();
-  } else { alert('Invalid admin credentials.'); }
+    show('portalScreens');
+    showScreen('adminDashboard');
+    $('adminLoggedName').innerText = u;
+
+    $('adminPanelLinks').classList.remove('hide');
+    show('adminPanelLinks');
+
+    loadStudentsTable();
+    loadStudentsTable2();
+    loadAttempts();
+
+  } else {
+    alert('Invalid admin credentials.');
+  }
 }
+
 
 /* adminLogout with recenter welcome fix */
 function adminLogout(){
@@ -411,7 +440,59 @@ async function loadAttempts(){ const attempts=await dbAll('attempts'); const tbo
 async function viewAttempt(id){ const attempts=await dbAll('attempts'); const att = attempts.find(x=>x.id==id); if(!att){ alert('Not found'); return; } renderResult(att); }
 async function clearAttempts(){ if(!confirm('Clear all attempts?')) return; const attempts=await dbAll('attempts'); for(const a of attempts) await dbDelete('attempts', a.id); loadAttempts(); alert('Attempts cleared.'); }
 
-/* ---------- Test Banks (Q8, Q9, Q10) ---------- */
+/* ---------- Test Banks (Q7, Q8, Q9, Q10) ---------- */
+
+/* CLASS 7 (40) */
+const Q7 = [
+/* Maths (10) */
+{id:1, section:"Maths", text:"7 × 6 = ?", options:["36","42","48","56"], correct:1},
+{id:2, section:"Maths", text:"LCM of 8 and 12 is ?", options:["12","24","36","48"], correct:1},
+{id:3, section:"Maths", text:"15 ÷ 3 = ?", options:["3","4","5","6"], correct:2},
+{id:4, section:"Maths", text:"Perimeter of square side 4 cm?", options:["8","12","16","20"], correct:2},
+{id:5, section:"Maths", text:"1/2 of 40 is ?", options:["10","15","20","25"], correct:2},
+{id:6, section:"Maths", text:"Roman numeral of 10?", options:["V","X","L","C"], correct:1},
+{id:7, section:"Maths", text:"Simple interest on ₹100 at 10% for 1 year?", options:["₹5","₹10","₹15","₹20"], correct:1},
+{id:8, section:"Maths", text:"Angle less than 90° is called?", options:["Right","Obtuse","Acute","Straight"], correct:2},
+{id:9, section:"Maths", text:"Area of rectangle 5×4?", options:["9","20","25","40"], correct:1},
+{id:10, section:"Maths", text:"1000 m = ? km", options:["1","10","0.1","100"], correct:0},
+
+/* Science (10) */
+{id:11, section:"Science", text:"Plants prepare food by?", options:["Respiration","Photosynthesis","Digestion","Transpiration"], correct:1},
+{id:12, section:"Science", text:"Which gas is essential for breathing?", options:["CO₂","Oxygen","Nitrogen","Hydrogen"], correct:1},
+{id:13, section:"Science", text:"Force that pulls objects towards Earth?", options:["Magnetic","Friction","Gravity","Muscular"], correct:2},
+{id:14, section:"Science", text:"Water boils at?", options:["0°C","50°C","100°C","150°C"], correct:2},
+{id:15, section:"Science", text:"Which organ pumps blood?", options:["Brain","Lungs","Heart","Kidney"], correct:2},
+{id:16, section:"Science", text:"Sun is a?", options:["Planet","Star","Satellite","Asteroid"], correct:1},
+{id:17, section:"Science", text:"We breathe in?", options:["CO₂","Nitrogen","Oxygen","Hydrogen"], correct:2},
+{id:18, section:"Science", text:"Which is NOT a living thing?", options:["Plant","Animal","Stone","Human"], correct:2},
+{id:19, section:"Science", text:"Root absorbs?", options:["Food","Water","Oxygen","Carbon"], correct:1},
+{id:20, section:"Science", text:"Which vitamin from sunlight?", options:["A","B","C","D"], correct:3},
+
+/* English (10) */
+{id:21, section:"English", text:"Opposite of Hot?", options:["Warm","Cold","Cool","Heat"], correct:1},
+{id:22, section:"English", text:"Plural of Child?", options:["Childs","Children","Childes","Kids"], correct:1},
+{id:23, section:"English", text:"Synonym of Happy?", options:["Sad","Angry","Joyful","Weak"], correct:2},
+{id:24, section:"English", text:"Fill blank: He ___ playing.", options:["is","are","am","be"], correct:0},
+{id:25, section:"English", text:"Antonym of Big?", options:["Large","Huge","Small","Tall"], correct:2},
+{id:26, section:"English", text:"Correct spelling?", options:["Beautifull","Beutiful","Beautiful","Beautifal"], correct:2},
+{id:27, section:"English", text:"Article before 'apple'?", options:["a","an","the","no article"], correct:1},
+{id:28, section:"English", text:"Noun in sentence: Ram runs fast", options:["Ram","runs","fast","none"], correct:0},
+{id:29, section:"English", text:"Verb in sentence: Birds fly", options:["Birds","fly","the","none"], correct:1},
+{id:30, section:"English", text:"Sentence ends with?", options:["Comma","Colon","Full stop","Dash"], correct:2},
+
+/* GK / Social (10) */
+{id:31, section:"GK", text:"Capital of India?", options:["Mumbai","Delhi","Kolkata","Chennai"], correct:1},
+{id:32, section:"GK", text:"National animal of India?", options:["Elephant","Lion","Tiger","Horse"], correct:2},
+{id:33, section:"GK", text:"How many days in a week?", options:["5","6","7","8"], correct:2},
+{id:34, section:"GK", text:"Father of Nation?", options:["Nehru","Gandhi","Patel","Bose"], correct:1},
+{id:35, section:"GK", text:"Indian currency?", options:["Dollar","Euro","Rupee","Pound"], correct:2},
+{id:36, section:"GK", text:"How many months in a year?", options:["10","11","12","13"], correct:2},
+{id:37, section:"GK", text:"Largest planet?", options:["Earth","Mars","Jupiter","Venus"], correct:2},
+{id:38, section:"GK", text:"Which is a festival?", options:["Diwali","Monday","School","Book"], correct:0},
+{id:39, section:"GK", text:"National bird?", options:["Crow","Sparrow","Peacock","Eagle"], correct:2},
+{id:40, section:"GK", text:"Rainbow has how many colours?", options:["5","6","7","8"], correct:2}
+];
+
 
 /* CLASS 8 (40) */
 const Q8 = [
@@ -704,15 +785,23 @@ async function submitTest(auto){
 /* -------------------- START TEST FLOW (student -> test) -------------------- */
 /* NOTE: hides admin panel for students immediately */
 function startTestForStudent(student, code){
-  // HIDE ADMIN PANEL COMPLETELY FOR STUDENTS
-  $('adminPanelLinks').classList.add('hide');
+   CURRENT_ROLE = 'student';
+
+  if($('adminPanelLinks')){
+    $('adminPanelLinks').classList.add('hide');
+  }
 
   appState.student = student; appState.code = code;
   $('sideName').innerText = `Student: ${student.name || '—'}`;
   $('sideMobile').innerText = `Mobile: ${student.mobile}`;
   $('sideClass').innerText = `Class: ${student.class || '—'}`;
   // load question set according to class
-  const set = (student.class==='8') ? Q8 : (student.class==='9') ? Q9 : Q10;
+  const set =
+  (student.class==='7') ? Q7 :
+  (student.class==='8') ? Q8 :
+  (student.class==='9') ? Q9 :
+  Q10;
+
   appState.questions = set.slice(0,40).map((q,i)=> ({...q, qno: i+1}));
 
   // attempt to load inprogress
