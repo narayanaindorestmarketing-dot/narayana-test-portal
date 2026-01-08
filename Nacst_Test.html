@@ -310,6 +310,36 @@ html,body{height:100%;margin:0;background:var(--bg);-webkit-font-smoothing:antia
   </section>
 
 </div>
+	<!-- ================= FIREBASE INIT (STEP 1) ================= -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import {
+    getFirestore,
+    doc, setDoc, getDoc,
+    collection, addDoc, updateDoc, getDocs, deleteDoc
+  } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAdcLhD_acBhTT2-3Io8fpeJzV3jRrExBQ",
+    authDomain: "narayana-cloud-test-portal.firebaseapp.com",
+    projectId: "narayana-cloud-test-portal",
+    storageBucket: "narayana-cloud-test-portal.firebasestorage.app",
+    messagingSenderId: "240575346814",
+    appId: "1:240575346814:web:116949c2bbd93cf08a402f"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // 🔑 GLOBAL ACCESS (IMPORTANT)
+  window.db = db;
+  window.fb = {
+    doc, setDoc, getDoc,
+    collection, addDoc, updateDoc, getDocs, deleteDoc
+  };
+
+  console.log("🔥 Firebase connected");
+</script>
 <script>
 /* Utilities */
 let CURRENT_ROLE = null; // 'admin' | 'student'
@@ -907,5 +937,73 @@ async function downloadResultText(){
   // ready
 })();
 </script>
+	<script type="module">
+/* ========= FIREBASE IMPORTS ========= */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import {
+  getFirestore, doc, setDoc, getDoc,
+  collection, addDoc, updateDoc
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+/* ========= FIREBASE CONFIG ========= */
+const firebaseConfig = {
+  apiKey: "AIzaSyAdcLhD_acBhTT2-3Io8fpeJzV3jRrExBQ",
+  authDomain: "narayana-cloud-test-portal.firebaseapp.com",
+  projectId: "narayana-cloud-test-portal",
+  storageBucket: "narayana-cloud-test-portal.firebasestorage.app",
+  messagingSenderId: "240575346814",
+  appId: "1:240575346814:web:116949c2bbd93cf08a402f"
+};
+
+/* ========= INIT ========= */
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+/* ======================================================
+   ONLINE FUNCTIONS (DESIGN TOUCH NAHI HUA)
+====================================================== */
+
+/* ===== ADMIN: SAVE STUDENT ===== */
+window.saveStudentOnline = async function(mobile, data){
+  await setDoc(doc(db, "students", mobile), data);
+};
+
+/* ===== ADMIN: GENERATE TEST ID ===== */
+window.generateTestIdOnline = async function(testId, mobile){
+  await setDoc(doc(db, "testIds", testId), {
+    mobile: mobile,
+    used: false,
+    createdAt: new Date()
+  });
+};
+
+/* ===== STUDENT LOGIN CHECK ===== */
+window.validateStudentOnline = async function(mobile, testId){
+  const sSnap = await getDoc(doc(db, "students", mobile));
+  if(!sSnap.exists()) return { error: "MOBILE_NOT_FOUND" };
+
+  const tSnap = await getDoc(doc(db, "testIds", testId));
+  if(!tSnap.exists()) return { error: "INVALID_TEST_ID" };
+
+  const t = tSnap.data();
+  if(t.used) return { error: "TEST_ALREADY_USED" };
+  if(t.mobile !== mobile) return { error: "TEST_ID_MISMATCH" };
+
+  return { success: true, student: sSnap.data() };
+};
+
+/* ===== SAVE ATTEMPT & LOCK TEST ===== */
+window.saveAttemptOnline = async function(attempt){
+  await addDoc(collection(db, "attempts"), attempt);
+  await updateDoc(doc(db, "testIds", attempt.testId), {
+    used: true,
+    usedAt: new Date()
+  });
+};
+
+console.log("✅ Firebase ONLINE portal connected");
+</script>
+
 </body>
 </html>
+
