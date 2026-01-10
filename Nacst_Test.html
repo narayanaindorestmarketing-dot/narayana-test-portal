@@ -473,55 +473,176 @@ async function clearAttempts(){ if(!confirm('Clear all attempts?')) return; cons
 /* ---------- Test Banks (Q7, Q8, Q9, Q10) ---------- */
 
 /* CLASS 7 (40) */
+/* =========================
+   CLASS 7 – NCERT BASED (40)
+   PART-A: Maths (12) + Mental Ability (8)
+   ========================= */
+
 const Q7 = [
-/* Maths (10) */
-{id:1, section:"Maths", text:"7 × 6 = ?", options:["36","42","48","56"], correct:1},
-{id:2, section:"Maths", text:"LCM of 8 and 12 is ?", options:["12","24","36","48"], correct:1},
-{id:3, section:"Maths", text:"15 ÷ 3 = ?", options:["3","4","5","6"], correct:2},
-{id:4, section:"Maths", text:"Perimeter of square side 4 cm?", options:["8","12","16","20"], correct:2},
-{id:5, section:"Maths", text:"1/2 of 40 is ?", options:["10","15","20","25"], correct:2},
-{id:6, section:"Maths", text:"Roman numeral of 10?", options:["V","X","L","C"], correct:1},
-{id:7, section:"Maths", text:"Simple interest on ₹100 at 10% for 1 year?", options:["₹5","₹10","₹15","₹20"], correct:1},
-{id:8, section:"Maths", text:"Angle less than 90° is called?", options:["Right","Obtuse","Acute","Straight"], correct:2},
-{id:9, section:"Maths", text:"Area of rectangle 5×4?", options:["9","20","25","40"], correct:1},
-{id:10, section:"Maths", text:"1000 m = ? km", options:["1","10","0.1","100"], correct:0},
 
-/* Science (10) */
-{id:11, section:"Science", text:"Plants prepare food by?", options:["Respiration","Photosynthesis","Digestion","Transpiration"], correct:1},
-{id:12, section:"Science", text:"Which gas is essential for breathing?", options:["CO₂","Oxygen","Nitrogen","Hydrogen"], correct:1},
-{id:13, section:"Science", text:"Force that pulls objects towards Earth?", options:["Magnetic","Friction","Gravity","Muscular"], correct:2},
-{id:14, section:"Science", text:"Water boils at?", options:["0°C","50°C","100°C","150°C"], correct:2},
-{id:15, section:"Science", text:"Which organ pumps blood?", options:["Brain","Lungs","Heart","Kidney"], correct:2},
-{id:16, section:"Science", text:"Sun is a?", options:["Planet","Star","Satellite","Asteroid"], correct:1},
-{id:17, section:"Science", text:"We breathe in?", options:["CO₂","Nitrogen","Oxygen","Hydrogen"], correct:2},
-{id:18, section:"Science", text:"Which is NOT a living thing?", options:["Plant","Animal","Stone","Human"], correct:2},
-{id:19, section:"Science", text:"Root absorbs?", options:["Food","Water","Oxygen","Carbon"], correct:1},
-{id:20, section:"Science", text:"Which vitamin from sunlight?", options:["A","B","C","D"], correct:3},
+/* -------------------------
+   MATHS – 12 QUESTIONS
+   NCERT Class 7
+   ------------------------- */
 
-/* English (10) */
-{id:21, section:"English", text:"Opposite of Hot?", options:["Warm","Cold","Cool","Heat"], correct:1},
-{id:22, section:"English", text:"Plural of Child?", options:["Childs","Children","Childes","Kids"], correct:1},
-{id:23, section:"English", text:"Synonym of Happy?", options:["Sad","Angry","Joyful","Weak"], correct:2},
-{id:24, section:"English", text:"Fill blank: He ___ playing.", options:["is","are","am","be"], correct:0},
-{id:25, section:"English", text:"Antonym of Big?", options:["Large","Huge","Small","Tall"], correct:2},
-{id:26, section:"English", text:"Correct spelling?", options:["Beautifull","Beutiful","Beautiful","Beautifal"], correct:2},
-{id:27, section:"English", text:"Article before 'apple'?", options:["a","an","the","no article"], correct:1},
-{id:28, section:"English", text:"Noun in sentence: Ram runs fast", options:["Ram","runs","fast","none"], correct:0},
-{id:29, section:"English", text:"Verb in sentence: Birds fly", options:["Birds","fly","the","none"], correct:1},
-{id:30, section:"English", text:"Sentence ends with?", options:["Comma","Colon","Full stop","Dash"], correct:2},
+/* Integers */
+{id:1, section:"Maths", text:"Evaluate: (−15) + 27 − 12", options:["0","−24","12","−6"], correct:0},
 
-/* GK / Social (10) */
-{id:31, section:"GK", text:"Capital of India?", options:["Mumbai","Delhi","Kolkata","Chennai"], correct:1},
-{id:32, section:"GK", text:"National animal of India?", options:["Elephant","Lion","Tiger","Horse"], correct:2},
-{id:33, section:"GK", text:"How many days in a week?", options:["5","6","7","8"], correct:2},
-{id:34, section:"GK", text:"Father of Nation?", options:["Nehru","Gandhi","Patel","Bose"], correct:1},
-{id:35, section:"GK", text:"Indian currency?", options:["Dollar","Euro","Rupee","Pound"], correct:2},
-{id:36, section:"GK", text:"How many months in a year?", options:["10","11","12","13"], correct:2},
-{id:37, section:"GK", text:"Largest planet?", options:["Earth","Mars","Jupiter","Venus"], correct:2},
-{id:38, section:"GK", text:"Which is a festival?", options:["Diwali","Monday","School","Book"], correct:0},
-{id:39, section:"GK", text:"National bird?", options:["Crow","Sparrow","Peacock","Eagle"], correct:2},
-{id:40, section:"GK", text:"Rainbow has how many colours?", options:["5","6","7","8"], correct:2}
+/* Fractions & Decimals */
+{id:2, section:"Maths", text:"Which is greater: 5/8 or 3/4 ?", options:["5/8","3/4","Both equal","Cannot compare"], correct:1},
+
+{id:3, section:"Maths", text:"Convert 2.375 into fraction.", options:["19/8","15/8","19/4","23/8"], correct:0},
+
+/* Simple Equations */
+{id:4, section:"Maths", text:"Solve: 3x + 7 = 25", options:["x = 4","x = 6","x = 8","x = 5"], correct:1},
+
+/* Lines & Angles */
+{id:5, section:"Maths", text:"If two angles are supplementary and one is 65°, the other angle is:", options:["115°","125°","55°","45°"], correct:0},
+
+/* Triangle properties */
+{id:6, section:"Maths", text:"The sum of interior angles of a triangle is:", options:["90°","180°","270°","360°"], correct:1},
+
+{id:7, section:"Maths", text:"If two sides of a triangle are 5 cm and 8 cm, the third side cannot be:", options:["3 cm","6 cm","10 cm","12 cm"], correct:3},
+
+/* Perimeter & Area */
+{id:8, section:"Maths", text:"Find the area of a rectangle whose length is 12 cm and breadth is 5 cm.", options:["60 cm²","34 cm²","120 cm²","17 cm²"], correct:0},
+
+/* Rational Numbers */
+{id:9, section:"Maths", text:"Which of the following is a rational number?", options:["√2","π","0.25","√5"], correct:2},
+
+/* Exponents */
+{id:10, section:"Maths", text:"Simplify: 2³ × 2⁴", options:["2⁷","2¹²","2¹","2⁸"], correct:0},
+
+/* Data Handling */
+{id:11, section:"Maths", text:"The mean of 2, 4, 6, 8 is:", options:["4","5","6","7"], correct:1},
+
+/* Visual (Lines) */
+{id:12, section:"Maths", text:"Identify the type of angle shown below:", svg:`
+<svg width="200" height="120" xmlns="http://www.w3.org/2000/svg">
+  <line x1="40" y1="80" x2="160" y2="80" stroke="#000" stroke-width="3"/>
+  <line x1="40" y1="80" x2="110" y2="30" stroke="#000" stroke-width="3"/>
+</svg>
+`, options:["Acute","Right","Obtuse","Straight"], correct:0},
+
+/* -------------------------
+   MENTAL ABILITY – 8 QUESTIONS
+   ------------------------- */
+
+{id:13, section:"Mental Ability", text:"Find the missing number: 3, 6, 11, 18, ?", options:["25","27","26","24"], correct:2},
+
+{id:14, section:"Mental Ability", text:"If A = 1, B = 2, then value of CAT is:", options:["24","27","20","23"], correct:0},
+
+{id:15, section:"Mental Ability", text:"Which word does NOT belong to the group?", options:["Square","Triangle","Circle","Cube"], correct:3},
+
+{id:16, section:"Mental Ability", text:"Book : Read :: Pen : ?", options:["Ink","Paper","Write","Note"], correct:2},
+
+{id:17, section:"Mental Ability", text:"If today is Monday, what day will it be after 17 days?", options:["Tuesday","Wednesday","Thursday","Friday"], correct:1},
+
+{id:18, section:"Mental Ability", text:"Find the odd one out: 8, 27, 64, 125", options:["8","27","64","125"], correct:0},
+
+{id:19, section:"Mental Ability", text:"Mirror image of 2:45 will be:", options:["9:15","9:45","10:15","8:45"], correct:0},
+
+{id:20, section:"Mental Ability", text:"If all roses are flowers and some flowers are red, then:", options:["All roses are red","Some roses may be red","No rose is red","All red are roses"], correct:1},
+
+// ---- PART-B (Physics + Chemistry) will CONTINUE from id:21 ----
 ];
+/* =========================
+   PART-B: Physics (7) + Chemistry (7)
+   NCERT Class 7
+   ========================= */
+
+/* -------------------------
+   PHYSICS – 7 QUESTIONS
+   ------------------------- */
+
+/* Motion & Time */
+{id:21, section:"Physics", text:"The SI unit of speed is:", options:["m/s","km/h","cm/s","m/min"], correct:0},
+
+/* Heat */
+{id:22, section:"Physics", text:"Which mode of heat transfer does not require a medium?", options:["Conduction","Convection","Radiation","None"], correct:2},
+
+/* Light */
+{id:23, section:"Physics", text:"The image formed by a plane mirror is always:", options:["Real","Inverted","Virtual","Magnified"], correct:2},
+
+/* Electric Current */
+{id:24, section:"Physics", text:"Which of the following is a conductor of electricity?", options:["Plastic","Wood","Copper","Rubber"], correct:2},
+
+/* Force & Pressure */
+{id:25, section:"Physics", text:"Increasing the area of contact will ______ the pressure for the same force.", options:["Increase","Decrease","No change","Double"], correct:1},
+
+/* Visual – Simple Circuit */
+{id:26, section:"Physics", text:"Identify the correct component shown in the diagram:", svg:`
+<svg width="220" height="90" xmlns="http://www.w3.org/2000/svg">
+  <line x1="20" y1="45" x2="80" y2="45" stroke="#000" stroke-width="3"/>
+  <line x1="80" y1="25" x2="80" y2="65" stroke="#000" stroke-width="4"/>
+  <line x1="110" y1="35" x2="110" y2="55" stroke="#000" stroke-width="2"/>
+  <line x1="110" y1="45" x2="180" y2="45" stroke="#000" stroke-width="3"/>
+</svg>
+`, options:["Bulb","Switch","Cell","Wire"], correct:2},
+
+/* Sound */
+{id:27, section:"Physics", text:"Sound is produced due to:", options:["Reflection","Vibration","Friction","Heat"], correct:1},
+
+/* -------------------------
+   CHEMISTRY – 7 QUESTIONS
+   ------------------------- */
+
+/* Physical & Chemical Changes */
+{id:28, section:"Chemistry", text:"Which of the following is a chemical change?", options:["Melting of ice","Dissolving sugar","Rusting of iron","Cutting paper"], correct:2},
+
+/* Acids, Bases & Salts */
+{id:29, section:"Chemistry", text:"Which substance is basic in nature?", options:["Vinegar","Lemon juice","Baking soda","Curd"], correct:2},
+
+/* Separation of Substances */
+{id:30, section:"Chemistry", text:"The process used to separate insoluble solids from a liquid is:", options:["Evaporation","Filtration","Condensation","Distillation"], correct:1},
+
+/* Matter & Materials */
+{id:31, section:"Chemistry", text:"Air is considered a:", options:["Compound","Element","Mixture","Pure substance"], correct:2},
+
+/* Acids & Indicators */
+{id:32, section:"Chemistry", text:"Which indicator turns red in acidic solution?", options:["Litmus","Turmeric","Phenolphthalein","China rose"], correct:0},
+
+/* Visual – Separation (Evaporation) */
+{id:33, section:"Chemistry", text:"Which separation method is shown in the diagram?", svg:`
+<svg width="220" height="120" xmlns="http://www.w3.org/2000/svg">
+  <rect x="60" y="60" width="100" height="30" fill="#e0e0e0"/>
+  <line x1="80" y1="40" x2="140" y2="40" stroke="#000" stroke-width="2"/>
+  <text x="70" y="20" font-size="12">Heat</text>
+</svg>
+`, options:["Filtration","Evaporation","Sublimation","Decantation"], correct:1},
+
+/* Changes Around Us */
+{id:34, section:"Chemistry", text:"Which change is reversible?", options:["Burning candle","Rusting iron","Melting wax","Cooking food"], correct:2},
+
+// ---- PART-C (Biology – 6) will CONTINUE from id:35 ----
+/* =========================
+   PART-C: Biology (6)
+   NCERT Class 7
+   ========================= */
+
+/* Nutrition in Plants */
+{id:35, section:"Biology", text:"Green plants prepare their food by the process called:", options:["Respiration","Photosynthesis","Transpiration","Digestion"], correct:1},
+
+/* Nutrition in Animals */
+{id:36, section:"Biology", text:"Which part of the human digestive system absorbs nutrients?", options:["Stomach","Large intestine","Small intestine","Oesophagus"], correct:2},
+
+/* Respiration in Organisms */
+{id:37, section:"Biology", text:"Which gas is taken in during breathing?", options:["Carbon dioxide","Nitrogen","Oxygen","Hydrogen"], correct:2},
+
+/* Transportation in Animals */
+{id:38, section:"Biology", text:"Which component of blood carries oxygen?", options:["Plasma","Platelets","White blood cells","Red blood cells"], correct:3},
+
+/* Visual – Cell Structure */
+{id:39, section:"Biology", text:"Identify the structure shown in the diagram:", svg:`
+<svg width="220" height="140" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="110" cy="70" rx="70" ry="45" fill="#e8f0ff" stroke="#1f4bb8"/>
+  <circle cx="110" cy="70" r="18" fill="#ffdede" stroke="#b33"/>
+  <text x="95" y="75" font-size="12">Nucleus</text>
+</svg>
+`, options:["Cell wall","Nucleus","Vacuole","Mitochondria"], correct:1},
+
+/* Reproduction in Plants */
+{id:40, section:"Biology", text:"Which part of a flower develops into fruit?", options:["Petal","Ovule","Ovary","Stamen"], correct:2}
 
 
 /* CLASS 8 (40) */
@@ -1006,4 +1127,5 @@ console.log("✅ Firebase ONLINE portal connected");
 
 </body>
 </html>
+
 
