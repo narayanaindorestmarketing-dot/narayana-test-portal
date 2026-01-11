@@ -498,30 +498,201 @@ function normalizeMobile(input){ let m = String(input||'').replace(/[^\d]/g,'');
 
 /* Student login */
 async function studentLogin(){
-  const mob = normalizeMobile($('stuMobile').value);
-  const code = String(($('stuTestId').value||'').trim()).toUpperCase();
-  if(mob.length!==10){ alert('Enter valid 10-digit mobile.'); return; }
-  if(!code){ alert('Enter Test ID.'); return; }
-  const student = await dbGet('students', mob);
-  if(!student){ alert('Mobile not registered. Contact admin.'); return; }
-  const testidRec = await dbGet('testids', code);
-  if(!testidRec){ alert('Invalid Test ID.'); return; }
-  if(String(testidRec.studentMobile).trim() !== String(mob).trim()){ alert('Test ID not assigned to this mobile.'); return; }
-  if(testidRec.used){ alert('This Test ID has already been used.'); return; }
+  const mobile = normalizeMobile($('stuMobile').value);
+  const testId = String(($('stuTestId').value || '').trim()).toUpperCase();
+
+  if(mobile.length !== 10){
+    alert('Enter valid 10-digit mobile number');
+    return;
+  }
+
+  if(!testId){
+    alert('Enter Test ID');
+    return;
+  }
+
+  // check student exists
+  const studentSnap = await fb.getDoc(
+    fb.doc(db, "students", mobile)
+  );
+
+  if(!studentSnap.exists()){
+    alert('Mobile not registered');
+    return;
+  }
+
+  // check test id exists
+  const testSnap = await fb.getDoc(
+    fb.doc(db, "testids", testId)
+  );
+
+  if(!testSnap.exists()){
+    alert('Invalid Test ID');
+    return;
+  }
+
+  const testData = testSnap.data();
+
+  if(testData.used){
+    alert('This Test ID is already used');
+    return;
+  }
+
+  if(testData.studentMobile !== mobile){
+    alert('Test ID not assigned to this mobile number');
+    return;
+  }
+
   closeStudentModal();
-  startTestForStudent(student, code);
+  startTestForStudent(studentSnap.data(), testId);
 }
 
 /* Student management (register, list, delete, generate testid) */
-async function registerStudent(){ const name=$('regName').value.trim(); const mobile=normalizeMobile($('regMobile').value); const cl=$('regClass').value; const school=$('regSchool').value.trim(); if(!name||mobile.length!==10){ alert('Provide valid name & 10-digit mobile'); return; } const rec={mobile:mobile,name:name,class:cl,school:school}; try{ await dbPut('students',rec); alert('Student saved.'); clearReg(); loadStudentsTable(); loadStudentsTable2(); }catch(e){ console.error(e); alert('Save failed.'); } }
-function clearReg(){ $('regName').value=''; $('regMobile').value=''; $('regSchool').value=''; $('regClass').value='9'; }
-async function loadStudentsTable(){ const students=await dbAll('students'); const tbody=$('studentsTbody'); tbody.innerHTML=''; students.forEach((s,idx)=>{ const tr=document.createElement('tr'); tr.innerHTML=`<td>${idx+1}</td><td>${s.name||''}</td><td>${s.mobile}</td><td>${s.class||''}</td><td>${s.school||''}</td><td><button class="btn-ghost" onclick="assignView('${s.mobile}')">Assign/View Test IDs</button><button class="btn-ghost" onclick="deleteStudent('${s.mobile}')">Delete</button></td>`; tbody.appendChild(tr); }); }
-async function loadStudentsTable2(){ const students=await dbAll('students'); const tbody=$('studentsTbody2'); tbody.innerHTML=''; students.forEach(s=>{ const tr=document.createElement('tr'); tr.innerHTML=`<td>${s.mobile}</td><td>${s.name||''}</td><td>${s.class||''}</td><td>${s.school||''}</td><td><button class="btn-ghost" onclick="deleteStudent('${s.mobile}')">Delete</button></td>`; tbody.appendChild(tr); }); }
+async function registerStudent(){
+  const name = $('regName').value.trim();
+  const mobile = normalizeMobile($('regMobile').value);
+  const cl = $('regClass').value;
+  const school = $('regSchool').value.trim();
+
+  if(!name || mobile.length !== 10){
+    alert('Provide valid name & 10-digit mobile');
+    return;
+  }
+
+  const rec = { mobile, name, class: cl, school };
+
+  try{
+    await fb.setDoc(
+      fb.doc(db, "students", mobile),
+      rec
+    );
+    alert('Student saved.');
+    clearReg();
+    loadStudentsTable();
+    loadStudentsTable2();
+  }catch(e){
+    console.error(e);
+    alert('Save failed.');
+  }
+}
+
+function clearReg(){
+  $('regName').value='';
+  $('regMobile').value='';
+  $('regSchool').value='';
+  $('regClass').value='9';
+}
+
+async function loadStudentsTable(){
+  const snap = await fb.getDocs(
+    fb.collection(db, "students")
+  );
+
+  const students = snap.docs.map(d => d.data());
+  const tbody = $('studentsTbody');
+  tbody.innerHTML = '';
+
+  students.forEach((s, idx)=>{
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${idx + 1}</td>
+      <td>${s.name || ''}</td>
+      <td>${s.mobile}</td>
+      <td>${s.class || ''}</td>
+      <td>${s.school || ''}</td>
+      <td>
+        <button class="btn-ghost" onclick="assignView('${s.mobile}')">
+          Assign/View Test IDs
+        </button>
+        <button class="btn-ghost" onclick="deleteStudent('${s.mobile}')">
+          Delete
+        </button>
+      </td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+async function loadStudentsTable2(){
+  const snap = await fb.getDocs(
+    fb.collection(db, "students")
+  );
+
+  const students = snap.docs.map(d => d.data());
+  const tbody = $('studentsTbody2');
+  tbody.innerHTML = '';
+
+  students.forEach(s=>{
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${s.mobile}</td>
+      <td>${s.name || ''}</td>
+      <td>${s.class || ''}</td>
+      <td>${s.school || ''}</td>
+      <td>
+        <button class="btn-ghost" onclick="deleteStudent('${s.mobile}')">
+          Delete
+        </button>
+      </td>`;
+    tbody.appendChild(tr);
+  });
+}
+
 async function deleteStudent(mobile){ if(!confirm('Delete student and all their Test IDs?')) return; await dbDelete('students', mobile); const testids = await dbAll('testids'); for(const t of testids){ if(String(t.studentMobile).trim()===String(mobile).trim()){ await dbDelete('testids', t.code); } } loadStudentsTable(); loadStudentsTable2(); alert('Deleted.'); }
 function assignView(mobile){ (async ()=>{ const testids=(await dbAll('testids')).filter(t=>String(t.studentMobile).trim()===String(mobile).trim()); let msg = `Test IDs assigned to ${mobile}:\n\n`; if(testids.length===0) msg += 'None\n\n'; testids.forEach(t=> msg+= `${t.code}  (used: ${t.used? 'Yes':'No'})\n`); msg += '\nGenerate new Test ID for this student?'; if(confirm(msg)){ $('genMobile').value = mobile; showScreen('adminDashboard'); $('genMobile').focus(); } })(); }
 function makeTestCode(){ const chars='ABCDEFGHJKLMPQRSTUVWXYZ23456789'; let s='NT-'; for(let i=0;i<6;i++) s+=chars[Math.floor(Math.random()*chars.length)]; return s; }
-async function generateTestId(){ const mobile=normalizeMobile($('genMobile').value); if(mobile.length!==10){ alert('Enter valid mobile to assign Test ID'); return; } const student = await dbGet('students', mobile); if(!student){ alert('Mobile not registered'); return; } const code = makeTestCode(); const rec = { code: code, studentMobile: mobile, createdAt: new Date().toISOString(), used:false }; try{ await dbPut('testids', rec); $('lastGenInfo').innerText = `Test ID generated: ${code} (Assigned to ${mobile})`; loadStudentsTable(); alert('Test ID generated: ' + code); }catch(e){ console.error(e); alert('Failed to generate'); } }
+function makeTestCode(){
+  const chars = 'ABCDEFGHJKLMPQRSTUVWXYZ23456789';
+  let code = 'NT-';
+  for(let i = 0; i < 6; i++){
+    code += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return code;
+}
 
+async function generateTestId(){
+  const mobile = normalizeMobile($('genMobile').value);
+
+  if(mobile.length !== 10){
+    alert('Enter valid mobile number');
+    return;
+  }
+
+  // check student exists
+  const studentSnap = await fb.getDoc(
+    fb.doc(db, "students", mobile)
+  );
+
+  if(!studentSnap.exists()){
+    alert('Mobile not registered');
+    return;
+  }
+
+  const testId = makeTestCode();
+
+  const rec = {
+    code: testId,
+    studentMobile: mobile,
+    used: false,
+    createdAt: new Date().toISOString()
+  };
+
+  try{
+    await fb.setDoc(
+      fb.doc(db, "testids", testId),
+      rec
+    );
+
+    $('lastGenInfo').innerText =
+      `Test ID generated: ${testId} (Assigned to ${mobile})`;
+
+    alert('Test ID generated: ' + testId);
+    loadStudentsTable();
+
+  }catch(e){
+    console.error(e);
+    alert('Failed to generate Test ID');
+  }
+}
 /* CSV exports */
 async function exportStudentsCSV(){ const students=await dbAll('students'); const header=['mobile','name','class','school']; const rows=students.map(s=>[s.mobile,s.name||'',s.class||'',s.school||''].map(a=>`"${String(a).replace(/"/g,'""')}"`).join(',')); const csv=[header.join(','),...rows].join('\n'); downloadBlob(csv,'students.csv','text/csv'); }
 async function exportAttemptsCSV(){ const attempts=await dbAll('attempts'); const header=['id','mobile','code','score','percent','date']; const rows=attempts.map(a=>[a.id||'',a.mobile||'',a.code||'',a.score||'',a.percent||'',a.date||''].map(x=>`"${String(x).replace(/"/g,'""')}"`).join(',')); const csv=[header.join(','),...rows].join('\n'); downloadBlob(csv,'attempts.csv','text/csv'); }
@@ -951,13 +1122,28 @@ async function submitTest(auto){
   const percent = ((score/80)*100).toFixed(1);
   const attempt = { mobile: appState.student.mobile, code: appState.code, date: new Date().toISOString(), score: score, percent: percent, sectionData: sectionData, answers: appState.answers };
   try{
-    const id = await dbAdd('attempts', attempt);
-    // set testid used
-    const tid = await dbGet('testids', appState.code);
-    if(tid){ tid.used = true; tid.usedAt = new Date().toISOString(); await dbPut('testids', tid); }
+    // SAVE ATTEMPT TO FIREBASE
+await fb.addDoc(
+  fb.collection(db, "attempts"),
+  {
+    ...attempt,
+    testId: appState.code
+  }
+);
+
+// LOCK TEST ID
+await fb.updateDoc(
+  fb.doc(db, "testids", appState.code),
+  {
+    used: true,
+    usedAt: new Date().toISOString()
+  }
+);
+
     await clearInprogress();
     // show result inside same file
-    renderResult({ id: id, ...attempt });
+    renderResult(attempt);
+
   }catch(e){ console.error('submit failed', e); alert('Failed to save attempt. Contact admin.'); }
 }
 
@@ -1155,6 +1341,7 @@ console.log("✅ Firebase ONLINE portal connected");
 
 </body>
 </html>
+
 
 
 
