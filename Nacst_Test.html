@@ -341,6 +341,16 @@ html,body{height:100%;margin:0;background:var(--bg);-webkit-font-smoothing:antia
   console.log("🔥 Firebase connected");
 </script>
 	<!-- ================= CORE UI FUNCTIONS (STEP 2) ================= -->
+	<script>
+/* ---------- SCREEN NAVIGATION ---------- */
+function showScreen(id){
+  const screens = document.querySelectorAll(".screen");
+  screens.forEach(s => s.style.display = "none");
+  const el = document.getElementById(id);
+  if(el) el.style.display = "block";
+}
+</script>
+
 <script>
 /* ---------- BASIC HELPERS ---------- */
 function $(id){ return document.getElementById(id); }
@@ -1146,6 +1156,7 @@ console.log("✅ Firebase ONLINE portal connected");
 
 </body>
 </html>
+
 
 
 
