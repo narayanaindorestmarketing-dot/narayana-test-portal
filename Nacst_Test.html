@@ -340,6 +340,62 @@ html,body{height:100%;margin:0;background:var(--bg);-webkit-font-smoothing:antia
 
   console.log("🔥 Firebase connected");
 </script>
+	<!-- ================= CORE UI FUNCTIONS (STEP 2) ================= -->
+<script>
+/* ---------- BASIC HELPERS ---------- */
+function $(id){ return document.getElementById(id); }
+function show(id){ $(id).style.display = "block"; }
+function hide(id){ $(id).style.display = "none"; }
+
+/* ---------- ADMIN MODAL ---------- */
+function openAdminModal(){
+  show("modalAdmin");
+}
+function closeAdminModal(){
+  hide("modalAdmin");
+  $("adminUser").value = "";
+  $("adminPass").value = "";
+}
+
+/* ---------- STUDENT MODAL ---------- */
+function openStudentModal(){
+  show("modalStudent");
+}
+function closeStudentModal(){
+  hide("modalStudent");
+  $("stuMobile").value = "";
+  $("stuTestId").value = "";
+}
+
+/* ---------- NORMALIZE MOBILE ---------- */
+function normalizeMobile(input){
+  let m = String(input||"").replace(/[^\d]/g,"");
+  if(m.length > 10) m = m.slice(-10);
+  return m;
+}
+
+/* ---------- ADMIN LOGIN ---------- */
+const DEFAULT_ADMIN_USER = "Praful1210";
+const DEFAULT_ADMIN_PASS = "Narayana@123";
+let CURRENT_ROLE = null;
+
+function adminLogin(){
+  const u = $("adminUser").value.trim();
+  const p = $("adminPass").value.trim();
+
+  if(u === DEFAULT_ADMIN_USER && p === DEFAULT_ADMIN_PASS){
+    CURRENT_ROLE = "admin";
+    closeAdminModal();
+    show("portalScreens");
+    showScreen("adminDashboard");
+    $("adminLoggedName").innerText = u;
+    try{ $("adminPanelLinks").classList.remove("hide"); }catch(e){}
+  }else{
+    alert("Invalid admin credentials");
+  }
+}
+</script>
+
 <script>
 /* Utilities */
 let CURRENT_ROLE = null; // 'admin' | 'student'
