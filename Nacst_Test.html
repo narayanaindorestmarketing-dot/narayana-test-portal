@@ -444,26 +444,24 @@ async function dbAdd(store,val){ const db=await openDB(); return new Promise((re
 async function dbAll(store){ const db=await openDB(); return new Promise((res,rej)=>{ const tx=db.transaction(store,'readonly'); const os=tx.objectStore(store); const rq=os.getAll(); rq.onsuccess=()=>res(rq.result); rq.onerror=()=>rej(rq.error); });}
 async function dbDelete(store,key){ const db=await openDB(); return new Promise((res,rej)=>{ const tx=db.transaction(store,'readwrite'); const os=tx.objectStore(store); const rq=os.delete(key); rq.onsuccess=()=>res(true); rq.onerror=()=>rej(rq.error); });}
 
-/* Admin auth */
-// const DEFAULT_ADMIN_USER = 'Praful1210', DEFAULT_ADMIN_PASS = 'Narayana@123';
-// function openAdminModal(){ $('modalAdmin').style.display='flex'; }
-// function closeAdminModal(){ $('modalAdmin').style.display='none'; $('adminUser').value=''; $('adminPass').value=''; }
+/* ---------- ADMIN LOGIN (FIXED & COMPLETE) ---------- */
+function adminLogin(){
+  const u = $('adminUser').value.trim();
+  const p = $('adminPass').value.trim();
 
-//function adminLogin(){
-  // const u = $('adminUser').value.trim();
-  // const p = $('adminPass').value.trim();
+  if(u === DEFAULT_ADMIN_USER && p === DEFAULT_ADMIN_PASS){
 
-  // if(u===DEFAULT_ADMIN_USER && p===DEFAULT_ADMIN_PASS){
-
-    // CURRENT_ROLE = 'admin'; // ✅ STEP 2: ROLE SET HERE
+    CURRENT_ROLE = 'admin';
 
     closeAdminModal();
     show('portalScreens');
     showScreen('adminDashboard');
     $('adminLoggedName').innerText = u;
 
-    $('adminPanelLinks').classList.remove('hide');
-    show('adminPanelLinks');
+    try{
+      $('adminPanelLinks').classList.remove('hide');
+      show('adminPanelLinks');
+    }catch(e){}
 
     loadStudentsTable();
     loadStudentsTable2();
@@ -473,6 +471,7 @@ async function dbDelete(store,key){ const db=await openDB(); return new Promise(
     alert('Invalid admin credentials.');
   }
 }
+
 
 
 /* adminLogout with recenter welcome fix */
@@ -1156,6 +1155,7 @@ console.log("✅ Firebase ONLINE portal connected");
 
 </body>
 </html>
+
 
 
 
