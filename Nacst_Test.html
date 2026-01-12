@@ -293,7 +293,9 @@ html,body{height:100%;margin:0;background:var(--bg);-webkit-font-smoothing:antia
                 <div style="margin-top:12px"><strong>Section-wise</strong></div>
                 <div id="resSections" style="margin-top:8px"></div>
                 <div style="margin-top:12px">
-                  <button class="btn btn-outline" onclick="downloadResultText()">Download Text</button>
+					<button class="btn danger" onclick="studentLogout()">Logout</button>
+
+                   <button class="btn btn-outline" onclick="downloadResultText()">Download Text</button>
                   <button class="btn btn-ghost" onclick="window.print()">Print / Save as PDF</button>
                 </div>
               </div>
@@ -408,6 +410,32 @@ function adminLogin(){
 
 <script>
 /* Utilities */
+	function studentLogout(){
+  // Exit fullscreen safely
+  if(document.fullscreenElement){
+    document.exitFullscreen().catch(()=>{});
+  }
+
+  // Clear student session
+  appState.student = null;
+  appState.code = null;
+  appState.questions = [];
+  appState.answers = {};
+  appState.marked = {};
+  appState.visited = {};
+
+  // Hide all portal screens
+  hide('portalScreens');
+
+  // Show welcome screen again
+  show('welcomeScreen');
+
+  // Ensure admin panel hidden
+  try{
+    $('adminPanelLinks').classList.add('hide');
+  }catch(e){}
+}
+
 
 function $(id){ return document.getElementById(id); }
 function show(el){ if(typeof el==='string') el=$(el); el.style.display='block'; }
@@ -1361,6 +1389,7 @@ console.log("✅ Firebase ONLINE portal connected");
 
 </body>
 </html>
+
 
 
 
