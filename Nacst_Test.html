@@ -744,133 +744,799 @@ async function clearAttempts(){ if(!confirm('Clear all attempts?')) return; cons
    SAFE COPY–PASTE VERSION
    ====================================================== */
 
-const Q7 = [
+const Q7_TRY_ONCE = [
 
-/* =====================
-   MATHS (12)
-   ===================== */
+/* ================= PHYSICS (10) ================= */
 
-{id:1, section:"Maths", text:"Evaluate: (−15) + 27 − 12", options:["0","−24","12","−6"], correct:0},
+{
+  id: 1,
+  section: "Physics",
+  text: "What are the essential components typically found inside a simple torchlight?",
+  options: [
+    "Wires and a motor",
+    "A switch, a lamp, and electric cells",
+    "A solar panel and a battery",
+    "A filament and a glass case only"
+  ],
+  correct: 1
+},
 
-{id:2, section:"Maths", text:"Which is greater: 5/8 or 3/4 ?", options:["5/8","3/4","Both equal","Cannot compare"], correct:1},
+{
+  id: 2,
+  section: "Physics",
+  text: "What is the correct way to connect two cells in series to form a battery?",
+  options: [
+    "Positive to positive",
+    "Negative to negative",
+    "Positive of one cell to negative of the next",
+    "Placing them side by side"
+  ],
+  correct: 2
+},
 
-{id:3, section:"Maths", text:"Convert 2.375 into fraction.", options:["19/8","15/8","19/4","23/8"], correct:0},
+{
+  id: 3,
+  section: "Physics",
+  text: "A conduction tester works because:",
+  options: [
+    "The wire becomes hot",
+    "The lamp glows if the object conducts electricity",
+    "The cell vibrates",
+    "The switch melts"
+  ],
+  correct: 1
+},
 
-{id:4, section:"Maths", text:"Solve: 3x + 7 = 25", options:["x = 4","x = 6","x = 8","x = 5"], correct:1},
+{
+  id: 4,
+  section: "Physics",
+  text: "Which mode of heat transfer involves the actual movement of particles?",
+  options: ["Conduction", "Radiation", "Convection", "Insulation"],
+  correct: 2
+},
 
-{id:5, section:"Maths", text:"If two angles are supplementary and one is 65°, the other angle is:", options:["115°","125°","55°","45°"], correct:0},
+{
+  id: 5,
+  section: "Physics",
+  text: "Which heats up faster in sunlight?",
+  options: [
+    "Water",
+    "Soil (land)",
+    "Both heat equally",
+    "Neither heats up"
+  ],
+  correct: 1
+},
 
-{id:6, section:"Maths", text:"The sum of interior angles of a triangle is:", options:["90°","180°","270°","360°"], correct:1},
+{
+  id: 6,
+  section: "Physics",
+  text: "Convert the speed of 15 m/s into km/h.",
+  options: ["4.17 km/h", "15 km/h", "54 km/h", "90 km/h"],
+  correct: 2
+},
 
-{id:7, section:"Maths", text:"If two sides of a triangle are 5 cm and 8 cm, the third side cannot be:", options:["3 cm","6 cm","10 cm","12 cm"], correct:3},
+{
+  id: 7,
+  section: "Physics",
+  text: "Who has greater speed?",
+  options: [
+    "Runner A (400 m in 50 s)",
+    "Runner B (400 m in 45 s)",
+    "Both same",
+    "Cannot be determined"
+  ],
+  correct: 1
+},
 
-{id:8, section:"Maths", text:"Find the area of a rectangle of length 12 cm and breadth 5 cm.", options:["60 cm²","34 cm²","120 cm²","17 cm²"], correct:0},
+{
+  id: 8,
+  section: "Physics",
+  text: `
+Match the term related to a simple pendulum with its correct definition:
 
-{id:9, section:"Maths", text:"Which of the following is a rational number?", options:["√2","π","0.25","√5"], correct:2},
+<table border="1" cellpadding="6" cellspacing="0" style="border-collapse:collapse;margin-top:10px;width:100%">
+<tr><th>Column I</th><th></th><th>Column II</th></tr>
+<tr><td>1. Bob</td><td>A</td><td>Time taken to complete one full swing</td></tr>
+<tr><td>2. Oscillation</td><td>B</td><td>The metallic ball suspended at the end of the thread</td></tr>
+<tr><td>3. Time period</td><td>C</td><td>Depends on the length of the pendulum</td></tr>
+<tr><td>4. Key property of time period</td><td>D</td><td>One complete to and fro movement</td></tr>
+</table>
+`,
+  options: [
+    "1-A, 2-D, 3-C, 4-B",
+    "1-B, 2-A, 3-D, 4-C",
+    "1-D, 2-B, 3-A, 4-C",
+    "1-B, 2-D, 3-A, 4-C"
+  ],
+  correct: 3
+},
 
-{id:10, section:"Maths", text:"Simplify: 2³ × 2⁴", options:["2⁷","2¹²","2¹","2⁸"], correct:0},
+{
+  id: 9,
+  section: "Physics",
+  text: "The image formed by a plane mirror appears:",
+  options: [
+    "Closer than the object",
+    "Farther than the object",
+    "At the same distance behind the mirror",
+    "On the mirror surface"
+  ],
+  correct: 2
+},
 
-{id:11, section:"Maths", text:"The mean of 2, 4, 6, 8 is:", options:["4","5","6","7"], correct:1},
+{
+  id: 10,
+  section: "Physics",
+  text: "A periscope is used to:",
+  options: [
+    "Magnify objects",
+    "See over obstacles",
+    "Take photographs",
+    "Measure height"
+  ],
+  correct: 1
+},
 
-{id:12, section:"Maths", text:"Identify the type of angle shown below:", svg:`
-<svg width="200" height="120" xmlns="http://www.w3.org/2000/svg">
-  <line x1="40" y1="80" x2="160" y2="80" stroke="#000" stroke-width="3"/>
-  <line x1="40" y1="80" x2="110" y2="30" stroke="#000" stroke-width="3"/>
-</svg>
-`, options:["Acute","Right","Obtuse","Straight"], correct:0},
+/* ================= CHEMISTRY (10) ================= */
 
-/* =====================
-   MENTAL ABILITY (8)
-   ===================== */
+{
+  id: 11,
+  section: "Chemistry",
+  text: "Litmus is obtained from:",
+  options: ["Roses", "Turmeric", "Lichens", "China rose"],
+  correct: 2
+},
 
-{id:13, section:"Mental Ability", text:"Find the missing number: 3, 6, 11, 18, ?", options:["25","27","26","24"], correct:2},
+{
+  id: 12,
+  section: "Chemistry",
+  text: "Which of the following is NOT a base?",
+  options: ["Soap solution", "Lime water", "Vinegar", "Washing powder"],
+  correct: 2
+},
 
-{id:14, section:"Mental Ability", text:"If A = 1, B = 2, then value of CAT is:", options:["24","27","20","23"], correct:0},
+{
+  id: 13,
+  section: "Chemistry",
+  text: "Citric acid is found in:",
+  options: ["Milk", "Vinegar", "Lemon", "Curd"],
+  correct: 2
+},
 
-{id:15, section:"Mental Ability", text:"Which word does NOT belong to the group?", options:["Square","Triangle","Circle","Cube"], correct:3},
+{
+  id: 14,
+  section: "Chemistry",
+  text: "Neutralisation produces:",
+  options: [
+    "Acid and water",
+    "Base and water",
+    "Salt and water",
+    "Salt only"
+  ],
+  correct: 2
+},
 
-{id:16, section:"Mental Ability", text:"Book : Read :: Pen : ?", options:["Ink","Paper","Write","Note"], correct:2},
+{
+  id: 15,
+  section: "Chemistry",
+  text: "Which metals can be cut with a knife?",
+  options: [
+    "Iron and copper",
+    "Gold and silver",
+    "Sodium and potassium",
+    "Aluminium and zinc"
+  ],
+  correct: 2
+},
 
-{id:17, section:"Mental Ability", text:"If today is Monday, what day will it be after 17 days?", options:["Tuesday","Wednesday","Thursday","Friday"], correct:1},
+{
+  id: 16,
+  section: "Chemistry",
+  text: "Thin silver foil on sweets shows:",
+  options: ["Conductivity", "Malleability", "Hardness", "Density"],
+  correct: 1
+},
 
-{id:18, section:"Mental Ability", text:"Find the odd one out: 8, 27, 64, 125", options:["8","27","64","125"], correct:0},
+{
+  id: 17,
+  section: "Chemistry",
+  text: "Which metal is most ductile?",
+  options: ["Iron", "Copper", "Aluminium", "Gold"],
+  correct: 3
+},
 
-{id:19, section:"Mental Ability", text:"Mirror image of 2:45 will be:", options:["9:15","9:45","10:15","8:45"], correct:0},
+{
+  id: 18,
+  section: "Chemistry",
+  text: "Crushing chalk into powder is:",
+  options: [
+    "Chemical change",
+    "Physical change",
+    "Irreversible change",
+    "Combustion"
+  ],
+  correct: 1
+},
 
-{id:20, section:"Mental Ability", text:"If all roses are flowers and some flowers are red, then:", options:["All roses are red","Some roses may be red","No rose is red","All red are roses"], correct:1},
+{
+  id: 19,
+  section: "Chemistry",
+  text: "Burning of magnesium ribbon is a chemical change because:",
+  options: [
+    "Heat is produced",
+    "Light is produced",
+    "New substance is formed",
+    "It is fast"
+  ],
+  correct: 2
+},
 
-/* =====================
-   PHYSICS (7)
-   ===================== */
+{
+  id: 20,
+  section: "Chemistry",
+  text: "Burning wax vapour in a candle flame is:",
+  options: [
+    "Physical change",
+    "Melting",
+    "Evaporation",
+    "Chemical change"
+  ],
+  correct: 3
+},
 
-{id:21, section:"Physics", text:"The SI unit of speed is:", options:["m/s","km/h","cm/s","m/min"], correct:0},
+/* ================= BIOLOGY (10) ================= */
 
-{id:22, section:"Physics", text:"Which mode of heat transfer does not require a medium?", options:["Conduction","Convection","Radiation","None"], correct:2},
+{
+  id: 21,
+  section: "Biology",
+  text: "Normal breathing rate of an adult at rest is:",
+  options: ["9–12", "14–18", "12–15", "18–24"],
+  correct: 1
+},
 
-{id:23, section:"Physics", text:"The image formed by a plane mirror is always:", options:["Real","Inverted","Virtual","Magnified"], correct:2},
+{
+  id: 22,
+  section: "Biology",
+  text: "Pitcher of pitcher plant is a modified:",
+  options: ["Root", "Stem", "Leaf", "Flower"],
+  correct: 2
+},
 
-{id:24, section:"Physics", text:"Which of the following is a good conductor of electricity?", options:["Plastic","Rubber","Copper","Wood"], correct:2},
+{
+  id: 23,
+  section: "Biology",
+  text: "Chloroplast is an _____ and chlorophyll is a _____.",
+  options: [
+    "Organelle, pigment",
+    "Pigment, organelle",
+    "Cell, organelle",
+    "Cell, pigment"
+  ],
+  correct: 0
+},
 
-{id:25, section:"Physics", text:"Increasing the area of contact decreases pressure for the same force.", options:["True","False","",""], correct:0},
+{
+  id: 24,
+  section: "Biology",
+  text: "Mycorrhiza is a symbiotic association between:",
+  options: [
+    "Algae and fungus",
+    "Roots and bacteria",
+    "Fungus and roots",
+    "Roots and insects"
+  ],
+  correct: 2
+},
 
-{id:26, section:"Physics", text:"Identify the component shown:", svg:`
-<svg width="220" height="90" xmlns="http://www.w3.org/2000/svg">
-  <line x1="20" y1="45" x2="80" y2="45" stroke="#000" stroke-width="3"/>
-  <line x1="80" y1="25" x2="80" y2="65" stroke="#000" stroke-width="4"/>
-  <line x1="110" y1="35" x2="110" y2="55" stroke="#000" stroke-width="2"/>
-  <line x1="110" y1="45" x2="180" y2="45" stroke="#000" stroke-width="3"/>
-</svg>
-`, options:["Bulb","Switch","Cell","Wire"], correct:2},
+{
+  id: 25,
+  section: "Biology",
+  text: "Villi are present in:",
+  options: [
+    "Stomach",
+    "Large intestine",
+    "Small intestine",
+    "Oesophagus"
+  ],
+  correct: 2
+},
 
-{id:27, section:"Physics", text:"Sound is produced due to:", options:["Reflection","Vibration","Friction","Heat"], correct:1},
+{
+  id: 26,
+  section: "Biology",
+  text: "If stomach becomes alkaline, digestion of which food is affected?",
+  options: ["Starch", "Protein", "Vitamin", "Mineral"],
+  correct: 1
+},
 
-/* =====================
-   CHEMISTRY (7)
-   ===================== */
+{
+  id: 27,
+  section: "Biology",
+  text: "Succus entericus is:",
+  options: [
+    "Salivary juice",
+    "Gastric juice",
+    "Intestinal juice",
+    "Pancreatic juice"
+  ],
+  correct: 2
+},
 
-{id:28, section:"Chemistry", text:"Which of the following is a chemical change?", options:["Melting of ice","Dissolving sugar","Rusting of iron","Cutting paper"], correct:2},
+{
+  id: 28,
+  section: "Biology",
+  text: "Flow of urine is:",
+  options: [
+    "Ureter → kidney → bladder",
+    "Nephron → ureter → bladder → urethra",
+    "Kidney → urethra → bladder",
+    "Bladder → kidney → ureter"
+  ],
+  correct: 1
+},
 
-{id:29, section:"Chemistry", text:"Which substance is basic in nature?", options:["Vinegar","Lemon juice","Baking soda","Curd"], correct:2},
+{
+  id: 29,
+  section: "Biology",
+  text: "Which blood vessel carries blood away from kidney?",
+  options: ["Renal artery", "Renal vein", "Vena cava", "Aorta"],
+  correct: 1
+},
 
-{id:30, section:"Chemistry", text:"Which method is used to separate insoluble solids from liquid?", options:["Evaporation","Filtration","Condensation","Distillation"], correct:1},
+{
+  id: 30,
+  section: "Biology",
+  text: "Which gas is released during photosynthesis?",
+  options: ["Carbon dioxide", "Nitrogen", "Oxygen", "Hydrogen"],
+  correct: 2
+},
 
-{id:31, section:"Chemistry", text:"Air is a:", options:["Compound","Element","Mixture","Pure substance"], correct:2},
+/* ================= MAT (10) ================= */
 
-{id:32, section:"Chemistry", text:"Which indicator turns red in acidic solution?", options:["Litmus","Turmeric","Phenolphthalein","China rose"], correct:0},
+{
+  id: 31,
+  section: "MAT",
+  text: "Which number is missing: 3, 6, 11, 18, ?",
+  options: ["25", "26", "27", "28"],
+  correct: 1
+},
 
-{id:33, section:"Chemistry", text:"Which separation method is shown?", svg:`
-<svg width="220" height="120" xmlns="http://www.w3.org/2000/svg">
-  <rect x="60" y="60" width="100" height="30" fill="#e0e0e0"/>
-  <line x1="80" y1="40" x2="140" y2="40" stroke="#000" stroke-width="2"/>
-  <text x="70" y="20" font-size="12">Heat</text>
-</svg>
-`, options:["Filtration","Evaporation","Sublimation","Decantation"], correct:1},
+{
+  id: 32,
+  section: "MAT",
+  text: "Odd one out:",
+  options: ["Carrot", "Potato", "Ginger", "Cabbage"],
+  correct: 3
+},
 
-{id:34, section:"Chemistry", text:"Which change is reversible?", options:["Burning candle","Rusting iron","Melting wax","Cooking food"], correct:2},
+{
+  id: 33,
+  section: "MAT",
+  text: "A man facing south turns 135° anticlockwise and then 180° clockwise. Final direction?",
+  options: ["North-East", "North-West", "South-East", "South-West"],
+  correct: 2
+},
 
-/* =====================
-   BIOLOGY (6)
-   ===================== */
+{
+  id: 34,
+  section: "MAT",
+  text: "How many pairs of letters in GLIDE have same gaps as alphabet?",
+  options: ["One", "Two", "Three", "Four"],
+  correct: 1
+},
 
-{id:35, section:"Biology", text:"Green plants prepare food by:", options:["Respiration","Photosynthesis","Transpiration","Digestion"], correct:1},
+{
+  id: 35,
+  section: "MAT",
+  text: "3 – 12, 4 – 20, 6 – 42, 7 – 63 : odd pair?",
+  options: ["3–12", "4–20", "6–42", "7–63"],
+  correct: 3
+},
 
-{id:36, section:"Biology", text:"Which part of digestive system absorbs nutrients?", options:["Stomach","Large intestine","Small intestine","Oesophagus"], correct:2},
+{
+  id: 36,
+  section: "MAT",
+  text: "Ocean : Water :: Glacier : ?",
+  options: ["Refrigerator", "Ice", "Mountain", "Cave"],
+  correct: 1
+},
 
-{id:37, section:"Biology", text:"Which gas is taken in during breathing?", options:["CO₂","Oxygen","Nitrogen","Hydrogen"], correct:1},
+{
+  id: 37,
+  section: "MAT",
+  text: "Arrange logically: Infant, Child, Education, Job, Marriage",
+  options: [
+    "Child, Education, Job, Marriage, Infant",
+    "Infant, Child, Education, Job, Marriage",
+    "Infant, Marriage, Job, Child, Education",
+    "Education, Job, Child, Marriage, Infant"
+  ],
+  correct: 1
+},
 
-{id:38, section:"Biology", text:"Which component of blood carries oxygen?", options:["Plasma","Platelets","WBC","RBC"], correct:3},
+{
+  id: 38,
+  section: "MAT",
+  text: "Mirror image of word EFFECTIVE is:",
+  options: ["EVIEFFECT", "EVITCEFFE", "EFFECTIVE", "TCEFFEVI"],
+  correct: 1
+},
 
-{id:39, section:"Biology", text:"Identify the part shown:", svg:`
-<svg width="220" height="140" xmlns="http://www.w3.org/2000/svg">
-  <ellipse cx="110" cy="70" rx="70" ry="45" fill="#e8f0ff" stroke="#1f4bb8"/>
-  <circle cx="110" cy="70" r="18" fill="#ffdede" stroke="#b33"/>
-  <text x="95" y="75" font-size="12">Nucleus</text>
-</svg>
-`, options:["Cell wall","Nucleus","Vacuole","Mitochondria"], correct:1},
+{
+  id: 39,
+  section: "MAT",
+  text: "How many triangles are there in the given figure?",
+  options: ["9", "10", "11", "12"],
+  correct: 2
+},
 
-{id:40, section:"Biology", text:"Which part of flower develops into fruit?", options:["Petal","Ovule","Ovary","Stamen"], correct:2}
+{
+  id: 40,
+  section: "MAT",
+  text: "How many 6’s are preceded by 7 but not followed by 9 in the series?",
+  options: ["One", "Two", "Three", "Four"],
+  correct: 2
+}
 
 ];
+/* ================= ADDITIONAL QUESTIONS (41–75) ================= */
+
+/* ===== PHYSICS (8) ===== */
+
+{
+  id: 41,
+  section: "Physics",
+  text: "Which instrument is used to measure time?",
+  options: ["Barometer", "Thermometer", "Clock", "Ammeter"],
+  correct: 2
+},
+
+{
+  id: 42,
+  section: "Physics",
+  text: `
+The diagram shows a simple pendulum.
+
+<svg width="200" height="240" xmlns="http://www.w3.org/2000/svg">
+<line x1="100" y1="20" x2="100" y2="160" stroke="#000" stroke-width="2"/>
+<circle cx="100" cy="185" r="20" fill="#ccc" stroke="#000"/>
+<text x="60" y="210" font-size="12">Bob</text>
+</svg>
+
+Which factor affects the time period of the pendulum?
+`,
+  options: [
+    "Mass of the bob",
+    "Length of the pendulum",
+    "Material of bob",
+    "Colour of string"
+  ],
+  correct: 1
+},
+
+{
+  id: 43,
+  section: "Physics",
+  text: "Which type of mirror is used as a rear-view mirror?",
+  options: ["Plane", "Concave", "Convex", "Cylindrical"],
+  correct: 2
+},
+
+{
+  id: 44,
+  section: "Physics",
+  text: "When light passes from air to water, it:",
+  options: [
+    "Speeds up",
+    "Stops",
+    "Bends",
+    "Disappears"
+  ],
+  correct: 2
+},
+
+{
+  id: 45,
+  section: "Physics",
+  text: `
+Observe the ray diagram:
+
+<svg width="240" height="120" xmlns="http://www.w3.org/2000/svg">
+<line x1="20" y1="60" x2="220" y2="60" stroke="#999"/>
+<rect x="110" y="30" width="10" height="60" fill="#4f7dff"/>
+<line x1="20" y1="40" x2="110" y2="60" stroke="#ff8c00"/>
+</svg>
+
+The phenomenon shown above is:
+`,
+  options: [
+    "Reflection",
+    "Dispersion",
+    "Refraction",
+    "Scattering"
+  ],
+  correct: 2
+},
+
+{
+  id: 46,
+  section: "Physics",
+  text: "SI unit of speed is:",
+  options: ["km/h", "m/s", "cm/s", "m/min"],
+  correct: 1
+},
+
+{
+  id: 47,
+  section: "Physics",
+  text: "Speed depends on:",
+  options: [
+    "Distance only",
+    "Time only",
+    "Distance and time",
+    "Direction"
+  ],
+  correct: 2
+},
+
+{
+  id: 48,
+  section: "Physics",
+  text: "The shadow is shortest at:",
+  options: ["Morning", "Evening", "Noon", "Night"],
+  correct: 2
+},
+
+/* ===== CHEMISTRY (9) ===== */
+
+{
+  id: 49,
+  section: "Chemistry",
+  text: "Which gas is released when an acid reacts with a metal?",
+  options: ["Oxygen", "Hydrogen", "Carbon dioxide", "Nitrogen"],
+  correct: 1
+},
+
+{
+  id: 50,
+  section: "Chemistry",
+  text: "Which of the following is a neutral substance?",
+  options: ["Vinegar", "Soap", "Pure water", "Lemon juice"],
+  correct: 2
+},
+
+{
+  id: 51,
+  section: "Chemistry",
+  text: "Which method is used to separate cream from milk?",
+  options: ["Filtration", "Evaporation", "Churning", "Decantation"],
+  correct: 2
+},
+
+{
+  id: 52,
+  section: "Chemistry",
+  text: "Rusting is faster in:",
+  options: [
+    "Dry air",
+    "Cold air",
+    "Moist air",
+    "Vacuum"
+  ],
+  correct: 2
+},
+
+{
+  id: 53,
+  section: "Chemistry",
+  text: "Which metal is liquid at room temperature?",
+  options: ["Iron", "Mercury", "Copper", "Aluminium"],
+  correct: 1
+},
+
+{
+  id: 54,
+  section: "Chemistry",
+  text: "Galvanisation prevents rusting by coating iron with:",
+  options: ["Copper", "Tin", "Zinc", "Silver"],
+  correct: 2
+},
+
+{
+  id: 55,
+  section: "Chemistry",
+  text: "Physical change is reversible because:",
+  options: [
+    "No new substance is formed",
+    "Heat is produced",
+    "Colour changes",
+    "Gas is formed"
+  ],
+  correct: 0
+},
+
+{
+  id: 56,
+  section: "Chemistry",
+  text: "Burning magnesium ribbon forms:",
+  options: [
+    "Magnesium chloride",
+    "Magnesium oxide",
+    "Magnesium sulphate",
+    "Magnesium nitrate"
+  ],
+  correct: 1
+},
+
+{
+  id: 57,
+  section: "Chemistry",
+  text: "Which is NOT a metal?",
+  options: ["Iron", "Sulphur", "Copper", "Zinc"],
+  correct: 1
+},
+
+/* ===== BIOLOGY (9) ===== */
+
+{
+  id: 58,
+  section: "Biology",
+  text: "Which organ helps in pumping blood?",
+  options: ["Lungs", "Heart", "Kidney", "Liver"],
+  correct: 1
+},
+
+{
+  id: 59,
+  section: "Biology",
+  text: "Breathing involves:",
+  options: [
+    "Only inhalation",
+    "Only exhalation",
+    "Both inhalation and exhalation",
+    "Digestion"
+  ],
+  correct: 2
+},
+
+{
+  id: 60,
+  section: "Biology",
+  text: "Which blood cells help in clotting?",
+  options: ["RBC", "WBC", "Platelets", "Plasma"],
+  correct: 2
+},
+
+{
+  id: 61,
+  section: "Biology",
+  text: "Which organ filters blood?",
+  options: ["Liver", "Kidney", "Heart", "Lungs"],
+  correct: 1
+},
+
+{
+  id: 62,
+  section: "Biology",
+  text: "Green pigment in leaves is:",
+  options: ["Carotene", "Chlorophyll", "Xanthophyll", "Anthocyanin"],
+  correct: 1
+},
+
+{
+  id: 63,
+  section: "Biology",
+  text: "Plants prepare food by:",
+  options: [
+    "Respiration",
+    "Transpiration",
+    "Photosynthesis",
+    "Digestion"
+  ],
+  correct: 2
+},
+
+{
+  id: 64,
+  section: "Biology",
+  text: "Which is an insectivorous plant?",
+  options: ["Rose", "Pitcher plant", "Sunflower", "Lotus"],
+  correct: 1
+},
+
+{
+  id: 65,
+  section: "Biology",
+  text: "Which vitamin is made in skin by sunlight?",
+  options: ["Vitamin A", "Vitamin B", "Vitamin C", "Vitamin D"],
+  correct: 3
+},
+
+{
+  id: 66,
+  section: "Biology",
+  text: "Food pipe is also called:",
+  options: ["Trachea", "Oesophagus", "Intestine", "Bronchus"],
+  correct: 1
+},
+
+/* ===== MAT / REASONING (9) ===== */
+
+{
+  id: 67,
+  section: "MAT",
+  text: "Find the next number: 2, 4, 8, 16, ?",
+  options: ["18", "24", "32", "64"],
+  correct: 2
+},
+
+{
+  id: 68,
+  section: "MAT",
+  text: "Odd one out:",
+  options: ["Apple", "Banana", "Carrot", "Mango"],
+  correct: 2
+},
+
+{
+  id: 69,
+  section: "MAT",
+  text: "A is taller than B, B is taller than C. Who is shortest?",
+  options: ["A", "B", "C", "Cannot say"],
+  correct: 2
+},
+
+{
+  id: 70,
+  section: "MAT",
+  text: "Mirror image of LEFT is:",
+  options: ["TFEL", "TELF", "LEFT", "TFLE"],
+  correct: 0
+},
+
+{
+  id: 71,
+  section: "MAT",
+  text: "Which number is missing: 5, 10, 20, 40, ?",
+  options: ["45", "60", "80", "100"],
+  correct: 2
+},
+
+{
+  id: 72,
+  section: "MAT",
+  text: "Doctor : Hospital :: Teacher : ?",
+  options: ["School", "Office", "Class", "Student"],
+  correct: 0
+},
+
+{
+  id: 73,
+  section: "MAT",
+  text: "How many sides does a hexagon have?",
+  options: ["5", "6", "7", "8"],
+  correct: 1
+},
+
+{
+  id: 74,
+  section: "MAT",
+  text: "Which is the smallest?",
+  options: ["1/2", "1/3", "1/4", "1/5"],
+  correct: 3
+},
+
+{
+  id: 75,
+  section: "MAT",
+  text: "Which number is divisible by 9?",
+  options: ["234", "243", "256", "278"],
+  correct: 1
+}
+
+];
+
 
 
 
@@ -1391,6 +2057,7 @@ console.log("✅ Firebase ONLINE portal connected");
 
 </body>
 </html>
+
 
 
 
