@@ -744,57 +744,64 @@ async function clearAttempts(){ if(!confirm('Clear all attempts?')) return; cons
    SAFE COPY–PASTE VERSION
    ====================================================== */
 
-/* ================= FIRST 40 (OLD PATTERN) ================= */
+const Q7 = [
 
-/* ===== MATHS (12) ===== */
+/* ================= MATHS (12) ================= */
+
 {id:1,section:"Maths",text:"Evaluate: (−15) + 27 − 12",options:["0","−24","12","−6"],correct:0},
 {id:2,section:"Maths",text:"Which is greater: 5/8 or 3/4 ?",options:["5/8","3/4","Both equal","Cannot compare"],correct:1},
 {id:3,section:"Maths",text:"Convert 2.375 into fraction.",options:["19/8","15/8","19/4","23/8"],correct:0},
 {id:4,section:"Maths",text:"Solve: 3x + 7 = 25",options:["x = 4","x = 6","x = 8","x = 5"],correct:1},
-{id:5,section:"Maths",text:"The sum of interior angles of a triangle is:",options:["90°","180°","270°","360°"],correct:1},
-{id:6,section:"Maths",text:"Find the area of a rectangle of length 12 cm and breadth 5 cm.",options:["60 cm²","34 cm²","120 cm²","17 cm²"],correct:0},
-{id:7,section:"Maths",text:"Which of the following is a rational number?",options:["√2","π","0.25","√5"],correct:2},
-{id:8,section:"Maths",text:"Simplify: 2³ × 2⁴",options:["2⁷","2¹²","2¹","2⁸"],correct:0},
-{id:9,section:"Maths",text:"The mean of 2, 4, 6, 8 is:",options:["4","5","6","7"],correct:1},
-{id:10,section:"Maths",text:"If two angles are supplementary and one is 65°, the other is:",options:["115°","125°","55°","45°"],correct:0},
+{id:5,section:"Maths",text:"If two angles are supplementary and one is 65°, the other angle is:",options:["115°","125°","55°","45°"],correct:0},
+{id:6,section:"Maths",text:"The sum of interior angles of a triangle is:",options:["90°","180°","270°","360°"],correct:1},
+{id:7,section:"Maths",text:"Find the area of a rectangle of length 12 cm and breadth 5 cm.",options:["60 cm²","34 cm²","120 cm²","17 cm²"],correct:0},
+{id:8,section:"Maths",text:"Which of the following is a rational number?",options:["√2","π","0.25","√5"],correct:2},
+{id:9,section:"Maths",text:"Simplify: 2³ × 2⁴",options:["2⁷","2¹²","2¹","2⁸"],correct:0},
+{id:10,section:"Maths",text:"The mean of 2, 4, 6, 8 is:",options:["4","5","6","7"],correct:1},
 {id:11,section:"Maths",text:"Perimeter of a square of side 5 cm is:",options:["10 cm","15 cm","20 cm","25 cm"],correct:2},
 {id:12,section:"Maths",text:"The product of 7 and 8 is:",options:["48","54","56","64"],correct:2},
 
-/* ===== MAT (8) ===== */
-{id:13,section:"MAT",text:"Find the next number: 2, 4, 8, 16, ?",options:["18","24","32","64"],correct:2},
-{id:14,section:"MAT",text:"Odd one out:",options:["Apple","Banana","Carrot","Mango"],correct:2},
-{id:15,section:"MAT",text:"A is taller than B, B is taller than C. Who is shortest?",options:["A","B","C","Cannot say"],correct:2},
-{id:16,section:"MAT",text:"Mirror image of LEFT is:",options:["TFEL","TELF","LEFT","TFLE"],correct:0},
-{id:17,section:"MAT",text:"Which number is missing: 5, 10, 20, 40, ?",options:["45","60","80","100"],correct:2},
-{id:18,section:"MAT",text:"Doctor : Hospital :: Teacher : ?",options:["School","Office","Class","Student"],correct:0},
-{id:19,section:"MAT",text:"Which is the smallest?",options:["1/2","1/3","1/4","1/5"],correct:3},
-{id:20,section:"MAT",text:"Book : Read :: Pen : ?",options:["Ink","Paper","Write","Note"],correct:2},
+/* ================= MAT (8) ================= */
 
-/* ===== CHEMISTRY (7) ===== */
-{id:21,section:"Chemistry",text:"Rusting of iron needs:",options:["Water","Oxygen","Both","None"],correct:2},
-{id:22,section:"Chemistry",text:"Which gas is released when acid reacts with metal?",options:["Oxygen","Hydrogen","Carbon dioxide","Nitrogen"],correct:1},
-{id:23,section:"Chemistry",text:"Which of these is a physical change?",options:["Burning","Rusting","Melting","Digestion"],correct:2},
-{id:24,section:"Chemistry",text:"Which substance is neutral?",options:["Vinegar","Soap","Pure water","Lemon"],correct:2},
-{id:25,section:"Chemistry",text:"Which method separates cream from milk?",options:["Filtration","Churning","Evaporation","Sedimentation"],correct:1},
-{id:26,section:"Chemistry",text:"Which metal is liquid at room temperature?",options:["Iron","Mercury","Copper","Aluminium"],correct:1},
-{id:27,section:"Chemistry",text:"Which is NOT a metal?",options:["Iron","Sulphur","Copper","Zinc"],correct:1},
+{id:13,section:"MAT",text:"Find the next number: 3, 6, 11, 18, ?",options:["25","27","26","24"],correct:2},
+{id:14,section:"MAT",text:"If A = 1, B = 2, then value of CAT is:",options:["24","27","20","23"],correct:0},
+{id:15,section:"MAT",text:"Which word does NOT belong to the group?",options:["Square","Triangle","Circle","Cube"],correct:3},
+{id:16,section:"MAT",text:"Book : Read :: Pen : ?",options:["Ink","Paper","Write","Note"],correct:2},
+{id:17,section:"MAT",text:"If today is Monday, what day will it be after 17 days?",options:["Tuesday","Wednesday","Thursday","Friday"],correct:1},
+{id:18,section:"MAT",text:"Find the odd one out: 8, 27, 64, 125",options:["8","27","64","125"],correct:0},
+{id:19,section:"MAT",text:"Mirror image of 2:45 will be:",options:["9:15","9:45","10:15","8:45"],correct:0},
+{id:20,section:"MAT",text:"If all roses are flowers and some flowers are red, then:",options:["All roses are red","Some roses may be red","No rose is red","All red are roses"],correct:1},
 
-/* ===== PHYSICS (7) ===== */
-{id:28,section:"Physics",text:"SI unit of speed is:",options:["km/h","m/s","cm/s","m/min"],correct:1},
-{id:29,section:"Physics",text:"The SI unit of time is:",options:["Hour","Minute","Second","Day"],correct:2},
-{id:30,section:"Physics",text:"Which mirror is used as rear view mirror?",options:["Plane","Concave","Convex","Spherical"],correct:2},
-{id:31,section:"Physics",text:"Sound is produced due to:",options:["Reflection","Vibration","Heat","Friction"],correct:1},
-{id:32,section:"Physics",text:"Which force acts without contact?",options:["Muscular","Friction","Gravitational","Applied"],correct:2},
-{id:33,section:"Physics",text:"Shadow is shortest at:",options:["Morning","Evening","Noon","Night"],correct:2},
-{id:34,section:"Physics",text:"Image formed by plane mirror is:",options:["Real","Inverted","Virtual","Magnified"],correct:2},
+/* ================= CHEMISTRY (7) ================= */
 
-/* ===== BIOLOGY (6) ===== */
-{id:35,section:"Biology",text:"Which organ pumps blood?",options:["Lungs","Heart","Kidney","Liver"],correct:1},
-{id:36,section:"Biology",text:"Green pigment in leaves is:",options:["Chlorophyll","Carotene","Xanthophyll","Anthocyanin"],correct:0},
-{id:37,section:"Biology",text:"Plants make food by:",options:["Respiration","Photosynthesis","Transpiration","Digestion"],correct:1},
-{id:38,section:"Biology",text:"Which vitamin is made by sunlight?",options:["A","B","C","D"],correct:3},
-{id:39,section:"Biology",text:"Which blood cells carry oxygen?",options:["RBC","WBC","Platelets","Plasma"],correct:0},
-{id:40,section:"Biology",text:"Which organ filters blood?",options:["Liver","Kidney","Heart","Lungs"],correct:1},
+{id:21,section:"Chemistry",text:"Which of the following is a chemical change?",options:["Melting of ice","Dissolving sugar","Rusting of iron","Cutting paper"],correct:2},
+{id:22,section:"Chemistry",text:"Which substance is basic in nature?",options:["Vinegar","Lemon juice","Baking soda","Curd"],correct:2},
+{id:23,section:"Chemistry",text:"Which method is used to separate insoluble solids from liquid?",options:["Evaporation","Filtration","Condensation","Distillation"],correct:1},
+{id:24,section:"Chemistry",text:"Air is a:",options:["Compound","Element","Mixture","Pure substance"],correct:2},
+{id:25,section:"Chemistry",text:"Which indicator turns red in acidic solution?",options:["Litmus","Turmeric","Phenolphthalein","China rose"],correct:0},
+{id:26,section:"Chemistry",text:"Which change is reversible?",options:["Burning candle","Rusting iron","Melting wax","Cooking food"],correct:2},
+{id:27,section:"Chemistry",text:"Which substance is a mixture?",options:["Distilled water","Air","Iron","Copper"],correct:1},
+
+/* ================= PHYSICS (7) ================= */
+
+{id:28,section:"Physics",text:"The SI unit of speed is:",options:["m/s","km/h","cm/s","m/min"],correct:0},
+{id:29,section:"Physics",text:"Which mode of heat transfer does not require a medium?",options:["Conduction","Convection","Radiation","None"],correct:2},
+{id:30,section:"Physics",text:"The image formed by a plane mirror is always:",options:["Real","Inverted","Virtual","Magnified"],correct:2},
+{id:31,section:"Physics",text:"Which of the following is a good conductor of electricity?",options:["Plastic","Rubber","Copper","Wood"],correct:2},
+{id:32,section:"Physics",text:"Increasing the area of contact decreases pressure for the same force.",options:["True","False","",""],correct:0},
+{id:33,section:"Physics",text:"Sound is produced due to:",options:["Reflection","Vibration","Friction","Heat"],correct:1},
+{id:34,section:"Physics",text:"Which mirror is used as rear view mirror?",options:["Plane","Concave","Convex","Spherical"],correct:2},
+
+/* ================= BIOLOGY (6) ================= */
+
+{id:35,section:"Biology",text:"Green plants prepare food by:",options:["Respiration","Photosynthesis","Transpiration","Digestion"],correct:1},
+{id:36,section:"Biology",text:"Which part of digestive system absorbs nutrients?",options:["Stomach","Large intestine","Small intestine","Oesophagus"],correct:2},
+{id:37,section:"Biology",text:"Which gas is taken in during breathing?",options:["CO₂","Oxygen","Nitrogen","Hydrogen"],correct:1},
+{id:38,section:"Biology",text:"Which component of blood carries oxygen?",options:["Plasma","Platelets","WBC","RBC"],correct:3},
+{id:39,section:"Biology",text:"Which part of flower develops into fruit?",options:["Petal","Ovule","Ovary","Stamen"],correct:2},
+{id:40,section:"Biology",text:"Which tissue connects muscles to bones?",options:["Ligament","Tendon","Cartilage","Blood"],correct:1}
+
+];
 
 
 /* CLASS 8 (40) */
@@ -1314,6 +1321,7 @@ console.log("✅ Firebase ONLINE portal connected");
 
 </body>
 </html>
+
 
 
 
