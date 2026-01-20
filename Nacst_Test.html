@@ -77,6 +77,18 @@ html,body{height:100%;margin:0;background:var(--bg);-webkit-font-smoothing:antia
   .result-right{width:100%}
 }
 
+	/* ===== WELCOME SCREEN NO-SCROLL HELPER ===== */
+.no-scroll-center {
+  min-height: 100svh;        /* modern safe viewport height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;          /* scroll completely stop */
+}
+body {
+  overflow-x: hidden;
+}
+
 /* small helper */
 .hide{display:none}
 .center{text-align:center}
@@ -1504,6 +1516,7 @@ console.log("✅ Firebase ONLINE portal connected");
 
 </body>
 </html>
+
 
 
 
