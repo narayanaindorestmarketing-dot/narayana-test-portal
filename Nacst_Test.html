@@ -425,6 +425,31 @@ function showScreen(id){
   const el = document.getElementById(id);
   if(el) el.style.display = "block";
 }
+		/* ================= HARD STOP NO-SCROLL FIX ================= */
+
+/* Only for welcome screen */
+#welcomeScreen {
+  position: fixed;
+  inset: 0;                 /* top:0 right:0 bottom:0 left:0 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;         /* NO SCROLL */
+  background: var(--bg);
+}
+
+/* Disable container padding ONLY here */
+#welcomeScreen.container {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Ensure welcome box never exceeds screen */
+#welcomeScreen .welcome-box {
+  max-height: calc(100vh - 20px);
+  overflow: hidden;
+}
+
 </script>
 
 <script>
@@ -479,7 +504,8 @@ function adminLogin(){
   }else{
     alert("Invalid admin credentials");
   }
-}
+}	
+	
 </script>
 
 <script>
@@ -1516,6 +1542,7 @@ console.log("✅ Firebase ONLINE portal connected");
 
 </body>
 </html>
+
 
 
 
