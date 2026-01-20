@@ -87,25 +87,85 @@ html,body{height:100%;margin:0;background:var(--bg);-webkit-font-smoothing:antia
 
 <div class="app">
 
-  <!-- WELCOME SCREEN -->
+  <!-- HOME / INDEX SCREEN -->
   <section id="welcomeScreen" class="container">
     <div class="welcome-box center">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
 
-        <div class="brand">Narayana Test Portal — ST Branch</div>
-        <div class="small">ONLINE EXAM PORTAL</div>
+      <!-- LOGO AS MAIN HOME ELEMENT -->
+      <div style="margin-bottom:22px;">
+        <img
+          src="narayana-logo.png"
+          alt="Narayana Educational Institutions"
+          style="
+            max-width:220px;
+            width:100%;
+            height:auto;
+          "
+        />
       </div>
-      <h1>Welcome to Narayana Test Portal</h1>
-      <h4>Secure Exam System — ST Branch, Indore<br/><br/>Class Tests: 8 / 9 / 10 (NCERT 2025–2026)</h4>
 
-      <div style="margin-top:18px">
-        <button class="btn btn-primary" onclick="openStudentModal()">Student Login</button>
-        <button class="btn btn-outline" onclick="openAdminModal()">Admin Login</button>
+      <!-- PORTAL TITLE -->
+      <div class="brand" style="font-size:26px; margin-bottom:4px;">
+        Narayana Test Portal — ST Branch
+      </div>
+      <div class="small" style="margin-bottom:18px;">
+        ONLINE EXAM PORTAL
       </div>
 
-      <div style="margin-top:18px;color:#666">
-        <small>Note: Use admin to register students and generate one-time Test IDs. Student login requires mobile + Test ID.</small>
+      <!-- TAGLINE -->
+      <p style="
+        font-size:17px;
+        color:#444;
+        margin-bottom:16px;
+      ">
+        Secure Exam System — ST Branch, Indore
+      </p>
+
+      <!-- CLASS INFO -->
+      <div style="
+        display:inline-block;
+        background:#eef4ff;
+        color:#1f4bb8;
+        padding:8px 16px;
+        border-radius:999px;
+        font-weight:600;
+        margin-bottom:22px;
+      ">
+        Class Tests: 8 / 9 / 10 &nbsp;|&nbsp; NCERT 2025–2026
       </div>
+
+      <!-- ACTION BUTTONS -->
+      <div style="
+        display:flex;
+        justify-content:center;
+        gap:16px;
+        flex-wrap:wrap;
+        margin-top:20px;
+      ">
+        <button class="btn btn-primary" onclick="openStudentModal()">
+          Student Login
+        </button>
+        <button class="btn btn-outline" onclick="openAdminModal()">
+          Admin Login
+        </button>
+      </div>
+
+      <!-- NOTE -->
+      <div style="
+        margin-top:22px;
+        font-size:14px;
+        color:#666;
+        max-width:540px;
+      ">
+        <strong>Note:</strong>
+        Admin login is used to register students and generate one-time Test IDs.
+        Students must login using their registered mobile number and Test ID.
+      </div>
+
+    </div>
+  </section>
+
+</div>
     </div>
   </section>
   <!-- MODAL: ADMIN LOGIN -->
@@ -1444,6 +1504,7 @@ console.log("✅ Firebase ONLINE portal connected");
 
 </body>
 </html>
+
 
 
 
