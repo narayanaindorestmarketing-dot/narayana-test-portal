@@ -746,98 +746,154 @@ async function clearAttempts(){ if(!confirm('Clear all attempts?')) return; cons
 
 const Q7 = [
 
-/* ================= MATHS (15) ================= */
+/* ================= MATHS (12 | 2 Diagram) ================= */
 
 {id:1,section:"Maths",text:"Evaluate: (−15) + 27 − 12",options:["0","−24","12","−6"],correct:0},
-{id:2,section:"Maths",text:"Which is greater: 5/8 or 3/4 ?",options:["5/8","3/4","Both equal","Cannot compare"],correct:1},
-{id:3,section:"Maths",text:"Convert 2.375 into fraction.",options:["19/8","15/8","19/4","23/8"],correct:0},
-{id:4,section:"Maths",text:"Solve: 3x + 7 = 25",options:["x = 4","x = 6","x = 8","x = 5"],correct:1},
-{id:5,section:"Maths",text:"The sum of interior angles of a triangle is:",options:["90°","180°","270°","360°"],correct:1},
-{id:6,section:"Maths",text:"Find the area of a rectangle of length 12 cm and breadth 5 cm.",options:["60 cm²","34 cm²","120 cm²","17 cm²"],correct:0},
-{id:7,section:"Maths",text:"Which of the following is a rational number?",options:["√2","π","0.25","√5"],correct:2},
-{id:8,section:"Maths",text:"Simplify: 2³ × 2⁴",options:["2⁷","2¹²","2¹","2⁸"],correct:0},
-{id:9,section:"Maths",text:"The mean of 2, 4, 6, 8 is:",options:["4","5","6","7"],correct:1},
-{id:10,section:"Maths",text:"If two angles are supplementary and one is 65°, the other is:",options:["115°","125°","55°","45°"],correct:0},
-{id:11,section:"Maths",text:"Which of the following is a perfect square?",options:["16","18","20","22"],correct:0},
-{id:12,section:"Maths",text:"Find the value of x if x/4 = 6",options:["18","20","22","24"],correct:3},
-{id:13,section:"Maths",text:"Perimeter of a square of side 5 cm is:",options:["10 cm","15 cm","20 cm","25 cm"],correct:2},
-{id:14,section:"Maths",text:"Which number is divisible by 3?",options:["124","231","145","278"],correct:1},
-{id:15,section:"Maths",text:"The product of 7 and 8 is:",options:["48","54","56","64"],correct:2},
+{id:2,section:"Maths",text:"Convert 2.375 into fraction.",options:["19/8","15/8","19/4","23/8"],correct:0},
+{id:3,section:"Maths",text:"Simplify: 2³ × 2⁴",options:["2⁷","2¹²","2¹","2⁸"],correct:0},
+{id:4,section:"Maths",text:"The mean of 2, 4, 6, 8 is:",options:["4","5","6","7"],correct:1},
+{id:5,section:"Maths",text:"Perimeter of a square of side 5 cm is:",options:["10","15","20","25"],correct:2},
+{id:6,section:"Maths",text:"Which number is divisible by 3?",options:["124","231","145","278"],correct:1},
+{id:7,section:"Maths",text:"Find the area of rectangle (12 cm × 5 cm):",options:["60","34","120","17"],correct:0},
+{id:8,section:"Maths",text:"Which of the following is a rational number?",options:["√2","π","0.25","√5"],correct:2},
+{id:9,section:"Maths",text:"The sum of angles of a triangle is:",options:["90°","180°","270°","360°"],correct:1},
+{id:10,section:"Maths",text:"The product of 7 and 8 is:",options:["48","54","56","64"],correct:2},
 
-/* ================= MENTAL ABILITY (15) ================= */
+/* Maths – Diagram */
+{
+  id:11,
+  section:"Maths",
+  text:"Identify the type of angle shown:",
+  svg:`<svg width="200" height="120" xmlns="http://www.w3.org/2000/svg">
+  <line x1="40" y1="80" x2="160" y2="80" stroke="#000" stroke-width="3"/>
+  <line x1="40" y1="80" x2="100" y2="30" stroke="#000" stroke-width="3"/>
+</svg>`,
+  options:["Acute","Right","Obtuse","Straight"],
+  correct:0
+},
+{
+  id:12,
+  section:"Maths",
+  text:"How many sides does the figure have?",
+  svg:`<svg width="200" height="120" xmlns="http://www.w3.org/2000/svg">
+  <polygon points="100,20 160,60 130,110 70,110 40,60"
+  fill="#eaf4ff" stroke="#000"/>
+</svg>`,
+  options:["4","5","6","7"],
+  correct:1
+},
 
-{id:16,section:"MAT",text:"Find the next number: 2, 4, 8, 16, ?",options:["18","24","32","64"],correct:2},
-{id:17,section:"MAT",text:"Odd one out:",options:["Apple","Banana","Carrot","Mango"],correct:2},
-{id:18,section:"MAT",text:"A is taller than B, B is taller than C. Who is shortest?",options:["A","B","C","Cannot say"],correct:2},
-{id:19,section:"MAT",text:"Mirror image of LEFT is:",options:["TFEL","TELF","LEFT","TFLE"],correct:0},
-{id:20,section:"MAT",text:"Which number is missing: 5, 10, 20, 40, ?",options:["45","60","80","100"],correct:2},
-{id:21,section:"MAT",text:"Doctor : Hospital :: Teacher : ?",options:["School","Office","Class","Student"],correct:0},
-{id:22,section:"MAT",text:"How many sides does a hexagon have?",options:["5","6","7","8"],correct:1},
-{id:23,section:"MAT",text:"Which is the smallest?",options:["1/2","1/3","1/4","1/5"],correct:3},
-{id:24,section:"MAT",text:"Find the odd number:",options:["2","4","6","9"],correct:3},
-{id:25,section:"MAT",text:"If today is Monday, day after tomorrow will be:",options:["Tuesday","Wednesday","Thursday","Friday"],correct:1},
-{id:26,section:"MAT",text:"Complete the series: 1, 4, 9, 16, ?",options:["20","24","25","36"],correct:2},
-{id:27,section:"MAT",text:"Book : Read :: Pen : ?",options:["Ink","Paper","Write","Note"],correct:2},
-{id:28,section:"MAT",text:"Which word does NOT belong?",options:["Square","Triangle","Circle","Cube"],correct:3},
-{id:29,section:"MAT",text:"Find missing number: 3, 6, 11, 18, ?",options:["25","26","27","28"],correct:1},
-{id:30,section:"MAT",text:"If A = 1, B = 2, CAT = ?",options:["24","27","20","23"],correct:0},
+/* ================= MAT (8 | 2 Diagram) ================= */
 
-/* ================= PHYSICS (15) ================= */
+{id:13,section:"MAT",text:"Find the next number: 2, 4, 8, 16, ?",options:["18","24","32","64"],correct:2},
+{id:14,section:"MAT",text:"Odd one out:",options:["Apple","Banana","Carrot","Mango"],correct:2},
+{id:15,section:"MAT",text:"A is taller than B, B is taller than C. Who is shortest?",options:["A","B","C","Cannot say"],correct:2},
+{id:16,section:"MAT",text:"Doctor : Hospital :: Teacher : ?",options:["School","Office","Class","Student"],correct:0},
+{id:17,section:"MAT",text:"Which is the smallest?",options:["1/2","1/3","1/4","1/5"],correct:3},
+{id:18,section:"MAT",text:"Book : Read :: Pen : ?",options:["Ink","Paper","Write","Note"],correct:2},
 
-{id:31,section:"Physics",text:"SI unit of speed is:",options:["km/h","m/s","cm/s","m/min"],correct:1},
-{id:32,section:"Physics",text:"The SI unit of time is:",options:["Hour","Minute","Second","Day"],correct:2},
-{id:33,section:"Physics",text:"Which instrument measures temperature?",options:["Barometer","Thermometer","Ammeter","Clock"],correct:1},
-{id:34,section:"Physics",text:"Which mirror is used as rear view mirror?",options:["Plane","Concave","Convex","Spherical"],correct:2},
-{id:35,section:"Physics",text:"Sound is produced due to:",options:["Reflection","Vibration","Heat","Friction"],correct:1},
-{id:36,section:"Physics",text:"Which force acts without contact?",options:["Muscular","Friction","Gravitational","Applied"],correct:2},
-{id:37,section:"Physics",text:"Shadow is shortest at:",options:["Morning","Evening","Noon","Night"],correct:2},
-{id:38,section:"Physics",text:"Which material is a good conductor?",options:["Plastic","Rubber","Copper","Wood"],correct:2},
-{id:39,section:"Physics",text:"Speed depends on:",options:["Distance","Time","Both","Direction"],correct:2},
-{id:40,section:"Physics",text:"Which has more inertia?",options:["Car","Bicycle","Truck","Ball"],correct:2},
-{id:41,section:"Physics",text:"The time taken for one oscillation is called:",options:["Frequency","Speed","Time period","Displacement"],correct:2},
-{id:42,section:"Physics",text:"One complete to and fro motion is called:",options:["Vibration","Oscillation","Rotation","Speed"],correct:1},
-{id:43,section:"Physics",text:"Which factor affects time period of pendulum?",options:["Mass","Length","Colour","Shape"],correct:1},
-{id:44,section:"Physics",text:"Image formed by plane mirror is:",options:["Real","Inverted","Virtual","Magnified"],correct:2},
-{id:45,section:"Physics",text:"Light bends when it passes from one medium to another. This is called:",options:["Reflection","Refraction","Dispersion","Scattering"],correct:1},
+/* MAT – Diagram */
+{
+  id:19,
+  section:"MAT",
+  text:"Count the number of squares:",
+  svg:`<svg width="160" height="160" xmlns="http://www.w3.org/2000/svg">
+  <rect x="20" y="20" width="120" height="120" fill="none" stroke="#000"/>
+  <line x1="80" y1="20" x2="80" y2="140" stroke="#000"/>
+  <line x1="20" y1="80" x2="140" y2="80" stroke="#000"/>
+</svg>`,
+  options:["4","5","6","8"],
+  correct:2
+},
+{
+  id:20,
+  section:"MAT",
+  text:"Mirror image based on the figure:",
+  svg:`<svg width="200" height="120" xmlns="http://www.w3.org/2000/svg">
+  <rect x="40" y="30" width="40" height="60" fill="#4f7dff"/>
+</svg>`,
+  options:["A","B","C","D"],
+  correct:0
+},
 
-/* ================= CHEMISTRY (15) ================= */
+/* ================= CHEMISTRY (7 | 2 Diagram) ================= */
 
-{id:46,section:"Chemistry",text:"Rusting of iron needs:",options:["Water","Oxygen","Both","None"],correct:2},
-{id:47,section:"Chemistry",text:"Which gas is released when acid reacts with metal?",options:["Oxygen","Hydrogen","Carbon dioxide","Nitrogen"],correct:1},
-{id:48,section:"Chemistry",text:"Which of these is a physical change?",options:["Burning","Rusting","Melting","Digestion"],correct:2},
-{id:49,section:"Chemistry",text:"Which substance is neutral?",options:["Vinegar","Soap","Pure water","Lemon"],correct:2},
-{id:50,section:"Chemistry",text:"Which method separates cream from milk?",options:["Filtration","Churning","Evaporation","Sedimentation"],correct:1},
-{id:51,section:"Chemistry",text:"Which metal is liquid at room temperature?",options:["Iron","Mercury","Copper","Aluminium"],correct:1},
-{id:52,section:"Chemistry",text:"Which is NOT a metal?",options:["Iron","Sulphur","Copper","Zinc"],correct:1},
-{id:53,section:"Chemistry",text:"Burning magnesium gives:",options:["MgCl₂","MgO","MgSO₄","Mg(NO₃)₂"],correct:1},
-{id:54,section:"Chemistry",text:"Galvanisation uses which metal?",options:["Copper","Tin","Zinc","Silver"],correct:2},
-{id:55,section:"Chemistry",text:"Which is a mixture?",options:["Air","Iron","Water","Salt"],correct:0},
-{id:56,section:"Chemistry",text:"Which change is reversible?",options:["Burning","Rusting","Melting wax","Cooking"],correct:2},
-{id:57,section:"Chemistry",text:"Acids turn blue litmus:",options:["Red","Green","Yellow","No change"],correct:0},
-{id:58,section:"Chemistry",text:"Which fuel has highest calorific value?",options:["Coal","Wood","Biogas","Petrol"],correct:2},
-{id:59,section:"Chemistry",text:"Which gas supports burning?",options:["CO₂","Oxygen","Nitrogen","Hydrogen"],correct:1},
-{id:60,section:"Chemistry",text:"Which is NOT a chemical change?",options:["Rusting","Burning","Digestion","Freezing"],correct:3},
+{id:21,section:"Chemistry",text:"Rusting of iron needs:",options:["Water","Oxygen","Both","None"],correct:2},
+{id:22,section:"Chemistry",text:"Which gas is released when acid reacts with metal?",options:["Oxygen","Hydrogen","CO₂","Nitrogen"],correct:1},
+{id:23,section:"Chemistry",text:"Which is a physical change?",options:["Burning","Rusting","Melting","Digestion"],correct:2},
+{id:24,section:"Chemistry",text:"Which substance is neutral?",options:["Vinegar","Soap","Pure water","Lemon"],correct:2},
+{id:25,section:"Chemistry",text:"Which metal is liquid at room temperature?",options:["Iron","Mercury","Copper","Aluminium"],correct:1},
 
-/* ================= BIOLOGY (15) ================= */
+/* Chemistry – Diagram */
+{
+  id:26,
+  section:"Chemistry",
+  text:"Which separation method is shown?",
+  svg:`<svg width="200" height="120"><rect x="60" y="50" width="80" height="40" fill="#ccc"/></svg>`,
+  options:["Filtration","Evaporation","Condensation","Decantation"],
+  correct:1
+},
+{
+  id:27,
+  section:"Chemistry",
+  text:"Identify the apparatus:",
+  svg:`<svg width="200" height="140"><rect x="80" y="20" width="40" height="80" fill="#cce5ff"/></svg>`,
+  options:["Test tube","Beaker","Flask","Measuring cylinder"],
+  correct:3
+},
 
-{id:61,section:"Biology",text:"Which organ pumps blood?",options:["Lungs","Heart","Kidney","Liver"],correct:1},
-{id:62,section:"Biology",text:"Green pigment in leaves is:",options:["Chlorophyll","Carotene","Xanthophyll","Anthocyanin"],correct:0},
-{id:63,section:"Biology",text:"Plants make food by:",options:["Respiration","Photosynthesis","Transpiration","Digestion"],correct:1},
-{id:64,section:"Biology",text:"Which vitamin is made by sunlight?",options:["A","B","C","D"],correct:3},
-{id:65,section:"Biology",text:"Which blood cells carry oxygen?",options:["RBC","WBC","Platelets","Plasma"],correct:0},
-{id:66,section:"Biology",text:"Which organ filters blood?",options:["Liver","Kidney","Heart","Lungs"],correct:1},
-{id:67,section:"Biology",text:"Which organ helps in breathing?",options:["Heart","Lungs","Kidney","Brain"],correct:1},
-{id:68,section:"Biology",text:"Food pipe is called:",options:["Trachea","Oesophagus","Intestine","Bronchus"],correct:1},
-{id:69,section:"Biology",text:"Which part of flower becomes fruit?",options:["Petal","Ovule","Ovary","Sepal"],correct:2},
-{id:70,section:"Biology",text:"Which is insectivorous plant?",options:["Rose","Pitcher plant","Sunflower","Lotus"],correct:1},
-{id:71,section:"Biology",text:"Which tissue connects muscles to bones?",options:["Ligament","Tendon","Cartilage","Blood"],correct:1},
-{id:72,section:"Biology",text:"Which organelle controls cell activities?",options:["Mitochondria","Nucleus","Ribosome","Vacuole"],correct:1},
-{id:73,section:"Biology",text:"Which gas is inhaled during breathing?",options:["CO₂","Oxygen","Nitrogen","Hydrogen"],correct:1},
-{id:74,section:"Biology",text:"Which disease is caused by bacteria?",options:["TB","Cancer","Diabetes","Scurvy"],correct:0},
-{id:75,section:"Biology",text:"Which vitamin prevents scurvy?",options:["Vitamin A","Vitamin B","Vitamin C","Vitamin D"],correct:2}
+/* ================= PHYSICS (7 | 2 Diagram) ================= */
+
+{id:28,section:"Physics",text:"SI unit of speed is:",options:["km/h","m/s","cm/s","m/min"],correct:1},
+{id:29,section:"Physics",text:"Sound is produced due to:",options:["Reflection","Vibration","Heat","Friction"],correct:1},
+{id:30,section:"Physics",text:"Which mirror is used as rear view mirror?",options:["Plane","Concave","Convex","Spherical"],correct:2},
+{id:31,section:"Physics",text:"Shadow is shortest at:",options:["Morning","Evening","Noon","Night"],correct:2},
+{id:32,section:"Physics",text:"Which force acts without contact?",options:["Muscular","Friction","Gravitational","Applied"],correct:2},
+
+/* Physics – Diagram */
+{
+  id:33,
+  section:"Physics",
+  text:"The spherical object in pendulum is called:",
+  svg:`<svg width="200" height="200"><line x1="100" y1="10" x2="100" y2="150" stroke="#000"/><circle cx="100" cy="170" r="18" fill="#ccc"/></svg>`,
+  options:["Thread","Bob","Pivot","Support"],
+  correct:1
+},
+{
+  id:34,
+  section:"Physics",
+  text:"Which law is shown in the diagram?",
+  svg:`<svg width="220" height="120"><line x1="110" y1="10" x2="110" y2="110" stroke="#000"/></svg>`,
+  options:["Reflection","Refraction","Dispersion","Ohm"],
+  correct:0
+},
+
+/* ================= BIOLOGY (6 | 2 Diagram) ================= */
+
+{id:35,section:"Biology",text:"Which organ pumps blood?",options:["Lungs","Heart","Kidney","Liver"],correct:1},
+{id:36,section:"Biology",text:"Green pigment in leaves is:",options:["Chlorophyll","Carotene","Xanthophyll","Anthocyanin"],correct:0},
+{id:37,section:"Biology",text:"Which vitamin is made by sunlight?",options:["A","B","C","D"],correct:3},
+{id:38,section:"Biology",text:"Which blood cells carry oxygen?",options:["RBC","WBC","Platelets","Plasma"],correct:0},
+
+/* Biology – Diagram */
+{
+  id:39,
+  section:"Biology",
+  text:"Identify the cell part:",
+  svg:`<svg width="200" height="140"><ellipse cx="100" cy="70" rx="60" ry="35" fill="#e8f0ff"/><circle cx="100" cy="70" r="15" fill="#ffcccc"/></svg>`,
+  options:["Cell wall","Nucleus","Vacuole","Cytoplasm"],
+  correct:1
+},
+{
+  id:40,
+  section:"Biology",
+  text:"Which organ is shown?",
+  svg:`<svg width="200" height="160"><path d="M100 30 C60 10 30 60 60 100 C80 130 120 130 140 100 C170 60 140 10 100 30Z" fill="#ffdede"/></svg>`,
+  options:["Heart","Lung","Kidney","Liver"],
+  correct:0
+}
 
 ];
-
 
 
 /* CLASS 8 (40) */
@@ -1357,6 +1413,7 @@ console.log("✅ Firebase ONLINE portal connected");
 
 </body>
 </html>
+
 
 
 
