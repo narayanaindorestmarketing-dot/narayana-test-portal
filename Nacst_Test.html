@@ -809,66 +809,187 @@ console.log("✅ Q7 loaded. Total questions =", Q7.length);
 /* CLASS 8 (40) */
 const Q8 = [
 
-/* ===================== MATHS (12) ===================== */
-{id:1,section:"Maths",text:"If x² = 16 and x − 1 > 0, find the value of x³ − x.",options:["28","32","60","64"],correct:0},
-{id:2,section:"Maths",text:"The sum of two numbers is 20 and their difference is 4. What is the larger number?",options:["8","10","12","14"],correct:2},
-{id:3,section:"Maths",text:"Which rational number lies between √3 and √5?",options:["1.5","2","2.5","3"],correct:1},
-{id:4,section:"Maths",text:"If the perimeter of a square is numerically equal to its area, find the side of the square.",options:["4","5","6","8"],correct:0},
-{id:5,section:"Maths",text:"Simplify: (−3)² + 2³ − 5",options:["10","12","14","16"],correct:0},
-{id:6,section:"Maths",text:"Find the value of x if 3(x − 2) = 2x + 5.",options:["7","11","5","9"],correct:0},
-{id:7,section:"Maths",text:"How many rational numbers lie between 1 and 2?",options:["0","1","Infinite","10"],correct:2},
-{id:8,section:"Maths",text:"The ratio of angles of a triangle is 3:4:5. The largest angle is:",options:["60°","75°","90°","100°"],correct:2},
-{id:9,section:"Maths",text:"Which of the following is a perfect cube?",options:["512","216","128","500"],correct:1},
-{id:10,section:"Maths",text:"If a number is multiplied by 3 and then 5 is added, the result is 20. Find the number.",options:["3","4","5","6"],correct:1},
-{id:11,section:"Maths",text:"The square of an odd number is always:",options:["Odd","Even","Prime","Composite"],correct:0},
-{id:12,section:"Maths",text:"Which of the following decimal numbers is terminating?",options:["3/8","2/7","5/11","7/9"],correct:0},
+/* ================= PHYSICS (7) ================= */
 
-/* ===================== MENTAL ABILITY (8) ===================== */
-{id:13,section:"Mental Ability",text:"Find the next number: 3, 9, 27, 81, ?",options:["162","243","324","729"],correct:1},
-{id:14,section:"Mental Ability",text:"Odd one out: Cube, Sphere, Cone, Square",options:["Cube","Sphere","Cone","Square"],correct:3},
-{id:15,section:"Mental Ability",text:"If CLOCK is written as DMPDL, how is WATCH written?",options:["XBUCI","XBVGI","XBTDI","XBUCJ"],correct:0},
-{id:16,section:"Mental Ability",text:"A is brother of B. B is sister of C. How is A related to C?",options:["Brother","Sister","Cousin","Cannot be determined"],correct:0},
-{id:17,section:"Mental Ability",text:"Mirror image of 2:40 will be:",options:["9:20","9:40","8:20","8:40"],correct:0},
-{id:18,section:"Mental Ability",text:"Which number does not belong to the group?",options:["16","36","49","81"],correct:2},
-{id:19,section:"Mental Ability",text:"Book : Knowledge :: Food : ?",options:["Energy","Hunger","Taste","Water"],correct:0},
-{id:20,section:"Mental Ability",text:"Find missing number: 2, 6, 12, 20, ?",options:["28","30","32","36"],correct:1},
+{ id:1, section:"Physics", text:"What is the key difference between an object's mass and its weight?", options:[
+"Mass is a type of force, while weight is the amount of matter",
+"Mass is measured in Newton’s, while weight is measured in kilograms",
+"Mass is constant, while weight can change with gravitational force",
+"Both mass and weight are constant everywhere"
+], correct:2 },
 
-/* ===================== PHYSICS (7) ===================== */
-{id:21,section:"Physics",text:"Why do camels have broad feet while walking on sand?",options:["More force","Less pressure on sand","Less weight","More friction"],correct:1},
-{id:22,section:"Physics",text:"Two objects of equal weight are placed on sand. One sinks deeper. Which quantity is different?",options:["Mass","Area of contact","Force","Density"],correct:1},
-{id:23,section:"Physics",text:"Which factor increases pressure?",options:["Increase area","Decrease force","Decrease area","Decrease weight"],correct:2},
-{id:24,section:"Physics",text:"Friction is useful because it helps in:",options:["Stopping motion","Starting motion","Walking","All of these"],correct:3},
-{id:25,section:"Physics",text:"Which surface produces maximum friction?",options:["Polished","Rough","Wet","Oily"],correct:1},
-{id:26,section:"Physics",text:"SI unit of pressure is derived from:",options:["Force","Area","Force ÷ Area","Mass"],correct:2},
-{id:27,section:"Physics",text:"Which force acts without physical contact?",options:["Friction","Muscular","Gravitational","Applied"],correct:2},
+{ id:2, section:"Physics", text:"SI unit of pressure is:", options:["Pascal","Newton","Joule","Watt"], correct:0 },
 
-/* ===================== CHEMISTRY (7) ===================== */
-{id:28,section:"Chemistry",text:"Which change involves both physical and chemical change?",options:["Burning candle","Rusting iron","Melting ice","Boiling water"],correct:0},
-{id:29,section:"Chemistry",text:"Which method is best to separate salt from salt solution?",options:["Filtration","Decantation","Evaporation","Sedimentation"],correct:2},
-{id:30,section:"Chemistry",text:"Which substance is a mixture?",options:["Distilled water","Air","Iron","Copper"],correct:1},
-{id:31,section:"Chemistry",text:"Which indicator turns red in acidic solution?",options:["Litmus","Turmeric","Phenolphthalein","China rose"],correct:0},
-{id:32,section:"Chemistry",text:"Which fuel has the highest calorific value?",options:["Coal","Wood","Petrol","Biogas"],correct:3},
-{id:33,section:"Chemistry",text:"Which gas supports burning?",options:["Carbon dioxide","Oxygen","Nitrogen","Hydrogen"],correct:1},
-{id:34,section:"Chemistry",text:"Rusting of iron requires:",options:["Water only","Oxygen only","Both oxygen and water","Carbon dioxide"],correct:2},
+{ id:3, section:"Physics", text:"A sharp knife cuts better because:", options:[
+"It has less force",
+"It has more area",
+"It has less area, producing more pressure",
+"It has no friction"
+], correct:2 },
 
-/* ===================== BIOLOGY (6) ===================== */
-{id:35,section:"Biology",text:"Which tissue connects muscles to bones?",options:["Ligament","Tendon","Cartilage","Blood"],correct:1},
-{id:36,section:"Biology",text:"Which organelle controls all activities of the cell?",options:["Mitochondria","Nucleus","Ribosome","Vacuole"],correct:1},
-{id:37,section:"Biology",text:"Photosynthesis mainly occurs in:",options:["Root","Stem","Leaf","Flower"],correct:2},
+{ id:4, section:"Physics", text:"The loudness of sound depends on:", options:["Frequency","Amplitude","Speed","Medium"], correct:1 },
 
-{id:38,section:"Biology",text:"Identify the organelle responsible for energy production:",svg:`
-<svg width="240" height="120" xmlns="http://www.w3.org/2000/svg">
- <ellipse cx="120" cy="60" rx="80" ry="35" fill="#ffe0b2"/>
- <ellipse cx="120" cy="60" rx="40" ry="18" fill="#ffcc80"/>
- <text x="90" y="65" font-size="10">Mitochondria</text>
-</svg>
-`,options:["Nucleus","Mitochondria","Ribosome","Vacuole"],correct:1},
+{ id:5, section:"Physics", text:"Which mode of heat transfer does not require a medium?", options:["Conduction","Convection","Radiation","None"], correct:2 },
 
-{id:39,section:"Biology",text:"Which vitamin is synthesized in human body using sunlight?",options:["Vitamin A","Vitamin B","Vitamin C","Vitamin D"],correct:3},
+{ id:6, section:"Physics", text:"Lightning is caused by:", options:[
+"Earthquake","Cyclone","Electric discharge in clouds","Tsunami"
+], correct:2 },
 
-{id:40,section:"Biology",text:"Which process helps plants lose excess water?",options:["Respiration","Transpiration","Photosynthesis","Excretion"],correct:1}
+{ id:7, section:"Physics", text:"A lightning conductor protects by:", options:[
+"Stopping lightning","Attracting wind","Providing path to ground","Insulating roof"
+], correct:2 },
+
+/* ================= CHEMISTRY (7) ================= */
+
+{ id:8, section:"Chemistry", text:"When sugar dissolves in water, it disappears because sugar:", options:[
+"Evaporates","Reacts chemically","Breaks into very small particles","Settles at bottom"
+], correct:2 },
+
+{ id:9, section:"Chemistry", text:"Which statement about gases is incorrect?", options:[
+"Gases have fixed volume",
+"Gases have no fixed shape",
+"Inter-particle attraction is negligible",
+"Particles move freely"
+], correct:0 },
+
+{ id:10, section:"Chemistry", text:"Why does hot food smell from far away?", options:[
+"Cold food has no smell",
+"Particles of hot food move faster",
+"Smell works better at high temperature",
+"Cold particles are heavier"
+], correct:1 },
+
+{ id:11, section:"Chemistry", text:"Which statement about matter is incorrect?", options:[
+"Matter is made of particles",
+"Particles are in constant motion",
+"Particles have attraction",
+"No space between particles"
+], correct:3 },
+
+{ id:12, section:"Chemistry", text:"Air is classified as:", options:[
+"Element","Compound","Uniform mixture","Non-uniform mixture"
+], correct:2 },
+
+{ id:13, section:"Chemistry", text:"Which statement about compounds is incorrect?", options:[
+"Formed in fixed ratio",
+"Separated by physical methods",
+"Different properties than elements",
+"Water is a compound"
+], correct:1 },
+
+{ id:14, section:"Chemistry", text:"A uniform mixture is also called:", options:[
+"Element","Compound","Solution","Non-uniform mixture"
+], correct:2 },
+
+/* ================= BIOLOGY (6) ================= */
+
+{ id:15, section:"Biology", text:"Rust and smut disease in plants is caused by:", options:[
+"Bacteria","Virus","Fungi","Protozoa"
+], correct:2 },
+
+{ id:16, section:"Biology", text:"Which of the following is a communicable disease?", options:[
+"Cancer","Tuberculosis","Kwashiorkor","Marasmus"
+], correct:1 },
+
+{ id:17, section:"Biology", text:"Malaria is caused by:", options:[
+"Plasmodium","Leishmania","Trypanosoma","Entamoeba"
+], correct:0 },
+
+{ id:18, section:"Biology", text:"Budding occurs in:", options:[
+"Spirogyra","Hydra","Amoeba","Plasmodium"
+], correct:1 },
+
+{ id:19, section:"Biology", text:"Spermatogenesis occurs in:", options:[
+"Testes","Ovary","Uterus","Oviduct"
+], correct:0 },
+
+{ id:20, section:"Biology", text:"Viviparous animals are those which:", options:[
+"Lay eggs","Give birth to young ones","Are amphibians","Undergo metamorphosis"
+], correct:1 },
+
+/* ================= MAT (8) ================= */
+
+{ id:21, section:"MAT", text:"Find the missing number: 2, 6, 12, 20, ?", options:["24","28","30","32"], correct:1 },
+
+{ id:22, section:"MAT", text:"Find the odd one out:", options:[
+"Square","Rectangle","Triangle","Cube"
+], correct:3 },
+
+{ id:23, section:"MAT", text:"If A=1, B=2, C=3, value of BAD is:", options:["7","9","5","6"], correct:0 },
+
+{ id:24, section:"MAT", text:"Book : Read :: Pen : ?", options:[
+"Paper","Ink","Write","Note"
+], correct:2 },
+
+{ id:25, section:"MAT", text:"Mirror image of 3:40 is:", options:[
+"8:20","9:20","8:40","9:40"
+], correct:0 },
+
+{ id:26, section:"MAT", text:"Find the next term: 1, 4, 9, 16, ?", options:[
+"20","24","25","36"
+], correct:2 },
+
+{ id:27, section:"MAT", text:"Rajan is 3 times older than Ashok. In 12 years Rajan will be twice Ashok. Rajan’s age?", options:[
+"27","32","36","40"
+], correct:2 },
+
+{ id:28, section:"MAT", text:"How many permutations of 5 different books are possible?", options:[
+"60","120","24","100"
+], correct:1 },
+
+/* ================= MATHS (12) ================= */
+
+{ id:29, section:"Maths", text:"Solve: 3x + 5 = 20", options:[
+"x = 3","x = 4","x = 5","x = 6"
+], correct:1 },
+
+{ id:30, section:"Maths", text:"Value of (–30)⁻¹ ÷ (–5)⁻¹ is:", options:[
+"3⁻¹","6⁻¹","4⁻¹","2⁻²"
+], correct:1 },
+
+{ id:31, section:"Maths", text:"If book P has 50 more pages than Q and total pages are 280, pages in Q?", options:[
+"115","165","120","95"
+], correct:2 },
+
+{ id:32, section:"Maths", text:"Ruchi scored 65% of 500. Marks needed for 80%?", options:[
+"65","105","40","75"
+], correct:1 },
+
+{ id:33, section:"Maths", text:"Cube of an odd number is always:", options:[
+"Even","Odd","Even or odd","Cannot say"
+], correct:1 },
+
+{ id:34, section:"Maths", text:"Find distance covered by wheel radius 21 cm in 20 revolutions.", options:[
+"2600","2640","2400","2540"
+], correct:1 },
+
+{ id:35, section:"Maths", text:"Mean of first 10 natural numbers is:", options:[
+"5","5.5","6","6.5"
+], correct:1 },
+
+{ id:36, section:"Maths", text:"If x = –1, value of 3x² + x – m = 7, find m.", options:[
+"–5","8","–7","12"
+], correct:0 },
+
+{ id:37, section:"Maths", text:"Ratio of 2:3:5 numbers whose cube sum is 54880 are:", options:[
+"14,21,35","12,15,17","14,18,21","21,28,32"
+], correct:0 },
+
+{ id:38, section:"Maths", text:"What is density?", options:[
+"Mass/Volume","Volume/Mass","Weight","Space occupied"
+], correct:0 },
+
+{ id:39, section:"Maths", text:"A saturated solution is to unsaturated as:", options:[
+"Maximum : Less than max","Dilute : Concentrated","Solute : Solvent","Thick : Thin"
+], correct:0 },
+
+{ id:40, section:"Maths", text:"Which decimal is terminating?", options:[
+"3/8","2/7","5/11","7/9"
+], correct:0 }
 
 ];
+
+console.log("✅ Q8 loaded successfully:", Q8.length);
 
 /* CLASS 9 (40) */
 const Q9 = [
@@ -1323,6 +1444,7 @@ console.log("✅ Firebase ONLINE portal connected");
 
 </body>
 </html>
+
 
 
 
