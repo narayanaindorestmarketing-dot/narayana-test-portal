@@ -449,6 +449,40 @@ function showScreen(id){
   max-height: calc(100vh - 20px);
   overflow: hidden;
 }
+		/* ========== GLOBAL NO-SCROLL SYSTEM FIX ========== */
+
+/* Body should never scroll */
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+/* App always fits viewport */
+.app {
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Main portal wrapper */
+#portalScreens {
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Layout inside portal */
+#portalScreens .layout {
+  height: calc(100vh - 20px);
+  overflow: hidden;
+}
+
+/* Sidebar + Main content */
+.sidebar,
+.maincard {
+  height: 100%;
+  overflow-y: auto;   /* only internal scroll if needed */
+}
+
 
 </script>
 
@@ -1542,6 +1576,7 @@ console.log("✅ Firebase ONLINE portal connected");
 
 </body>
 </html>
+
 
 
 
