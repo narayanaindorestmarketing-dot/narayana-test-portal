@@ -93,6 +93,40 @@ body {
 .hide{display:none}
 .center{text-align:center}
 .key{font-weight:700;color:var(--primary)}
+	/* ===== HARD STOP NO-SCROLL FIX ===== */
+#welcomeScreen {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  overflow: hidden;
+}
+
+.app {
+  height: 100vh;
+  overflow: hidden;
+}
+
+#portalScreens {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.sidebar,
+.maincard {
+  height: 100%;
+  overflow-y: auto;
+}
+
 </style>
 </head>
 <body>
@@ -444,12 +478,6 @@ body {
 }
 
 /* Welcome screen – perfect center */
-#welcomeScreen {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
 /* Portal area */
 #portalScreens {
@@ -1586,6 +1614,7 @@ console.log("✅ Firebase ONLINE portal connected");
 
 </body>
 </html>
+
 
 
 
