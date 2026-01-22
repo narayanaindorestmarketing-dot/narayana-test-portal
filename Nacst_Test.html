@@ -428,15 +428,42 @@ function showScreen(id){
 		/* ================= HARD STOP NO-SCROLL FIX ================= */
 
 /* Only for welcome screen */
+/* ===== GLOBAL VIEWPORT FIX ===== */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  overflow: hidden;
+}
+
+.app {
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Welcome screen – perfect center */
 #welcomeScreen {
-  position: fixed;
-  inset: 0;                 /* top:0 right:0 bottom:0 left:0 */
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;         /* NO SCROLL */
-  background: var(--bg);
 }
+
+/* Portal area */
+#portalScreens {
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Internal scroll only */
+.sidebar,
+.maincard {
+  height: 100%;
+  overflow-y: auto;
+}
+
 
 /* Disable container padding ONLY here */
 #welcomeScreen.container {
@@ -524,21 +551,21 @@ const DEFAULT_ADMIN_USER = "Praful1210";
 const DEFAULT_ADMIN_PASS = "Narayana@123";
 let CURRENT_ROLE = null;
 
-function adminLogin(){
-  const u = $("adminUser").value.trim();
-  const p = $("adminPass").value.trim();
+//function adminLogin(){
+  //const u = $("adminUser").value.trim();
+  //const p = $("adminPass").value.trim();
 
-  if(u === DEFAULT_ADMIN_USER && p === DEFAULT_ADMIN_PASS){
-    CURRENT_ROLE = "admin";
-    closeAdminModal();
-    show("portalScreens");
-    showScreen("adminDashboard");
-    $("adminLoggedName").innerText = u;
-    try{ $("adminPanelLinks").classList.remove("hide"); }catch(e){}
-  }else{
-    alert("Invalid admin credentials");
-  }
-}	
+  //if(u === DEFAULT_ADMIN_USER && p === DEFAULT_ADMIN_PASS){
+    //CURRENT_ROLE = "admin";
+    //closeAdminModal();
+    //show("portalScreens");
+    //showScreen("adminDashboard");
+    //$("adminLoggedName").innerText = u;
+    //try{ $("adminPanelLinks").classList.remove("hide"); }catch(e){}
+  //}else{
+    //alert("Invalid admin credentials");
+  //}
+//}	
 	
 </script>
 
@@ -1507,23 +1534,6 @@ async function downloadResultText(){
   // ready
 })();
 </script>
-	<script type="module">
-/* ========= FIREBASE IMPORTS ========= */
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import {
-  getFirestore, doc, setDoc, getDoc,
-  collection, addDoc, updateDoc
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-/* ========= FIREBASE CONFIG ========= */
-const firebaseConfig = {
-  apiKey: "AIzaSyAdcLhD_acBhTT2-3Io8fpeJzV3jRrExBQ",
-  authDomain: "narayana-cloud-test-portal.firebaseapp.com",
-  projectId: "narayana-cloud-test-portal",
-  storageBucket: "narayana-cloud-test-portal.firebasestorage.app",
-  messagingSenderId: "240575346814",
-  appId: "1:240575346814:web:116949c2bbd93cf08a402f"
-};
 
 /* ========= INIT ========= */
 const app = initializeApp(firebaseConfig);
@@ -1576,6 +1586,7 @@ console.log("✅ Firebase ONLINE portal connected");
 
 </body>
 </html>
+
 
 
 
