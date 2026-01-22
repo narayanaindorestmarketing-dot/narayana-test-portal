@@ -77,141 +77,35 @@ html,body{height:100%;margin:0;background:var(--bg);-webkit-font-smoothing:antia
   .result-right{width:100%}
 }
 
-	/* ===== WELCOME SCREEN NO-SCROLL HELPER ===== */
-.no-scroll-center {
-  min-height: 100svh;        /* modern safe viewport height */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;          /* scroll completely stop */
-}
-body {
-  overflow-x: hidden;
-}
-
 /* small helper */
 .hide{display:none}
 .center{text-align:center}
 .key{font-weight:700;color:var(--primary)}
-	/* ===== HARD STOP NO-SCROLL FIX ===== */
-#welcomeScreen {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-html, body {
-  height: 100%;
-  margin: 0;
-}
-
-body {
-  overflow: hidden;
-}
-
-.app {
-  height: 100vh;
-  overflow: hidden;
-}
-
-#portalScreens {
-  height: 100vh;
-  overflow: hidden;
-}
-
-.sidebar,
-.maincard {
-  height: 100%;
-  overflow-y: auto;
-}
-
 </style>
 </head>
 <body>
 
 <div class="app">
 
-  <!-- HOME / INDEX SCREEN -->
+  <!-- WELCOME SCREEN -->
   <section id="welcomeScreen" class="container">
     <div class="welcome-box center">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
 
-      <!-- LOGO AS MAIN HOME ELEMENT -->
-      <div style="margin-bottom:22px;">
-        <img
-          src="narayana-logo.png"
-          alt="Narayana Educational Institutions"
-          style="
-            max-width:220px;
-            width:100%;
-            height:auto;
-          "
-        />
+        <div class="brand">Narayana Test Portal — ST Branch</div>
+        <div class="small">ONLINE EXAM PORTAL</div>
+      </div>
+      <h1>Welcome to Narayana Test Portal</h1>
+      <h4>Secure Exam System — ST Branch, Indore<br/><br/>Class Tests: 8 / 9 / 10 (NCERT 2025–2026)</h4>
+
+      <div style="margin-top:18px">
+        <button class="btn btn-primary" onclick="openStudentModal()">Student Login</button>
+        <button class="btn btn-outline" onclick="openAdminModal()">Admin Login</button>
       </div>
 
-      <!-- PORTAL TITLE -->
-      <div class="brand" style="font-size:26px; margin-bottom:4px;">
-        Narayana Test Portal — ST Branch
+      <div style="margin-top:18px;color:#666">
+        <small>Note: Use admin to register students and generate one-time Test IDs. Student login requires mobile + Test ID.</small>
       </div>
-      <div class="small" style="margin-bottom:18px;">
-        ONLINE EXAM PORTAL
-      </div>
-
-      <!-- TAGLINE -->
-      <p style="
-        font-size:17px;
-        color:#444;
-        margin-bottom:16px;
-      ">
-        Secure Exam System — ST Branch, Indore
-      </p>
-
-      <!-- CLASS INFO -->
-      <div style="
-        display:inline-block;
-        background:#eef4ff;
-        color:#1f4bb8;
-        padding:8px 16px;
-        border-radius:999px;
-        font-weight:600;
-        margin-bottom:22px;
-      ">
-        Class Tests: 8 / 9 / 10 &nbsp;|&nbsp; NCERT 2025–2026
-      </div>
-
-      <!-- ACTION BUTTONS -->
-      <div style="
-        display:flex;
-        justify-content:center;
-        gap:16px;
-        flex-wrap:wrap;
-        margin-top:20px;
-      ">
-        <button class="btn btn-primary" onclick="openStudentModal()">
-          Student Login
-        </button>
-        <button class="btn btn-outline" onclick="openAdminModal()">
-          Admin Login
-        </button>
-      </div>
-
-      <!-- NOTE -->
-      <div style="
-        margin-top:22px;
-        font-size:14px;
-        color:#666;
-        max-width:540px;
-      ">
-        <strong>Note:</strong>
-        Admin login is used to register students and generate one-time Test IDs.
-        Students must login using their registered mobile number and Test ID.
-      </div>
-
-    </div>
-  </section>
-
-</div>
     </div>
   </section>
   <!-- MODAL: ADMIN LOGIN -->
@@ -459,86 +353,6 @@ function showScreen(id){
   const el = document.getElementById(id);
   if(el) el.style.display = "block";
 }
-		/* ================= HARD STOP NO-SCROLL FIX ================= */
-
-/* Only for welcome screen */
-/* ===== GLOBAL VIEWPORT FIX ===== */
-html, body {
-  height: 100%;
-  margin: 0;
-}
-
-body {
-  overflow: hidden;
-}
-
-.app {
-  height: 100vh;
-  overflow: hidden;
-}
-
-/* Welcome screen – perfect center */
-
-/* Portal area */
-#portalScreens {
-  height: 100vh;
-  overflow: hidden;
-}
-
-/* Internal scroll only */
-.sidebar,
-.maincard {
-  height: 100%;
-  overflow-y: auto;
-}
-
-
-/* Disable container padding ONLY here */
-#welcomeScreen.container {
-  padding: 0 !important;
-  margin: 0 !important;
-}
-
-/* Ensure welcome box never exceeds screen */
-#welcomeScreen .welcome-box {
-  max-height: calc(100vh - 20px);
-  overflow: hidden;
-}
-		/* ========== GLOBAL NO-SCROLL SYSTEM FIX ========== */
-
-/* Body should never scroll */
-html, body {
-  height: 100%;
-  margin: 0;
-  overflow: hidden;
-}
-
-/* App always fits viewport */
-.app {
-  height: 100vh;
-  overflow: hidden;
-}
-
-/* Main portal wrapper */
-#portalScreens {
-  height: 100vh;
-  overflow: hidden;
-}
-
-/* Layout inside portal */
-#portalScreens .layout {
-  height: calc(100vh - 20px);
-  overflow: hidden;
-}
-
-/* Sidebar + Main content */
-.sidebar,
-.maincard {
-  height: 100%;
-  overflow-y: auto;   /* only internal scroll if needed */
-}
-
-
 </script>
 
 <script>
@@ -579,22 +393,21 @@ const DEFAULT_ADMIN_USER = "Praful1210";
 const DEFAULT_ADMIN_PASS = "Narayana@123";
 let CURRENT_ROLE = null;
 
-//function adminLogin(){
-  //const u = $("adminUser").value.trim();
-  //const p = $("adminPass").value.trim();
+function adminLogin(){
+  const u = $("adminUser").value.trim();
+  const p = $("adminPass").value.trim();
 
-  //if(u === DEFAULT_ADMIN_USER && p === DEFAULT_ADMIN_PASS){
-    //CURRENT_ROLE = "admin";
-    //closeAdminModal();
-    //show("portalScreens");
-    //showScreen("adminDashboard");
-    //$("adminLoggedName").innerText = u;
-    //try{ $("adminPanelLinks").classList.remove("hide"); }catch(e){}
-  //}else{
-    //alert("Invalid admin credentials");
-  //}
-//}	
-	
+  if(u === DEFAULT_ADMIN_USER && p === DEFAULT_ADMIN_PASS){
+    CURRENT_ROLE = "admin";
+    closeAdminModal();
+    show("portalScreens");
+    showScreen("adminDashboard");
+    $("adminLoggedName").innerText = u;
+    try{ $("adminPanelLinks").classList.remove("hide"); }catch(e){}
+  }else{
+    alert("Invalid admin credentials");
+  }
+}
 </script>
 
 <script>
@@ -933,250 +746,197 @@ async function clearAttempts(){ if(!confirm('Clear all attempts?')) return; cons
 
 const Q7 = [
 
-/* ================= MATHS (12) ================= */
+/* =====================
+   MATHS (12)
+   ===================== */
 
-{ id:1, section:"Maths", text:"Which of the following is a rational number?", options:["√2","π","0.25","√5"], correct:2 },
-{ id:2, section:"Maths", text:"Convert 2.375 into fraction.", options:["19/8","15/8","19/4","23/8"], correct:0 },
-{ id:3, section:"Maths", text:"Solve: 3x + 7 = 25", options:["x = 4","x = 6","x = 8","x = 5"], correct:1 },
-{ id:4, section:"Maths", text:"The sum of interior angles of a triangle is:", options:["90°","180°","270°","360°"], correct:1 },
-{ id:5, section:"Maths", text:"If two angles are supplementary and one angle is 65°, find the other angle.", options:["115°","125°","55°","45°"], correct:0 },
-{ id:6, section:"Maths", text:"Find the area of a rectangle whose length is 12 cm and breadth is 5 cm.", options:["60 cm²","34 cm²","120 cm²","17 cm²"], correct:0 },
-{ id:7, section:"Maths", text:"The mean of 2, 4, 6 and 8 is:", options:["4","5","6","7"], correct:1 },
-{ id:8, section:"Maths", text:"Simplify: 2³ × 2⁴", options:["2⁷","2¹²","2¹","2⁸"], correct:0 },
-{ id:9, section:"Maths", text:"Which of the following decimals is terminating?", options:["3/8","2/7","5/11","7/9"], correct:0 },
-{ id:10, section:"Maths", text:"Evaluate: (–15) + 27 – 12", options:["0","–24","12","–6"], correct:0 },
-{ id:11, section:"Maths", text:"Which is greater?", options:["5/8","3/4","Both equal","Cannot compare"], correct:1 },
-{ id:12, section:"Maths", text:"Identify the type of angle shown in the diagram.", svg:"<svg width='120' height='80'><line x1='20' y1='60' x2='100' y2='60' stroke='black'/><line x1='20' y1='60' x2='70' y2='20' stroke='black'/></svg>", options:["Acute angle","Right angle","Obtuse angle","Straight angle"], correct:0 },
+{id:1, section:"Maths", text:"Evaluate: (−15) + 27 − 12", options:["0","−24","12","−6"], correct:0},
 
-/* ================= MAT (8) ================= */
+{id:2, section:"Maths", text:"Which is greater: 5/8 or 3/4 ?", options:["5/8","3/4","Both equal","Cannot compare"], correct:1},
 
-{ id:13, section:"MAT", text:"Find the missing number in the series: 3, 6, 11, 18, ?", options:["25","27","26","24"], correct:2 },
-{ id:14, section:"MAT", text:"If A = 1, B = 2, C = 3, then the value of CAT is:", options:["24","27","20","23"], correct:0 },
-{ id:15, section:"MAT", text:"Which one of the following does not belong to the group?", options:["Square","Triangle","Circle","Cube"], correct:3 },
-{ id:16, section:"MAT", text:"Book : Read :: Pen : ?", options:["Ink","Paper","Write","Note"], correct:2 },
-{ id:17, section:"MAT", text:"If today is Monday, what day will it be after 17 days?", options:["Tuesday","Wednesday","Thursday","Friday"], correct:1 },
-{ id:18, section:"MAT", text:"Find the odd one out: 8, 27, 64, 125", options:["8","27","64","125"], correct:0 },
-{ id:19, section:"MAT", text:"Mirror image of 2:45 on a clock will be:", options:["9:15","9:45","10:15","8:45"], correct:0 },
-{ id:20, section:"MAT", text:"If all roses are flowers and some flowers are red, which conclusion is correct?", options:["All roses are red","Some roses may be red","No rose is red","All red are roses"], correct:1 },
+{id:3, section:"Maths", text:"Convert 2.375 into fraction.", options:["19/8","15/8","19/4","23/8"], correct:0},
 
-/* ================= CHEMISTRY (7) ================= */
+{id:4, section:"Maths", text:"Solve: 3x + 7 = 25", options:["x = 4","x = 6","x = 8","x = 5"], correct:1},
 
-{ id:21, section:"Chemistry", text:"Which of the following is a chemical change?", options:["Melting of ice","Dissolving sugar","Rusting of iron","Cutting of paper"], correct:2 },
-{ id:22, section:"Chemistry", text:"Which of the following substances is basic in nature?", options:["Vinegar","Lemon juice","Baking soda","Curd"], correct:2 },
-{ id:23, section:"Chemistry", text:"Which method is used to separate an insoluble solid from a liquid?", options:["Evaporation","Filtration","Condensation","Distillation"], correct:1 },
-{ id:24, section:"Chemistry", text:"Air is a:", options:["Compound","Element","Mixture","Pure substance"], correct:2 },
-{ id:25, section:"Chemistry", text:"Which indicator turns red in an acidic solution?", options:["Litmus","Turmeric","Phenolphthalein","China rose"], correct:0 },
-{ id:26, section:"Chemistry", text:"Which of the following changes is reversible?", options:["Burning of candle","Rusting of iron","Melting of wax","Cooking of food"], correct:2 },
-{ id:27, section:"Chemistry", text:"The diagram shows a method of separation. Identify the method.", svg:"<svg width='140' height='80'><rect x='30' y='40' width='80' height='20' fill='#ddd'/><line x1='50' y1='20' x2='90' y2='20' stroke='black'/></svg>", options:["Filtration","Evaporation","Sublimation","Decantation"], correct:1 },
+{id:5, section:"Maths", text:"If two angles are supplementary and one is 65°, the other angle is:", options:["115°","125°","55°","45°"], correct:0},
 
-/* ================= PHYSICS (7) ================= */
+{id:6, section:"Maths", text:"The sum of interior angles of a triangle is:", options:["90°","180°","270°","360°"], correct:1},
 
-{ id:28, section:"Physics", text:"The SI unit of speed is:", options:["m/s","km/h","cm/s","m/min"], correct:0 },
-{ id:29, section:"Physics", text:"Which mode of heat transfer does not require a medium?", options:["Conduction","Convection","Radiation","None"], correct:2 },
-{ id:30, section:"Physics", text:"The image formed by a plane mirror is always:", options:["Real","Inverted","Virtual","Magnified"], correct:2 },
-{ id:31, section:"Physics", text:"Which of the following is a good conductor of electricity?", options:["Plastic","Rubber","Copper","Wood"], correct:2 },
-{ id:32, section:"Physics", text:"Increasing the area of contact decreases pressure for the same force.", options:["True","False","",""], correct:0 },
-{ id:33, section:"Physics", text:"Identify the component shown in the diagram.", svg:"<svg width='160' height='70'><rect x='60' y='20' width='20' height='30' fill='#ccc'/></svg>", options:["Bulb","Switch","Cell","Wire"], correct:2 },
-{ id:34, section:"Physics", text:"Sound is produced due to:", options:["Reflection","Vibration","Friction","Heat"], correct:1 },
+{id:7, section:"Maths", text:"If two sides of a triangle are 5 cm and 8 cm, the third side cannot be:", options:["3 cm","6 cm","10 cm","12 cm"], correct:3},
 
-/* ================= BIOLOGY (6) ================= */
+{id:8, section:"Maths", text:"Find the area of a rectangle of length 12 cm and breadth 5 cm.", options:["60 cm²","34 cm²","120 cm²","17 cm²"], correct:0},
 
-{ id:35, section:"Biology", text:"Green plants prepare their food by the process of:", options:["Respiration","Photosynthesis","Transpiration","Digestion"], correct:1 },
-{ id:36, section:"Biology", text:"Which part of the digestive system absorbs nutrients?", options:["Stomach","Large intestine","Small intestine","Oesophagus"], correct:2 },
-{ id:37, section:"Biology", text:"Which gas is taken in during breathing?", options:["Carbon dioxide","Oxygen","Nitrogen","Hydrogen"], correct:1 },
-{ id:38, section:"Biology", text:"Which component of blood carries oxygen to different parts of the body?", options:["Plasma","Platelets","White blood cells","Red blood cells"], correct:3 },
-{ id:39, section:"Biology", text:"Identify the part of the cell shown in the diagram.", svg:"<svg width='160' height='100'><circle cx='80' cy='50' r='15' fill='pink'/></svg>", options:["Cell wall","Nucleus","Vacuole","Mitochondria"], correct:1 },
-{ id:40, section:"Biology", text:"Which part of a flower develops into a fruit?", options:["Petal","Ovule","Ovary","Stamen"], correct:2 }
+{id:9, section:"Maths", text:"Which of the following is a rational number?", options:["√2","π","0.25","√5"], correct:2},
+
+{id:10, section:"Maths", text:"Simplify: 2³ × 2⁴", options:["2⁷","2¹²","2¹","2⁸"], correct:0},
+
+{id:11, section:"Maths", text:"The mean of 2, 4, 6, 8 is:", options:["4","5","6","7"], correct:1},
+
+{id:12, section:"Maths", text:"Identify the type of angle shown below:", svg:`
+<svg width="200" height="120" xmlns="http://www.w3.org/2000/svg">
+  <line x1="40" y1="80" x2="160" y2="80" stroke="#000" stroke-width="3"/>
+  <line x1="40" y1="80" x2="110" y2="30" stroke="#000" stroke-width="3"/>
+</svg>
+`, options:["Acute","Right","Obtuse","Straight"], correct:0},
+
+/* =====================
+   MENTAL ABILITY (8)
+   ===================== */
+
+{id:13, section:"Mental Ability", text:"Find the missing number: 3, 6, 11, 18, ?", options:["25","27","26","24"], correct:2},
+
+{id:14, section:"Mental Ability", text:"If A = 1, B = 2, then value of CAT is:", options:["24","27","20","23"], correct:0},
+
+{id:15, section:"Mental Ability", text:"Which word does NOT belong to the group?", options:["Square","Triangle","Circle","Cube"], correct:3},
+
+{id:16, section:"Mental Ability", text:"Book : Read :: Pen : ?", options:["Ink","Paper","Write","Note"], correct:2},
+
+{id:17, section:"Mental Ability", text:"If today is Monday, what day will it be after 17 days?", options:["Tuesday","Wednesday","Thursday","Friday"], correct:1},
+
+{id:18, section:"Mental Ability", text:"Find the odd one out: 8, 27, 64, 125", options:["8","27","64","125"], correct:0},
+
+{id:19, section:"Mental Ability", text:"Mirror image of 2:45 will be:", options:["9:15","9:45","10:15","8:45"], correct:0},
+
+{id:20, section:"Mental Ability", text:"If all roses are flowers and some flowers are red, then:", options:["All roses are red","Some roses may be red","No rose is red","All red are roses"], correct:1},
+
+/* =====================
+   PHYSICS (7)
+   ===================== */
+
+{id:21, section:"Physics", text:"The SI unit of speed is:", options:["m/s","km/h","cm/s","m/min"], correct:0},
+
+{id:22, section:"Physics", text:"Which mode of heat transfer does not require a medium?", options:["Conduction","Convection","Radiation","None"], correct:2},
+
+{id:23, section:"Physics", text:"The image formed by a plane mirror is always:", options:["Real","Inverted","Virtual","Magnified"], correct:2},
+
+{id:24, section:"Physics", text:"Which of the following is a good conductor of electricity?", options:["Plastic","Rubber","Copper","Wood"], correct:2},
+
+{id:25, section:"Physics", text:"Increasing the area of contact decreases pressure for the same force.", options:["True","False","",""], correct:0},
+
+{id:26, section:"Physics", text:"Identify the component shown:", svg:`
+<svg width="220" height="90" xmlns="http://www.w3.org/2000/svg">
+  <line x1="20" y1="45" x2="80" y2="45" stroke="#000" stroke-width="3"/>
+  <line x1="80" y1="25" x2="80" y2="65" stroke="#000" stroke-width="4"/>
+  <line x1="110" y1="35" x2="110" y2="55" stroke="#000" stroke-width="2"/>
+  <line x1="110" y1="45" x2="180" y2="45" stroke="#000" stroke-width="3"/>
+</svg>
+`, options:["Bulb","Switch","Cell","Wire"], correct:2},
+
+{id:27, section:"Physics", text:"Sound is produced due to:", options:["Reflection","Vibration","Friction","Heat"], correct:1},
+
+/* =====================
+   CHEMISTRY (7)
+   ===================== */
+
+{id:28, section:"Chemistry", text:"Which of the following is a chemical change?", options:["Melting of ice","Dissolving sugar","Rusting of iron","Cutting paper"], correct:2},
+
+{id:29, section:"Chemistry", text:"Which substance is basic in nature?", options:["Vinegar","Lemon juice","Baking soda","Curd"], correct:2},
+
+{id:30, section:"Chemistry", text:"Which method is used to separate insoluble solids from liquid?", options:["Evaporation","Filtration","Condensation","Distillation"], correct:1},
+
+{id:31, section:"Chemistry", text:"Air is a:", options:["Compound","Element","Mixture","Pure substance"], correct:2},
+
+{id:32, section:"Chemistry", text:"Which indicator turns red in acidic solution?", options:["Litmus","Turmeric","Phenolphthalein","China rose"], correct:0},
+
+{id:33, section:"Chemistry", text:"Which separation method is shown?", svg:`
+<svg width="220" height="120" xmlns="http://www.w3.org/2000/svg">
+  <rect x="60" y="60" width="100" height="30" fill="#e0e0e0"/>
+  <line x1="80" y1="40" x2="140" y2="40" stroke="#000" stroke-width="2"/>
+  <text x="70" y="20" font-size="12">Heat</text>
+</svg>
+`, options:["Filtration","Evaporation","Sublimation","Decantation"], correct:1},
+
+{id:34, section:"Chemistry", text:"Which change is reversible?", options:["Burning candle","Rusting iron","Melting wax","Cooking food"], correct:2},
+
+/* =====================
+   BIOLOGY (6)
+   ===================== */
+
+{id:35, section:"Biology", text:"Green plants prepare food by:", options:["Respiration","Photosynthesis","Transpiration","Digestion"], correct:1},
+
+{id:36, section:"Biology", text:"Which part of digestive system absorbs nutrients?", options:["Stomach","Large intestine","Small intestine","Oesophagus"], correct:2},
+
+{id:37, section:"Biology", text:"Which gas is taken in during breathing?", options:["CO₂","Oxygen","Nitrogen","Hydrogen"], correct:1},
+
+{id:38, section:"Biology", text:"Which component of blood carries oxygen?", options:["Plasma","Platelets","WBC","RBC"], correct:3},
+
+{id:39, section:"Biology", text:"Identify the part shown:", svg:`
+<svg width="220" height="140" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="110" cy="70" rx="70" ry="45" fill="#e8f0ff" stroke="#1f4bb8"/>
+  <circle cx="110" cy="70" r="18" fill="#ffdede" stroke="#b33"/>
+  <text x="95" y="75" font-size="12">Nucleus</text>
+</svg>
+`, options:["Cell wall","Nucleus","Vacuole","Mitochondria"], correct:1},
+
+{id:40, section:"Biology", text:"Which part of flower develops into fruit?", options:["Petal","Ovule","Ovary","Stamen"], correct:2}
 
 ];
 
-console.log("✅ Q7 loaded. Total questions =", Q7.length);
 
 
 /* CLASS 8 (40) */
 const Q8 = [
 
-/* ================= PHYSICS (7) ================= */
+/* ===================== MATHS (12) ===================== */
+{id:1,section:"Maths",text:"If x² = 16 and x − 1 > 0, find the value of x³ − x.",options:["28","32","60","64"],correct:0},
+{id:2,section:"Maths",text:"The sum of two numbers is 20 and their difference is 4. What is the larger number?",options:["8","10","12","14"],correct:2},
+{id:3,section:"Maths",text:"Which rational number lies between √3 and √5?",options:["1.5","2","2.5","3"],correct:1},
+{id:4,section:"Maths",text:"If the perimeter of a square is numerically equal to its area, find the side of the square.",options:["4","5","6","8"],correct:0},
+{id:5,section:"Maths",text:"Simplify: (−3)² + 2³ − 5",options:["10","12","14","16"],correct:0},
+{id:6,section:"Maths",text:"Find the value of x if 3(x − 2) = 2x + 5.",options:["7","11","5","9"],correct:0},
+{id:7,section:"Maths",text:"How many rational numbers lie between 1 and 2?",options:["0","1","Infinite","10"],correct:2},
+{id:8,section:"Maths",text:"The ratio of angles of a triangle is 3:4:5. The largest angle is:",options:["60°","75°","90°","100°"],correct:2},
+{id:9,section:"Maths",text:"Which of the following is a perfect cube?",options:["512","216","128","500"],correct:1},
+{id:10,section:"Maths",text:"If a number is multiplied by 3 and then 5 is added, the result is 20. Find the number.",options:["3","4","5","6"],correct:1},
+{id:11,section:"Maths",text:"The square of an odd number is always:",options:["Odd","Even","Prime","Composite"],correct:0},
+{id:12,section:"Maths",text:"Which of the following decimal numbers is terminating?",options:["3/8","2/7","5/11","7/9"],correct:0},
 
-{ id:1, section:"Physics", text:"What is the key difference between an object's mass and its weight?", options:[
-"Mass is a type of force, while weight is the amount of matter",
-"Mass is measured in Newton’s, while weight is measured in kilograms",
-"Mass is constant, while weight can change with gravitational force",
-"Both mass and weight are constant everywhere"
-], correct:2 },
+/* ===================== MENTAL ABILITY (8) ===================== */
+{id:13,section:"Mental Ability",text:"Find the next number: 3, 9, 27, 81, ?",options:["162","243","324","729"],correct:1},
+{id:14,section:"Mental Ability",text:"Odd one out: Cube, Sphere, Cone, Square",options:["Cube","Sphere","Cone","Square"],correct:3},
+{id:15,section:"Mental Ability",text:"If CLOCK is written as DMPDL, how is WATCH written?",options:["XBUCI","XBVGI","XBTDI","XBUCJ"],correct:0},
+{id:16,section:"Mental Ability",text:"A is brother of B. B is sister of C. How is A related to C?",options:["Brother","Sister","Cousin","Cannot be determined"],correct:0},
+{id:17,section:"Mental Ability",text:"Mirror image of 2:40 will be:",options:["9:20","9:40","8:20","8:40"],correct:0},
+{id:18,section:"Mental Ability",text:"Which number does not belong to the group?",options:["16","36","49","81"],correct:2},
+{id:19,section:"Mental Ability",text:"Book : Knowledge :: Food : ?",options:["Energy","Hunger","Taste","Water"],correct:0},
+{id:20,section:"Mental Ability",text:"Find missing number: 2, 6, 12, 20, ?",options:["28","30","32","36"],correct:1},
 
-{ id:2, section:"Physics", text:"SI unit of pressure is:", options:["Pascal","Newton","Joule","Watt"], correct:0 },
+/* ===================== PHYSICS (7) ===================== */
+{id:21,section:"Physics",text:"Why do camels have broad feet while walking on sand?",options:["More force","Less pressure on sand","Less weight","More friction"],correct:1},
+{id:22,section:"Physics",text:"Two objects of equal weight are placed on sand. One sinks deeper. Which quantity is different?",options:["Mass","Area of contact","Force","Density"],correct:1},
+{id:23,section:"Physics",text:"Which factor increases pressure?",options:["Increase area","Decrease force","Decrease area","Decrease weight"],correct:2},
+{id:24,section:"Physics",text:"Friction is useful because it helps in:",options:["Stopping motion","Starting motion","Walking","All of these"],correct:3},
+{id:25,section:"Physics",text:"Which surface produces maximum friction?",options:["Polished","Rough","Wet","Oily"],correct:1},
+{id:26,section:"Physics",text:"SI unit of pressure is derived from:",options:["Force","Area","Force ÷ Area","Mass"],correct:2},
+{id:27,section:"Physics",text:"Which force acts without physical contact?",options:["Friction","Muscular","Gravitational","Applied"],correct:2},
 
-{ id:3, section:"Physics", text:"A sharp knife cuts better because:", options:[
-"It has less force",
-"It has more area",
-"It has less area, producing more pressure",
-"It has no friction"
-], correct:2 },
+/* ===================== CHEMISTRY (7) ===================== */
+{id:28,section:"Chemistry",text:"Which change involves both physical and chemical change?",options:["Burning candle","Rusting iron","Melting ice","Boiling water"],correct:0},
+{id:29,section:"Chemistry",text:"Which method is best to separate salt from salt solution?",options:["Filtration","Decantation","Evaporation","Sedimentation"],correct:2},
+{id:30,section:"Chemistry",text:"Which substance is a mixture?",options:["Distilled water","Air","Iron","Copper"],correct:1},
+{id:31,section:"Chemistry",text:"Which indicator turns red in acidic solution?",options:["Litmus","Turmeric","Phenolphthalein","China rose"],correct:0},
+{id:32,section:"Chemistry",text:"Which fuel has the highest calorific value?",options:["Coal","Wood","Petrol","Biogas"],correct:3},
+{id:33,section:"Chemistry",text:"Which gas supports burning?",options:["Carbon dioxide","Oxygen","Nitrogen","Hydrogen"],correct:1},
+{id:34,section:"Chemistry",text:"Rusting of iron requires:",options:["Water only","Oxygen only","Both oxygen and water","Carbon dioxide"],correct:2},
 
-{ id:4, section:"Physics", text:"The loudness of sound depends on:", options:["Frequency","Amplitude","Speed","Medium"], correct:1 },
+/* ===================== BIOLOGY (6) ===================== */
+{id:35,section:"Biology",text:"Which tissue connects muscles to bones?",options:["Ligament","Tendon","Cartilage","Blood"],correct:1},
+{id:36,section:"Biology",text:"Which organelle controls all activities of the cell?",options:["Mitochondria","Nucleus","Ribosome","Vacuole"],correct:1},
+{id:37,section:"Biology",text:"Photosynthesis mainly occurs in:",options:["Root","Stem","Leaf","Flower"],correct:2},
 
-{ id:5, section:"Physics", text:"Which mode of heat transfer does not require a medium?", options:["Conduction","Convection","Radiation","None"], correct:2 },
+{id:38,section:"Biology",text:"Identify the organelle responsible for energy production:",svg:`
+<svg width="240" height="120" xmlns="http://www.w3.org/2000/svg">
+ <ellipse cx="120" cy="60" rx="80" ry="35" fill="#ffe0b2"/>
+ <ellipse cx="120" cy="60" rx="40" ry="18" fill="#ffcc80"/>
+ <text x="90" y="65" font-size="10">Mitochondria</text>
+</svg>
+`,options:["Nucleus","Mitochondria","Ribosome","Vacuole"],correct:1},
 
-{ id:6, section:"Physics", text:"Lightning is caused by:", options:[
-"Earthquake","Cyclone","Electric discharge in clouds","Tsunami"
-], correct:2 },
+{id:39,section:"Biology",text:"Which vitamin is synthesized in human body using sunlight?",options:["Vitamin A","Vitamin B","Vitamin C","Vitamin D"],correct:3},
 
-{ id:7, section:"Physics", text:"A lightning conductor protects by:", options:[
-"Stopping lightning","Attracting wind","Providing path to ground","Insulating roof"
-], correct:2 },
-
-/* ================= CHEMISTRY (7) ================= */
-
-{ id:8, section:"Chemistry", text:"When sugar dissolves in water, it disappears because sugar:", options:[
-"Evaporates","Reacts chemically","Breaks into very small particles","Settles at bottom"
-], correct:2 },
-
-{ id:9, section:"Chemistry", text:"Which statement about gases is incorrect?", options:[
-"Gases have fixed volume",
-"Gases have no fixed shape",
-"Inter-particle attraction is negligible",
-"Particles move freely"
-], correct:0 },
-
-{ id:10, section:"Chemistry", text:"Why does hot food smell from far away?", options:[
-"Cold food has no smell",
-"Particles of hot food move faster",
-"Smell works better at high temperature",
-"Cold particles are heavier"
-], correct:1 },
-
-{ id:11, section:"Chemistry", text:"Which statement about matter is incorrect?", options:[
-"Matter is made of particles",
-"Particles are in constant motion",
-"Particles have attraction",
-"No space between particles"
-], correct:3 },
-
-{ id:12, section:"Chemistry", text:"Air is classified as:", options:[
-"Element","Compound","Uniform mixture","Non-uniform mixture"
-], correct:2 },
-
-{ id:13, section:"Chemistry", text:"Which statement about compounds is incorrect?", options:[
-"Formed in fixed ratio",
-"Separated by physical methods",
-"Different properties than elements",
-"Water is a compound"
-], correct:1 },
-
-{ id:14, section:"Chemistry", text:"A uniform mixture is also called:", options:[
-"Element","Compound","Solution","Non-uniform mixture"
-], correct:2 },
-
-/* ================= BIOLOGY (6) ================= */
-
-{ id:15, section:"Biology", text:"Rust and smut disease in plants is caused by:", options:[
-"Bacteria","Virus","Fungi","Protozoa"
-], correct:2 },
-
-{ id:16, section:"Biology", text:"Which of the following is a communicable disease?", options:[
-"Cancer","Tuberculosis","Kwashiorkor","Marasmus"
-], correct:1 },
-
-{ id:17, section:"Biology", text:"Malaria is caused by:", options:[
-"Plasmodium","Leishmania","Trypanosoma","Entamoeba"
-], correct:0 },
-
-{ id:18, section:"Biology", text:"Budding occurs in:", options:[
-"Spirogyra","Hydra","Amoeba","Plasmodium"
-], correct:1 },
-
-{ id:19, section:"Biology", text:"Spermatogenesis occurs in:", options:[
-"Testes","Ovary","Uterus","Oviduct"
-], correct:0 },
-
-{ id:20, section:"Biology", text:"Viviparous animals are those which:", options:[
-"Lay eggs","Give birth to young ones","Are amphibians","Undergo metamorphosis"
-], correct:1 },
-
-/* ================= MAT (8) ================= */
-
-{ id:21, section:"MAT", text:"Find the missing number: 2, 6, 12, 20, ?", options:["24","28","30","32"], correct:1 },
-
-{ id:22, section:"MAT", text:"Find the odd one out:", options:[
-"Square","Rectangle","Triangle","Cube"
-], correct:3 },
-
-{ id:23, section:"MAT", text:"If A=1, B=2, C=3, value of BAD is:", options:["7","9","5","6"], correct:0 },
-
-{ id:24, section:"MAT", text:"Book : Read :: Pen : ?", options:[
-"Paper","Ink","Write","Note"
-], correct:2 },
-
-{ id:25, section:"MAT", text:"Mirror image of 3:40 is:", options:[
-"8:20","9:20","8:40","9:40"
-], correct:0 },
-
-{ id:26, section:"MAT", text:"Find the next term: 1, 4, 9, 16, ?", options:[
-"20","24","25","36"
-], correct:2 },
-
-{ id:27, section:"MAT", text:"Rajan is 3 times older than Ashok. In 12 years Rajan will be twice Ashok. Rajan’s age?", options:[
-"27","32","36","40"
-], correct:2 },
-
-{ id:28, section:"MAT", text:"How many permutations of 5 different books are possible?", options:[
-"60","120","24","100"
-], correct:1 },
-
-/* ================= MATHS (12) ================= */
-
-{ id:29, section:"Maths", text:"Solve: 3x + 5 = 20", options:[
-"x = 3","x = 4","x = 5","x = 6"
-], correct:1 },
-
-{ id:30, section:"Maths", text:"Value of (–30)⁻¹ ÷ (–5)⁻¹ is:", options:[
-"3⁻¹","6⁻¹","4⁻¹","2⁻²"
-], correct:1 },
-
-{ id:31, section:"Maths", text:"If book P has 50 more pages than Q and total pages are 280, pages in Q?", options:[
-"115","165","120","95"
-], correct:2 },
-
-{ id:32, section:"Maths", text:"Ruchi scored 65% of 500. Marks needed for 80%?", options:[
-"65","105","40","75"
-], correct:1 },
-
-{ id:33, section:"Maths", text:"Cube of an odd number is always:", options:[
-"Even","Odd","Even or odd","Cannot say"
-], correct:1 },
-
-{ id:34, section:"Maths", text:"Find distance covered by wheel radius 21 cm in 20 revolutions.", options:[
-"2600","2640","2400","2540"
-], correct:1 },
-
-{ id:35, section:"Maths", text:"Mean of first 10 natural numbers is:", options:[
-"5","5.5","6","6.5"
-], correct:1 },
-
-{ id:36, section:"Maths", text:"If x = –1, value of 3x² + x – m = 7, find m.", options:[
-"–5","8","–7","12"
-], correct:0 },
-
-{ id:37, section:"Maths", text:"Ratio of 2:3:5 numbers whose cube sum is 54880 are:", options:[
-"14,21,35","12,15,17","14,18,21","21,28,32"
-], correct:0 },
-
-{ id:38, section:"Maths", text:"What is density?", options:[
-"Mass/Volume","Volume/Mass","Weight","Space occupied"
-], correct:0 },
-
-{ id:39, section:"Maths", text:"A saturated solution is to unsaturated as:", options:[
-"Maximum : Less than max","Dilute : Concentrated","Solute : Solvent","Thick : Thin"
-], correct:0 },
-
-{ id:40, section:"Maths", text:"Which decimal is terminating?", options:[
-"3/8","2/7","5/11","7/9"
-], correct:0 }
+{id:40,section:"Biology",text:"Which process helps plants lose excess water?",options:["Respiration","Transpiration","Photosynthesis","Excretion"],correct:1}
 
 ];
-
-console.log("✅ Q8 loaded successfully:", Q8.length);
 
 /* CLASS 9 (40) */
 const Q9 = [
@@ -1562,6 +1322,23 @@ async function downloadResultText(){
   // ready
 })();
 </script>
+	<script type="module">
+/* ========= FIREBASE IMPORTS ========= */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import {
+  getFirestore, doc, setDoc, getDoc,
+  collection, addDoc, updateDoc
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+/* ========= FIREBASE CONFIG ========= */
+const firebaseConfig = {
+  apiKey: "AIzaSyAdcLhD_acBhTT2-3Io8fpeJzV3jRrExBQ",
+  authDomain: "narayana-cloud-test-portal.firebaseapp.com",
+  projectId: "narayana-cloud-test-portal",
+  storageBucket: "narayana-cloud-test-portal.firebasestorage.app",
+  messagingSenderId: "240575346814",
+  appId: "1:240575346814:web:116949c2bbd93cf08a402f"
+};
 
 /* ========= INIT ========= */
 const app = initializeApp(firebaseConfig);
@@ -1614,18 +1391,6 @@ console.log("✅ Firebase ONLINE portal connected");
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
