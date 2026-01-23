@@ -117,9 +117,10 @@ html,body{height:100%;margin:0;background:var(--bg);-webkit-font-smoothing:antia
 }
 
 .result-logo{
-  max-width:160px;
-  margin-bottom:10px;
+  max-width:clamp(160px, 18vw, 220px);
+  margin-bottom:12px;
 }
+
 
 .result-title{
   font-size:clamp(26px, 3vw, 36px);
@@ -1483,6 +1484,7 @@ console.log("✅ Firebase ONLINE portal connected");
 
 </body>
 </html>
+
 
 
 
