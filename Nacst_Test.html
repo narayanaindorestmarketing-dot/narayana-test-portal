@@ -107,6 +107,33 @@ html,body{height:100%;margin:0;background:var(--bg);-webkit-font-smoothing:antia
 .welcome-box{
   box-shadow:0 20px 60px rgba(0,0,0,0.10);
 }
+	/* ===== RESULT PAGE STYLING ===== */
+
+.result-header{
+  text-align:center;
+  margin-bottom:20px;
+  padding-bottom:14px;
+  border-bottom:1px solid #e6eefb;
+}
+
+.result-logo{
+  max-width:160px;
+  margin-bottom:10px;
+}
+
+.result-title{
+  font-size:clamp(26px, 3vw, 36px);
+  font-weight:800;
+  color:#1f4bb8;
+  margin:6px 0;
+  white-space:nowrap;
+}
+
+.result-subtitle{
+  font-size:14px;
+  color:#555;
+}
+
 
 </style>
 </head>
@@ -329,6 +356,20 @@ html,body{height:100%;margin:0;background:var(--bg);-webkit-font-smoothing:antia
         </div>
 
         <!-- SECTION: Result Screen -->
+		  <!-- RESULT HEADER -->
+<div class="result-header">
+  <img src="narayana-logo.png" alt="Narayana Logo" class="result-logo"/>
+
+  <h1 class="result-title">
+    Narayana Online Test Result
+  </h1>
+
+  <div class="result-subtitle">
+    A Secure, NCERT-Aligned Examination System<br/>
+    South Tukoganj Branch • Indore
+  </div>
+</div>
+
         <div id="resultScreen" class="hide">
           <h3>Congratulation !!! Your Assessment Result is here </h3>
           <div class="result-box">
@@ -1442,6 +1483,7 @@ console.log("✅ Firebase ONLINE portal connected");
 
 </body>
 </html>
+
 
 
 
