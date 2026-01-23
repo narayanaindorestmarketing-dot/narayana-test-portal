@@ -760,7 +760,41 @@ async function loadStudentsTable2(){
   });
 }
 
-async function deleteStudent(mobile){ if(!confirm('Delete student and all their Test IDs?')) return; await dbDelete('students', mobile); const testids = await dbAll('testids'); for(const t of testids){ if(String(t.studentMobile).trim()===String(mobile).trim()){ await dbDelete('testids', t.code); } } loadStudentsTable(); loadStudentsTable2(); alert('Deleted.'); }
+async function deleteStudent(mobile){
+  if(!confirm("Delete student permanently?")) return;
+
+  try{
+    /* 🔥 1️⃣ Firebase: delete student */
+    await fb.deleteDoc(
+      fb.doc(db, "students", mobile)
+    );
+
+    /* 🔥 2️⃣ Firebase: delete assigned Test IDs */
+    const testSnap = await fb.getDocs(
+      fb.collection(db, "testids")
+    );
+
+    for(const d of testSnap.docs){
+      const t = d.data();
+      if(String(t.studentMobile) === String(mobile)){
+        await fb.deleteDoc(d.ref);
+      }
+    }
+
+    /* 🔥 3️⃣ IndexedDB cleanup (optional but safe) */
+    await dbDelete('students', mobile);
+
+    alert("Student deleted successfully");
+
+    loadStudentsTable();
+    loadStudentsTable2();
+
+  }catch(err){
+    console.error(err);
+    alert("Delete failed. Check console.");
+  }
+}
+
 function assignView(mobile){ (async ()=>{ const testids=(await dbAll('testids')).filter(t=>String(t.studentMobile).trim()===String(mobile).trim()); let msg = `Test IDs assigned to ${mobile}:\n\n`; if(testids.length===0) msg += 'None\n\n'; testids.forEach(t=> msg+= `${t.code}  (used: ${t.used? 'Yes':'No'})\n`); msg += '\nGenerate new Test ID for this student?'; if(confirm(msg)){ $('genMobile').value = mobile; showScreen('adminDashboard'); $('genMobile').focus(); } })(); }
 function makeTestCode(){ const chars='ABCDEFGHJKLMPQRSTUVWXYZ23456789'; let s='NT-'; for(let i=0;i<6;i++) s+=chars[Math.floor(Math.random()*chars.length)]; return s; }
 function makeTestCode(){
@@ -1484,6 +1518,7 @@ console.log("✅ Firebase ONLINE portal connected");
 
 </body>
 </html>
+
 
 
 
