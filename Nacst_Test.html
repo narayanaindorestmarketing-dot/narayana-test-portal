@@ -276,7 +276,7 @@ html,body{height:100%;margin:0;background:var(--bg);-webkit-font-smoothing:antia
 		<option value="7">Class 7</option>
                   <option value="8">Class 8</option>
                   <option value="9" selected>Class 9</option>
-                  <option value="10">Class 10</option>
+                  <option value="10">Class 10 JEE </option>
                 </select>
               </div>
               <div class="form-row"><label>School</label><input id="regSchool" type="text"/></div>
@@ -1110,63 +1110,109 @@ const Q9 = [
 ];
 
 /* CLASS 10 (40) — includes inline SVG diagrams for some questions */
-const Q10 = [
-{id:1,section:"Maths",text:"If a and b are roots of x^2 - 5x + 6 = 0, then a+b = ?",options:["6","5","-6","-5"],correct:1},
-{id:2,section:"Maths",text:"Quadratic equation x^2 - 4x + 3 = 0 has roots:",options:["1 and 3","-1 and -3","1 and -3","-1 and 3"],correct:0},
-{id:3,section:"Maths",text:"If A.P. first term 2 and common difference 3, 5th term = ?",options:["14","13","11","17"],correct:0},
-{id:4,section:"Maths",text:"Slope of line joining (1,2) and (3,8) is:",options:["3","2","6","5"],correct:0},
-{id:5,section:"Maths",text:"Area of circle with radius 7 = (πr^2). Value:",options:["49π","14π","7π","π"],correct:0},
-{id:6,section:"Maths",text:"If roots of ax^2+bx+c=0 are real and equal, discriminant Δ = ?",options:[">0","<0","=0","≥0"],correct:2},
-{id:7,section:"Maths",text:"If two triangles are similar, corresponding sides are:",options:["Equal","Proportional","Parallel","Perpendicular"],correct:1},
-{id:8,section:"Maths",text:"Perimeter of right triangle with legs 3 and 4 and hypotenuse 5 is:",options:["12","14","10","18"],correct:0},
-{id:9,section:"Maths",text:"If mean of 5 numbers is 12, sum is:",options:["60","48","72","50"],correct:0},
-{id:10,section:"Maths",text:"Probability of getting head in a fair coin toss twice in a row:",options:["1/4","1/2","1/8","1/16"],correct:0},
+/* =========================================================
+   JEE REGISTRATION TEST – PCM (NCERT-BASED HARD LEVEL)
+   Class 10 → Moving to 11 | Scholarship Screening
+   ========================================================= */
 
-{id:11,section:"Mental Ability",text:"Series: 2,6,18,54, ? (×3)",options:["162","108","216","144"],correct:0},
-{id:12,section:"Mental Ability",text:"Find odd one out: Cow, Goat, Sheep, Lion",options:["Cow","Goat","Sheep","Lion"],correct:3},
-{id:13,section:"Mental Ability",text:"If A->1, B->2, then ACE -> ?",options:["9","5","10","8"],correct:0},
-{id:14,section:"Mental Ability",text:"Directions: North -> left -> East -> right -> final? ",options:["South","West","East","North"],correct:1},
-{id:15,section:"Mental Ability",text:"Mirror image: 'b' becomes:",options:["d","q","p","b"],correct:0},
-{id:16,section:"Mental Ability",text:"Analogies: River: Water :: Road: ?",options:["Cars","Walk","Path","Bridge"],correct:2},
-{id:17,section:"Mental Ability",text:"If PENCIL -> QFODJM then BOOK -> ?",options:["CPPL","CPLK","COOK","CPLL"],correct:0},
+const Q10_JEE_PCM = [
 
-{id:18,section:"Physics",text:"Concave mirror: object beyond C gives image at?",svg:
-`<svg width="320" height="140" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#fff"/><line x1="20" y1="70" x2="300" y2="70" stroke="#eee"/><circle cx="90" cy="70" r="3" fill="#000"/><text x="82" y="60" font-size="12">C</text><circle cx="170" cy="70" r="3" fill="#000"/><text x="162" y="60" font-size="12">F</text><path d="M50 30 Q90 70 50 110" stroke="#1f4bb8" stroke-width="3" fill="none"/><line x1="50" y1="30" x2="150" y2="70" stroke="#ff8c00" stroke-width="2"/><line x1="50" y1="30" x2="170" y2="70" stroke="#ff8c00" stroke-width="2" stroke-dasharray="4"/><text x="60" y="24" font-size="12">Object</text></svg>`,options:["Between F and C","At F","At C","Behind mirror"],correct:0},
+/* ================= PHYSICS (13) =================
+   NCERT: Motion, Force & Laws, Work & Energy, Sound, Light
+-------------------------------------------------- */
 
-{id:19,section:"Physics",text:"Convex mirror forms image that is:",svg:
-`<svg width="320" height="120" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#fff"/><path d="M40 30 Q120 10 200 30" stroke="#1f4bb8" stroke-width="4" fill="none"/><line x1="140" y1="30" x2="240" y2="30" stroke="#eee"/><text x="70" y="24" font-size="12">Convex Mirror</text></svg>`,options:["Real & enlarged","Virtual & diminished","Real & diminished","Virtual & enlarged"],correct:1},
+{ id:1, section:"Physics", text:"A body starts from rest and covers 100 m in 5 s with uniform acceleration. Find its acceleration.", options:["4 m/s²","6 m/s²","8 m/s²","10 m/s²"], correct:2 },
 
-{id:20,section:"Physics",text:"Convex lens focuses parallel rays to a point called:",svg:
-`<svg width="320" height="140" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#fff"/><ellipse cx="160" cy="70" rx="18" ry="56" fill="#e8f0ff"/><line x1="60" y1="50" x2="150" y2="70" stroke="#ff8c00" stroke-width="2"/><line x1="60" y1="90" x2="150" y2="70" stroke="#ff8c00" stroke-width="2"/></svg>`,options:["Centre","Focus","Aperture","Pole"],correct:1},
+{ id:2, section:"Physics", text:"A particle moves with velocity v = 5 + 2t (m/s). The acceleration of the particle is:", options:["0","2 m/s²","5 m/s²","7 m/s²"], correct:1 },
 
-{id:21,section:"Physics",text:"Distance-time graph: which shows constant speed?",svg:
-`<svg width="320" height="120" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#fff"/><line x1="30" y1="90" x2="290" y2="90" stroke="#eee"/><line x1="30" y1="30" x2="30" y2="100" stroke="#eee"/><line x1="30" y1="70" x2="290" y2="70" stroke="#1f4bb8" stroke-width="3"/><text x="40" y="60" font-size="12">constant</text></svg>`,options:["Flat horizontal line","Upward sloped straight line","Curve","Vertical line"],correct:1},
+{ id:3, section:"Physics", text:"A body of mass 4 kg moving at 5 m/s collides with a wall and rebounds with same speed. Change in momentum is:", options:["0","20 kg·m/s","40 kg·m/s","80 kg·m/s"], correct:2 },
 
-{id:22,section:"Physics",text:"Ohm's law relates voltage, current and:",options:["Resistance","Power","Charge","Frequency"],correct:0},
-{id:23,section:"Physics",text:"Series circuit: current is same in all components",svg:
-`<svg width="320" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#fff"/><line x1="40" y1="50" x2="280" y2="50" stroke="#000"/><rect x="90" y="40" width="30" height="20" fill="#ffd54a"/><rect x="140" y="40" width="30" height="20" fill="#ffd54a"/><text x="60" y="30" font-size="12">Series circuit</text></svg>`,options:["True","False","",""],correct:0},
-{id:24,section:"Physics",text:"Parallel circuit: voltage across resistors is",svg:
-`<svg width="320" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#fff"/><line x1="40" y1="40" x2="280" y2="40" stroke="#000"/><line x1="40" y1="60" x2="280" y2="60" stroke="#000"/><rect x="120" y="30" width="30" height="20" fill="#4f7dff"/><rect x="120" y="50" width="30" height="20" fill="#4f7dff"/><text x="60" y="20" font-size="12">Parallel</text></svg>`,options:["Same","Different","",""],correct:0},
-{id:25,section:"Physics",text:"SI unit of current is:",options:["Ampere","Volt","Ohm","Watt"],correct:0},
+{ id:4, section:"Physics", text:"How much work is done in lifting a 10 kg mass vertically upward by 2 m? (g = 10 m/s²)", options:["20 J","100 J","200 J","400 J"], correct:2 },
 
-{id:26,section:"Chemistry",text:"Reaction type: Acid + Base → Salt + Water is called:",options:["Neutralization","Redox","Precipitation","Decomposition"],correct:0},
-{id:27,section:"Chemistry",text:"pH of neutral solution is approximately:",options:["0","7","14","1"],correct:1},
-{id:28,section:"Chemistry",text:"Which element forms cations easily: Na, Cl, O, F?",options:["Na","Cl","O","F"],correct:0},
-{id:29,section:"Chemistry",text:"Chemical formula of ammonia:",options:["NH3","NH4","NO2","H2O"],correct:0},
-{id:30,section:"Chemistry",text:"Rusting of iron needs:",options:["Oxygen only","Water only","Both oxygen and water","Carbon dioxide"],correct:2},
-{id:31,section:"Chemistry",text:"Method to separate immiscible liquids (oil + water):",options:["Filtration","Decantation","Sublimation","Distillation"],correct:1},
-{id:32,section:"Chemistry",text:"Atomic number equals # of:",options:["Protons","Neutrons","Electrons","Nuclei"],correct:0},
-{id:33,section:"Chemistry",text:"Which is an alloy:",options:["Bronze","Salt","Water","Sugar"],correct:0},
+{ id:5, section:"Physics", text:"A ball is thrown vertically upward with speed 20 m/s. Maximum height reached (g = 10 m/s²) is:", options:["10 m","15 m","20 m","25 m"], correct:2 },
 
-{id:34,section:"Biology",text:"Photosynthesis main product is:",options:["Oxygen","Carbon dioxide","Glucose","Water"],correct:2},
-{id:35,section:"Biology",text:"Human circulatory system includes:",options:["Heart, blood, blood vessels","Lungs and kidneys","Liver and gallbladder","Stomach and intestine"],correct:0},
-{id:36,section:"Biology",text:"Which organelle is site of protein synthesis:",options:["Mitochondria","Ribosome","Chloroplast","Nucleus"],correct:1},
-{id:37,section:"Biology",text:"DNA full form: Deoxyribo... ?",options:["Nucleic Acid","Nucleon Acid","Nitrogenous Acid","None"],correct:0},
-{id:38,section:"Biology",text:"Which is NOT a pathogen:",options:["Bacteria","Virus","Fungus","Vitamin"],correct:3},
-{id:39,section:"Biology",svg:
-`<svg width="320" height="160" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#fff"/><ellipse cx="160" cy="60" rx="40" ry="30" fill="#ffdede"/><rect x="120" y="80" width="80" height="50" fill="#ffdede"/><text x="120" y="55" font-size="12">Simple heart diagram</text></svg>`,text:"Which chamber pumps oxygenated blood to body?",options:["Right atrium","Left atrium","Left ventricle","Right ventricle"],correct:2},
-{id:40,section:"Biology",text:"Which is a reproductive part of flower:",options:["Petal","Sepal","Stigma","Leaf"],correct:2}
+{ id:6, section:"Physics", text:"A 100 W bulb is used for 5 hours. Electrical energy consumed is:", options:["0.5 kWh","5 kWh","50 kWh","500 Wh"], correct:0 },
+
+{ id:7, section:"Physics", text:"Two resistors of 2Ω and 4Ω are connected in series. Equivalent resistance is:", options:["6Ω","8Ω","2Ω","1Ω"], correct:0 },
+
+{ id:8, section:"Physics", text:"Which physical quantity remains constant for an object moving in a circular path at constant speed?", options:["Velocity","Acceleration","Speed","Displacement"], correct:2 },
+
+{ id:9, section:"Physics", text:"The focal length of a convex lens is 10 cm. Power of the lens is:", options:["+5 D","+10 D","+0.1 D","–10 D"], correct:1 },
+
+{ id:10, section:"Physics", text:"A sound wave has frequency 500 Hz and wavelength 0.68 m. Speed of sound is:", options:["340 m/s","680 m/s","250 m/s","170 m/s"], correct:0 },
+
+{ id:11, section:"Physics", text:"Which of the following correctly represents pressure?", options:["Force × Area","Force / Area","Area / Force","Mass × Acceleration"], correct:1 },
+
+{ id:12, section:"Physics", text:"A body is in equilibrium under two equal and opposite forces. The net force is:", options:["Maximum","Minimum","Zero","Infinite"], correct:2 },
+
+{ id:13, section:"Physics", text:"Which wave can travel through vacuum?", options:["Sound","Water","Seismic","Light"], correct:3 },
+
+/* ================= CHEMISTRY (13) =================
+   NCERT: Mole Concept, Laws, Atoms, Acids-Bases, Reactions
+-------------------------------------------------- */
+
+{ id:14, section:"Chemistry", text:"Calculate number of moles in 11 g of CO₂ (M = 44 g/mol).", options:["0.25","0.5","1","2"], correct:0 },
+
+{ id:15, section:"Chemistry", text:"How many atoms are present in 23 g of sodium?", options:["6.02×10²³","3.01×10²³","1.204×10²⁴","12×10²³"], correct:0 },
+
+{ id:16, section:"Chemistry", text:"Which law explains that total mass remains same before and after a chemical reaction?", options:["Law of multiple proportion","Law of conservation of mass","Avogadro’s law","Gay Lussac law"], correct:1 },
+
+{ id:17, section:"Chemistry", text:"pH of a solution with high concentration of H⁺ ions will be:", options:["High","Low","7","14"], correct:1 },
+
+{ id:18, section:"Chemistry", text:"Which of the following reactions is exothermic?", options:["Photosynthesis","Respiration","Melting of ice","Boiling of water"], correct:1 },
+
+{ id:19, section:"Chemistry", text:"The electronic configuration of magnesium (Z=12) is:", options:["2,10","2,8,2","2,6,4","2,8,1"], correct:1 },
+
+{ id:20, section:"Chemistry", text:"Which oxide of carbon causes global warming?", options:["CO","CO₂","C₂O","CO₃"], correct:1 },
+
+{ id:21, section:"Chemistry", text:"Mass ratio of hydrogen to oxygen in water is:", options:["1:8","2:1","1:16","8:1"], correct:0 },
+
+{ id:22, section:"Chemistry", text:"Which of the following metals can be cut with a knife?", options:["Iron","Copper","Sodium","Zinc"], correct:2 },
+
+{ id:23, section:"Chemistry", text:"Which compound is used to test presence of CO₂ gas?", options:["NaOH","Ca(OH)₂","HCl","Na₂CO₃"], correct:1 },
+
+{ id:24, section:"Chemistry", text:"Which of the following is NOT a physical change?", options:["Melting","Freezing","Rusting","Sublimation"], correct:2 },
+
+{ id:25, section:"Chemistry", text:"Molecular mass of H₂SO₄ is:", options:["96","98","100","102"], correct:1 },
+
+{ id:26, section:"Chemistry", text:"Which substance turns blue litmus red?", options:["Base","Salt","Acid","Water"], correct:2 },
+
+/* ================= MATHEMATICS (14) =================
+   NCERT: Real numbers, Linear eqn, Triangles, Mensuration
+-------------------------------------------------- */
+
+{ id:27, section:"Maths", text:"Find HCF of 306 and 657 using Euclid’s division algorithm.", options:["9","18","27","36"], correct:2 },
+
+{ id:28, section:"Maths", text:"If √(x + 9) = 5, then value of x is:", options:["14","16","25","34"], correct:1 },
+
+{ id:29, section:"Maths", text:"If a quadratic polynomial has zeroes 2 and –3, the polynomial is:", options:["x² + x – 6","x² – x – 6","x² + x + 6","x² – x + 6"], correct:0 },
+
+{ id:30, section:"Maths", text:"The sum of first 20 natural numbers is:", options:["200","210","220","230"], correct:1 },
+
+{ id:31, section:"Maths", text:"If sides of a triangle are 6 cm, 8 cm and 10 cm, the triangle is:", options:["Acute","Obtuse","Right angled","Isosceles"], correct:2 },
+
+{ id:32, section:"Maths", text:"Find area of a circle of radius 7 cm. (π = 22/7)", options:["154","308","616","77"], correct:0 },
+
+{ id:33, section:"Maths", text:"If x + y = 10 and x – y = 2, then x equals:", options:["4","5","6","8"], correct:2 },
+
+{ id:34, section:"Maths", text:"Find mean of first 10 even natural numbers.", options:["9","10","11","12"], correct:2 },
+
+{ id:35, section:"Maths", text:"The zero of the linear polynomial 2x – 6 is:", options:["–3","0","3","6"], correct:2 },
+
+{ id:36, section:"Maths", text:"If perimeter of square is 48 cm, its area is:", options:["144","196","256","324"], correct:0 },
+
+{ id:37, section:"Maths", text:"Which pair of triangles is similar?", options:["SSS","SAS","AAA","All of these"], correct:3 },
+
+{ id:38, section:"Maths", text:"If sin A = 1/2, then angle A is:", options:["30°","45°","60°","90°"], correct:0 },
+
+{ id:39, section:"Maths", text:"Find the value of (–3)³ + 4².", options:["–11","–5","7","–19"], correct:0 },
+
+{ id:40, section:"Maths", text:"If a number is divisible by both 4 and 6, it must be divisible by:", options:["12","18","24","36"], correct:0 }
+
 ];
+
+console.log("🔥 NCERT-BASED HARD JEE PCM loaded:", Q10_JEE_PCM.length);
+
 
 /* -------------------- Application State for Test -------------------- */
 let appState = {
@@ -1338,11 +1384,13 @@ function startTestForStudent(student, code){
   $('sideMobile').innerText = `Mobile: ${student.mobile}`;
   $('sideClass').innerText = `Class: ${student.class || '—'}`;
   // load question set according to class
-  const set =
-  (student.class==='7') ? Q7 :
-  (student.class==='8') ? Q8 :
-  (student.class==='9') ? Q9 :
+ const set =
+  (student.class === '7') ? Q7 :
+  (student.class === '8') ? Q8 :
+  (student.class === '9') ? Q9 :
+  (student.class === '10_JEE') ? Q10_JEE_PCM :
   Q10;
+
 
   appState.questions = set.slice(0,40).map((q,i)=> ({...q, qno: i+1}));
 
@@ -1518,6 +1566,7 @@ console.log("✅ Firebase ONLINE portal connected");
 
 </body>
 </html>
+
 
 
 
