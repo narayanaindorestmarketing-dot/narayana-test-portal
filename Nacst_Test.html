@@ -1384,12 +1384,13 @@ function startTestForStudent(student, code){
   $('sideMobile').innerText = `Mobile: ${student.mobile}`;
   $('sideClass').innerText = `Class: ${student.class || '—'}`;
   // load question set according to class
- const set =
+const set =
   (student.class === '7') ? Q7 :
   (student.class === '8') ? Q8 :
   (student.class === '9') ? Q9 :
   (student.class === '10_JEE') ? Q10_JEE_PCM :
-  Q10;
+  Q9;   // fallback safe
+
 
 
   appState.questions = set.slice(0,40).map((q,i)=> ({...q, qno: i+1}));
@@ -1566,6 +1567,7 @@ console.log("✅ Firebase ONLINE portal connected");
 
 </body>
 </html>
+
 
 
 
